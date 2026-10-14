@@ -66,7 +66,7 @@ jobs:
           set -euo pipefail
           # Stream source into the container rather than mounting the workspace.
           git archive --format=tar HEAD | docker run --rm -i \
-            --cpus=3 --memory=3g --memory-swap=3g --pids-limit=256 \
+            --cpus=2 --memory=3g --memory-swap=3g --pids-limit=256 \
             --cap-drop=ALL --security-opt=no-new-privileges \
             --tmpfs /work:rw,nosuid,size=2g --workdir /work \
             python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 \
