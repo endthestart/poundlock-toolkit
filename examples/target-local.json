@@ -1,0 +1,5 @@
+{
+  "transport": "local",
+  "host": null,
+  "python": "/absolute/path/to/toolkit-venv/bin/python"
+}

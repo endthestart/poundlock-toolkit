@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:local-llm-test:schema:local-llm-result:v1",
+  "title": "Local LLM evaluation result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "timestamps",
+    "machine",
+    "backend",
+    "model",
+    "workload",
+    "measurements",
+    "verdict",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "run_id": {"type": "string", "minLength": 1, "maxLength": 160},
+    "timestamps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["started_at", "completed_at"],
+      "properties": {
+        "started_at": {"type": "string", "format": "date-time"},
+        "completed_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "machine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["machine_class", "os", "architecture", "memory"],
+      "properties": {
+        "machine_class": {"type": "string", "minLength": 1},
+        "os": {"type": "string", "minLength": 1},
+        "architecture": {"type": "string", "minLength": 1},
+        "chip": {"type": ["string", "null"]},
+        "cpu_cores": {"type": ["integer", "null"], "minimum": 1},
+        "gpu_cores": {"type": ["integer", "null"], "minimum": 1},
+        "memory": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["architecture", "system_ram_bytes", "unified_memory_bytes", "gpu_vram_pools_bytes"],
+          "properties": {
+            "architecture": {"enum": ["unified", "discrete", "cpu-only", "other"]},
+            "system_ram_bytes": {"type": ["integer", "null"], "minimum": 0},
+            "unified_memory_bytes": {"type": ["integer", "null"], "minimum": 0},
+            "gpu_vram_pools_bytes": {
+              "type": "array",
+              "items": {"type": "integer", "minimum": 0}
+            }
+          }
+        }
+      }
+    },
+    "backend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "source", "api_dialect", "configuration"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "format": "uri"},
+        "artifact_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "api_dialect": {"enum": ["openai", "anthropic", "ollama", "other"]},
+        "configuration": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["prefix_cache", "weight_residency", "model_idle_unload_seconds"],
+          "properties": {
+            "prefix_cache": {"type": "string"},
+            "kv_cache_quantization": {"type": ["string", "null"]},
+            "mtp": {"type": ["string", "null"]},
+            "weight_residency": {"type": "string"},
+            "model_idle_unload_seconds": {"type": ["integer", "null"], "minimum": 0}
+          }
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "revision", "format", "weight_quantization", "artifact_bytes", "artifact_sha256"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "revision": {"type": ["string", "null"]},
+        "format": {"type": "string", "minLength": 1},
+        "weight_quantization": {"type": "string", "minLength": 1},
+        "artifact_bytes": {"type": "integer", "minimum": 0},
+        "artifact_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "license": {"type": ["string", "null"]}
+      }
+    },
+    "harness": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["name", "version", "isolation"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "isolation": {"type": "string", "minLength": 1}
+      }
+    },
+    "workload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "prompt_sha256", "context_window_tokens", "sampling", "cache_state"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "context_window_tokens": {"type": "integer", "minimum": 1},
+        "input_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "output_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "sampling": {"type": "object", "additionalProperties": true},
+        "cache_state": {"enum": ["cold", "warm-exact", "warm-prefix", "disabled", "unknown"]}
+      }
+    },
+    "measurements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["wall_seconds", "ttft_seconds", "decode_tokens_per_second"],
+      "properties": {
+        "load_seconds": {"type": ["number", "null"], "minimum": 0},
+        "wall_seconds": {"type": "number", "minimum": 0},
+        "ttft_seconds": {"type": ["number", "null"], "minimum": 0},
+        "prefill_tokens_per_second": {"type": ["number", "null"], "minimum": 0},
+        "decode_tokens_per_second": {"type": ["number", "null"], "minimum": 0},
+        "peak_process_rss_bytes": {"type": ["integer", "null"], "minimum": 0},
+        "swap_used_bytes_before": {"type": ["integer", "null"], "minimum": 0},
+        "swap_used_bytes_after": {"type": ["integer", "null"], "minimum": 0},
+        "energy_joules": {"type": ["number", "null"], "minimum": 0},
+        "thermal_state": {"type": ["string", "null"]}
+      }
+    },
+    "verdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "objective_pass", "notes"],
+      "properties": {
+        "classification": {"enum": ["pass", "quality-fail", "infrastructure-fail", "unsupported", "deferred"]},
+        "objective_pass": {"type": "boolean"},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["framework_commit", "runner", "raw_evidence_sha256"],
+      "properties": {
+        "framework_commit": {"type": "string", "minLength": 7},
+        "runner": {"type": "string", "minLength": 1},
+        "raw_evidence_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

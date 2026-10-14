@@ -1,0 +1,8 @@
+{
+  "name": "toolkit-pi-recipe",
+  "private": true,
+  "description": "Pi for recipes/Pi.Dockerfile, installed with npm ci from the lockfile beside this file.",
+  "dependencies": {
+    "@earendil-works/pi-coding-agent": "1.1.0"
+  }
+}

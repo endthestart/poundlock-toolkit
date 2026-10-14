@@ -1,0 +1,123 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4000
+      },
+      "maxItems": 32,
+      "minItems": 1
+    },
+    "verificationCommands": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4000
+      },
+      "maxItems": 32
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "objective": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "workerPrompt": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "acceptanceCriteria": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "contextNote": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "difficulty": {
+            "enum": [
+              "small",
+              "medium",
+              "large"
+            ]
+          },
+          "dependsOn": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "maxItems": 32
+          },
+          "allowedPaths": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "maxItems": 32
+          },
+          "verificationCommands": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "maxItems": 32
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "objective",
+          "workerPrompt",
+          "acceptanceCriteria",
+          "contextNote",
+          "difficulty",
+          "dependsOn",
+          "allowedPaths",
+          "verificationCommands"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 16
+    }
+  },
+  "required": [
+    "summary",
+    "acceptanceCriteria",
+    "verificationCommands",
+    "tasks"
+  ]
+}

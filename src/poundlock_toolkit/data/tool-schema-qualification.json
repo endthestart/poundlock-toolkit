@@ -1,0 +1,58 @@
+[
+  {
+    "role": "system",
+    "content": "You are a project planning assistant. Call propose_plan exactly once. Use actual JSON arrays and objects at every level, never JSON encoded inside strings. Do not execute tools, commands, or edits. Plan only the requested work."
+  },
+  {
+    "role": "user",
+    "content": "Storage requirements: Persist books and reading progress in browser storage with a versioned document. Each record has an identifier, title, author, status, tags, notes, and an updated timestamp. Validate data on load. Handle storage quota and invalid saved documents without deleting the last good state. Include migration from an older array-only format. Do not add any server, account system, remote database, or telemetry. For this portion, specify ownership, interactions with the other portions, failure behavior, and the exact observable acceptance conditions. Keep commands as plain strings inside verificationCommands arrays and paths as strings inside allowedPaths arrays."
+  },
+  {
+    "role": "assistant",
+    "content": "Understood. I will include storage as bounded work in the final plan, preserving offline operation and explicit failure handling. The final structured call will represent dependencies and checks as arrays. I will account for interactions with storage, import, editing, accessibility, and release verification, and will distinguish automated tests from manual acceptance."
+  },
+  {
+    "role": "user",
+    "content": "Import and export requirements: Support explicit local JSON file selection and a downloadable JSON export. Preview valid records and show a count of invalid rows before the user confirms an import. Handle duplicate identifiers, missing fields, oversized files, and unsupported versions. Keep the existing list available after cancellation. Never silently overwrite newer notes during a merge. Verification must cover round trips and invalid documents. For this portion, specify ownership, interactions with the other portions, failure behavior, and the exact observable acceptance conditions. Keep commands as plain strings inside verificationCommands arrays and paths as strings inside allowedPaths arrays."
+  },
+  {
+    "role": "assistant",
+    "content": "Understood. I will include import and export as bounded work in the final plan, preserving offline operation and explicit failure handling. The final structured call will represent dependencies and checks as arrays. I will account for interactions with storage, import, editing, accessibility, and release verification, and will distinguish automated tests from manual acceptance."
+  },
+  {
+    "role": "user",
+    "content": "Filtering and sorting requirements: Provide title and author search, tag filters, and reading status filters that combine predictably. Sort by title, author, or last update using stable tie breaking. Preserve the selected filters during ordinary editing. Explain empty search results separately from a completely empty library. Include non-ASCII author names, duplicate titles, whitespace-only search, and a large synthetic list in test coverage. For this portion, specify ownership, interactions with the other portions, failure behavior, and the exact observable acceptance conditions. Keep commands as plain strings inside verificationCommands arrays and paths as strings inside allowedPaths arrays."
+  },
+  {
+    "role": "assistant",
+    "content": "Understood. I will include filtering and sorting as bounded work in the final plan, preserving offline operation and explicit failure handling. The final structured call will represent dependencies and checks as arrays. I will account for interactions with storage, import, editing, accessibility, and release verification, and will distinguish automated tests from manual acceptance."
+  },
+  {
+    "role": "user",
+    "content": "Editing workflow requirements: Users can add, edit, archive, and restore an entry. Show concise validation near each invalid field and retain unsaved values after a failed save. Make the save/cancel behavior explicit. Require a deliberate action for destructive clearing of the entire list. Editing a title must not change record identity or erase progress. Include smoke checks for add, edit, archive, and restore without changing unrelated entries. For this portion, specify ownership, interactions with the other portions, failure behavior, and the exact observable acceptance conditions. Keep commands as plain strings inside verificationCommands arrays and paths as strings inside allowedPaths arrays."
+  },
+  {
+    "role": "assistant",
+    "content": "Understood. I will include editing workflow as bounded work in the final plan, preserving offline operation and explicit failure handling. The final structured call will represent dependencies and checks as arrays. I will account for interactions with storage, import, editing, accessibility, and release verification, and will distinguish automated tests from manual acceptance."
+  },
+  {
+    "role": "user",
+    "content": "Accessibility requirements: All controls must be keyboard reachable, have visible focus, and use appropriate labels. Dialogs return focus to their trigger, close consistently, and do not trap users outside intended modal behavior. Announce validation and import completion without repeatedly interrupting typing. Use native semantic controls where possible. Test keyboard navigation and meaningful headings, and document manual checks that automation cannot establish. For this portion, specify ownership, interactions with the other portions, failure behavior, and the exact observable acceptance conditions. Keep commands as plain strings inside verificationCommands arrays and paths as strings inside allowedPaths arrays."
+  },
+  {
+    "role": "assistant",
+    "content": "Understood. I will include accessibility as bounded work in the final plan, preserving offline operation and explicit failure handling. The final structured call will represent dependencies and checks as arrays. I will account for interactions with storage, import, editing, accessibility, and release verification, and will distinguish automated tests from manual acceptance."
+  },
+  {
+    "role": "user",
+    "content": "Verification and delivery requirements: Keep this as an offline frontend using the existing package manager and test runner. Put application code in src/, deterministic tests in tests/, and usage notes in docs/. Avoid dependencies that require runtime network access. Run actual project tests and a production build before final delivery. Include a concise manual smoke checklist and rollback notes. Plans should separate storage, import, list UI, editing, accessibility, and end-to-end verification into reviewable tasks. For this portion, specify ownership, interactions with the other portions, failure behavior, and the exact observable acceptance conditions. Keep commands as plain strings inside verificationCommands arrays and paths as strings inside allowedPaths arrays."
+  },
+  {
+    "role": "assistant",
+    "content": "Understood. I will include verification and delivery as bounded work in the final plan, preserving offline operation and explicit failure handling. The final structured call will represent dependencies and checks as arrays. I will account for interactions with storage, import, editing, accessibility, and release verification, and will distinguish automated tests from manual acceptance."
+  },
+  {
+    "role": "user",
+    "content": "Now produce the complete propose_plan call covering the conversation. Include six to eight task objects, a top-level acceptanceCriteria array, and dependsOn, allowedPaths, verificationCommands arrays for every task, including empty dependency arrays where appropriate. No prose response or serialized nested JSON. This is a plan only; do not run its verification commands."
+  }
+]

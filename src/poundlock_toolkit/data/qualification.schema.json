@@ -1,0 +1,1294 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "urn:poundlock-toolkit:qualification:1"
+    },
+    "schema_version": {
+      "enum": [1, 2]
+    },
+    "toolkit_version": {
+      "enum": ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.2.2", "0.2.3", "0.3.0", "0.3.1", "0.4.0"]
+    },
+    "run_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "config_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "identity_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "backend": {
+      "enum": [
+        "llama.cpp",
+        "ollama",
+        "omlx",
+        "other"
+      ]
+    },
+    "api": {
+      "enum": [
+        "openai",
+        "ollama"
+      ]
+    },
+    "harness": {
+      "enum": [
+        "direct",
+        "pi"
+      ]
+    },
+    "identity_complete": {
+      "type": "boolean"
+    },
+    "data_destination": {
+      "enum": [
+        "local",
+        "private",
+        "external",
+        "unknown"
+      ]
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "enum": [
+            "unknown",
+            "operator",
+            "observed"
+          ]
+        },
+        "os": {
+          "enum": [
+            "Linux",
+            "Darwin",
+            "Windows",
+            "unknown"
+          ]
+        },
+        "architecture": {
+          "enum": [
+            "x86_64",
+            "arm64",
+            "aarch64",
+            "unknown"
+          ]
+        },
+        "memory": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "system_ram_bytes": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "system_available_bytes": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "unified_memory_bytes": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "gpu_pools": {
+              "type": "array",
+              "maxItems": 32,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "total_bytes": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "available_bytes": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "total_bytes",
+                  "available_bytes"
+                ]
+              }
+            },
+            "placement": {
+              "enum": [
+                "unknown",
+                "cpu",
+                "gpu",
+                "split"
+              ]
+            }
+          },
+          "required": [
+            "system_ram_bytes",
+            "system_available_bytes",
+            "unified_memory_bytes",
+            "gpu_pools",
+            "placement"
+          ]
+        }
+      },
+      "required": [
+        "source",
+        "os",
+        "architecture",
+        "memory"
+      ]
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "context_tokens": {
+          "type": "integer",
+          "minimum": 512,
+          "maximum": 1048576
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 8192
+        },
+        "temperature": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "reasoning": {
+          "enum": [
+            "off",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "reasoning_off_effort": {
+          "description": "When reasoning is off, send this reasoning_effort value instead of omitting it (Ollama needs \"none\" to disable thinking).",
+          "anyOf": [
+            {
+              "enum": [
+                "none"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "template_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prefix_cache": {
+          "enum": [
+            "unknown",
+            "enabled",
+            "disabled"
+          ]
+        },
+        "kv_quantization": {
+          "description": "Absent on evidence recorded before schema_version 2, when it was silently discarded; never inferred for those older documents.",
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "speculative": {
+          "description": "Absent means unrecorded (schema_version 1, or a schema_version 2 run against a backend that does not report it), never 'none' by inference.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "enum": ["draft-mtp", "draft-model", "none"]
+            },
+            "draft_n_max": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": ["type", "draft_n_max"]
+        }
+      },
+      "required": [
+        "context_tokens",
+        "max_output_tokens",
+        "temperature",
+        "reasoning",
+        "template_sha256",
+        "prefix_cache"
+      ]
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min_context_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "max_task_seconds": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "min_available_memory_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "min_decode_tokens_per_second": {
+          "description": "Optional throughput floor. Absent means unconfigured, not a pass: recommendation()'s throughput check only fires when this is set, and only for workloads that record a server-reported decode speed (direct extraction). Pi coding and investigation runs record none, so the floor is not applied to them and the report carries a note instead of a reason.",
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowed_destinations": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "local",
+              "private"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "min_context_tokens",
+        "max_task_seconds",
+        "min_available_memory_bytes",
+        "allowed_destinations"
+      ]
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total_seconds": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 600
+        },
+        "request_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120
+        },
+        "repetitions": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "response_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 2000000
+        },
+        "worker_memory_mb": {
+          "type": "integer",
+          "minimum": 128,
+          "maximum": 4096
+        },
+        "worker_disk_mb": {
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 128
+        },
+        "worker_cpus": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "worker_pids": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 128
+        },
+        "warmup_enabled": {
+          "description": "Absent on evidence recorded before schema_version 2, when a run behaved as if this were true; the plan's reviewed_inputs still covers it going forward.",
+          "type": "boolean"
+        },
+        "prefix_cache_probe_enabled": {
+          "description": "Whether the run measured the prefix cache (the unscored cache_probe attempts and the prefix_cache_probe verdict). Absent means it did not.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "total_seconds",
+        "request_seconds",
+        "repetitions",
+        "response_bytes",
+        "worker_memory_mb",
+        "worker_disk_mb",
+        "worker_cpus",
+        "worker_pids"
+      ]
+    },
+    "attempts": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "stage": {
+            "enum": [
+              "readiness",
+              "warmup",
+              "cache_probe",
+              "api",
+              "tool",
+              "performance",
+              "task"
+            ]
+          },
+          "workload": {
+            "enum": [
+              "readiness",
+              "warmup",
+              "cache_probe",
+              "api",
+              "tool",
+              "extraction",
+              "coding",
+              "investigation"
+            ]
+          },
+          "repetition": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "outcome": {
+            "enum": [
+              "running",
+              "pass",
+              "infrastructure_failure",
+              "protocol_failure",
+              "task_quality_failure",
+              "completion_failure",
+              "timeout",
+              "cancelled",
+              "interrupted",
+              "skipped"
+            ]
+          },
+          "code": {
+            "enum": [
+              "ok",
+              "not_run",
+              "pending",
+              "unavailable",
+              "http_error",
+              "malformed_response",
+              "model_not_listed",
+              "wrong_output",
+              "missing_completion",
+              "timeout",
+              "cancelled",
+              "interrupted",
+              "budget_exhausted",
+              "response_limit",
+              "fixture_changed",
+              "unauthorized_file",
+              "worker_failed",
+              "verifier_failed",
+              "cleanup_failed",
+              "isolation_unavailable",
+              "identity_mismatch"
+            ]
+          },
+          "metrics": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "wall_seconds": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "first_event_seconds": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "first_useful_output_seconds": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "load_seconds": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "prompt_processing_seconds": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "decode_seconds": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "prefill_tokens_per_second": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "decode_tokens_per_second": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "input_tokens": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "output_tokens": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "peak_process_rss_bytes": {
+                "description": "Highest resident set size sampled for the named server process during this attempt (memory_probe): a lower bound on the true peak, host memory only. Null when no memory_probe was configured or no sample could be read.",
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "cached_tokens": {
+                "description": "Prompt tokens the server reports it served from its prefix cache for this request (usage.prompt_tokens_details.cached_tokens, else llama.cpp timings.cache_n), kept as reported. Null when the server does not report it; never inferred from timing. Absent on evidence recorded before the prefix-cache probe.",
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "prompt_n": {
+                "description": "llama.cpp timings.prompt_n, kept verbatim. Absent on evidence recorded before schema_version 2.",
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "predicted_n": {
+                "description": "llama.cpp timings.predicted_n, kept verbatim. Absent on evidence recorded before schema_version 2.",
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "draft_n": {
+                "description": "Speculative-decoding tokens offered (MTP or a draft model), from llama.cpp timings. Absent when speculative decoding is not configured or the server does not report it.",
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "draft_n_accepted": {
+                "description": "Speculative-decoding tokens accepted, from llama.cpp timings. Acceptance rate is derived at report time, never stored.",
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "compactions": {
+                "description": "Completed Pi context compactions observed in this attempt's transcript; an aborted or failed one is not counted. Null for non-Pi workloads and for evidence recorded before schema_version 2.",
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "loops_detected": {
+                "description": "Repeated/cyclical tool-call signatures observed in this attempt's transcript. Null for non-Pi workloads and for evidence recorded before schema_version 2.",
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "wall_seconds",
+              "first_event_seconds",
+              "first_useful_output_seconds",
+              "load_seconds",
+              "prompt_processing_seconds",
+              "decode_seconds",
+              "prefill_tokens_per_second",
+              "decode_tokens_per_second",
+              "input_tokens",
+              "output_tokens",
+              "peak_process_rss_bytes"
+            ]
+          },
+          "cache_state": {
+            "const": "unknown"
+          },
+          "prompt_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "response_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "independent_pass": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "completion_pass": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cleanup": {
+            "enum": [
+              "not_needed",
+              "passed",
+              "failed"
+            ]
+          },
+          "interventions": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "operator_cancel",
+                "recovered_after_interruption",
+                "fenced_json"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "id",
+          "stage",
+          "workload",
+          "repetition",
+          "started_at",
+          "completed_at",
+          "outcome",
+          "code",
+          "metrics",
+          "cache_state",
+          "prompt_sha256",
+          "response_sha256",
+          "independent_pass",
+          "completion_pass",
+          "cleanup",
+          "interventions"
+        ]
+      }
+    },
+    "legacy_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "serving": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "backend_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9._+-]{1,80}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "backend_commit": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{7,40}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "application_status": {
+          "enum": [
+            "recorded",
+            "none",
+            "unknown"
+          ]
+        },
+        "application": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9._+-]{1,80}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "application_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9._+-]{1,80}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "backend_version",
+        "backend_commit",
+        "application_status",
+        "application",
+        "application_version"
+      ]
+    },
+    "investigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "enum": [
+            "findable",
+            "absent"
+          ]
+        },
+        "corpus_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "entry_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        }
+      },
+      "required": [
+        "variant",
+        "corpus_sha256",
+        "entry_count"
+      ]
+    },
+    "prefix_cache_probe": {
+      "description": "Present only when the run measured the prefix cache (limits.prefix_cache_probe_enabled). The verdict from the unscored cache_probe attempts (base, exact repeat, agent turn, edit inside the last message), beside the declared settings.prefix_cache, which it never overwrites: `yes` when the exact repeat and the agent turn (the reply, then a new message, appended after it) both reused the prompt, `no` when neither did, `inconclusive` otherwise. The edit inside the last message is judged apart, as `edit_inside_verdict`, and never changes the verdict. Blocks recorded by 0.2.1 rested on the repeat and an `extension` (three attempts, no `agent_turn`, `edit_inside` or `edit_inside_verdict`) and stay valid as they were. Absent means the cache was not measured.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "observed": {
+          "enum": [
+            "yes",
+            "no",
+            "inconclusive"
+          ]
+        },
+        "reason": {
+          "description": "The two *_extension reasons occur only in blocks recorded by 0.2.1.",
+          "enum": [
+            "reuse_on_repeat_and_agent_turn",
+            "no_reuse_on_repeat_and_agent_turn",
+            "reuse_on_repeat_and_extension",
+            "no_reuse_on_repeat_and_extension",
+            "reuse_on_one_request_only",
+            "insufficient_measurements",
+            "conflicting_evidence",
+            "probe_incomplete"
+          ]
+        },
+        "warmup_passed": {
+          "description": "Timing evidence is only used after a passed warm-up; cached-token counts do not need one.",
+          "type": "boolean"
+        },
+        "attempt_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "maxItems": 4
+        },
+        "repeat": {
+          "$ref": "#/$defs/cache_comparison"
+        },
+        "agent_turn": {
+          "description": "The prompt, the reply the server returned, then a new short user message, against the first request: how an agent loop appends a turn. With the repeat, it settles the verdict.",
+          "$ref": "#/$defs/cache_comparison"
+        },
+        "edit_inside": {
+          "description": "The prompt with a short suffix inside the same user message, against the first request. It diverges before the cached reply, so a server that cannot roll back cheaply (hybrid or recurrent models) may pay for a restore; a count that says reused beside a slower request is `conflicting`. A request that did not pass leaves every field null.",
+          "$ref": "#/$defs/cache_comparison"
+        },
+        "edit_inside_verdict": {
+          "description": "`edit_inside` in one word: reused, not_reused, or inconclusive (not settled, in conflict, or the request did not pass). Reported beside the verdict, never part of it.",
+          "enum": [
+            "reused",
+            "not_reused",
+            "inconclusive"
+          ]
+        },
+        "extension": {
+          "description": "Blocks recorded by 0.2.1 only: the prompt with a short suffix inside the same user message, judged with the repeat. Replaced by `agent_turn` and `edit_inside`.",
+          "$ref": "#/$defs/cache_comparison"
+        },
+        "thresholds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reused_cached_fraction": {
+              "type": "number"
+            },
+            "not_reused_cached_fraction": {
+              "type": "number"
+            },
+            "reused_speedup": {
+              "type": "number"
+            },
+            "not_reused_speedup": {
+              "type": "number"
+            },
+            "min_measurable_seconds": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "reused_cached_fraction",
+            "not_reused_cached_fraction",
+            "reused_speedup",
+            "not_reused_speedup",
+            "min_measurable_seconds"
+          ]
+        }
+      },
+      "required": [
+        "observed",
+        "reason",
+        "warmup_passed",
+        "attempt_ids",
+        "repeat",
+        "thresholds"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "agent_turn",
+            "edit_inside",
+            "edit_inside_verdict"
+          ],
+          "properties": {
+            "extension": false
+          }
+        },
+        {
+          "required": [
+            "extension"
+          ],
+          "properties": {
+            "agent_turn": false,
+            "edit_inside": false,
+            "edit_inside_verdict": false
+          }
+        }
+      ]
+    },
+    "memory_probe": {
+      "description": "Present only when the run was configured with memory_probe. Sampled memory of the named local server process. Peaks are the highest of the samples taken (a lower bound on the true peak). Process RSS is host memory. gpu_pools is device-wide VRAM in use on each AMD card (every process on the card, never summed, never attributed to the server); it is empty on macOS and wherever no counter exists, which is unknown, not zero. Apple-silicon unified memory is not measured.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "sampled",
+            "unavailable"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "unsupported_platform",
+                "process_not_found",
+                "process_ambiguous",
+                "unreadable"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "anyOf": [
+            {
+              "enum": [
+                "linux-procfs",
+                "macos-ps"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "process_name": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9._+-]{1,64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "interval_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "samples": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "process_exited": {
+          "description": "The process ended, or its PID was reused, before the run finished; later samples are missing.",
+          "type": "boolean"
+        },
+        "first_process_rss_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "peak_process_rss_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gpu_pools": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "drm_card": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "pci_device_id": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]{4}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "total_bytes": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "first_used_bytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "peak_used_bytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "scope": {
+                "const": "device_wide"
+              }
+            },
+            "required": [
+              "drm_card",
+              "pci_device_id",
+              "total_bytes",
+              "first_used_bytes",
+              "peak_used_bytes",
+              "scope"
+            ]
+          }
+        }
+      },
+      "required": [
+        "status",
+        "reason",
+        "source",
+        "process_name",
+        "interval_seconds",
+        "samples",
+        "process_exited",
+        "first_process_rss_bytes",
+        "peak_process_rss_bytes",
+        "gpu_pools"
+      ]
+    },
+    "compaction_gate": {
+      "description": "Present only when the run's coding attempts ran under harness.compaction_gate: the forced context window and reserve they used, which settings.context_tokens does not show. recommendation() then requires every passed coding attempt to have recorded at least one completed compaction (metrics.compactions); a pass without one never exercised the gate. Absent means the gate was not on, and is never inferred for evidence recorded without it.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "context_tokens": {
+          "type": "integer",
+          "minimum": 512,
+          "maximum": 1048576
+        },
+        "reserve_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "keep_recent_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        }
+      },
+      "required": [
+        "context_tokens",
+        "reserve_tokens",
+        "keep_recent_tokens"
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "schema_version",
+    "toolkit_version",
+    "run_id",
+    "created_at",
+    "synthetic",
+    "config_sha256",
+    "identity_sha256",
+    "backend",
+    "api",
+    "harness",
+    "identity_complete",
+    "data_destination",
+    "inventory",
+    "settings",
+    "requirements",
+    "limits",
+    "attempts",
+    "legacy_sha256"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:poundlock-toolkit:qualification:1",
+  "$defs": {
+    "cache_comparison": {
+      "description": "One probe request against the first: whether it reused the prompt, on what evidence, and the numbers behind it. `reused` null means the evidence did not settle it.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reused": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis": {
+          "anyOf": [
+            {
+              "enum": [
+                "cached_tokens",
+                "prompt_processing_time",
+                "first_token_time",
+                "conflicting"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cached_fraction": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "speedup": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "reused",
+        "basis",
+        "cached_fraction",
+        "speedup"
+      ]
+    }
+  }
+}

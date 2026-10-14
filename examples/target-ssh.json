@@ -1,0 +1,5 @@
+{
+  "transport": "ssh",
+  "host": "evaluation-host",
+  "python": "/home/operator/toolkit-venv/bin/python"
+}

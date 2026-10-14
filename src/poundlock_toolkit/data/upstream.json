@@ -1,0 +1,5 @@
+[
+  {"backend":"llama.cpp","os":["Linux","Darwin"],"architecture":["x86_64","arm64","aarch64"],"support":"Upstream CPU and several GPU backends; exact device/build/model needs qualification.","url":"https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md","reviewed_at":"2026-09-13"},
+  {"backend":"ollama","os":["Linux","Darwin"],"architecture":["x86_64","arm64","aarch64"],"support":"Upstream hardware-specific support; verify the exact GPU and driver against its current matrix.","url":"https://docs.ollama.com/gpu","reviewed_at":"2026-09-13"},
+  {"backend":"omlx","os":["Darwin"],"architecture":["arm64"],"support":"Upstream Apple silicon scope; Linux and Intel Mac are not candidates under this entry.","url":"https://github.com/jundot/omlx","reviewed_at":"2026-09-13"}
+]

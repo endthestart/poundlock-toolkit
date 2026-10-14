@@ -1,0 +1,646 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "urn:poundlock-toolkit:tool-schema:1"
+    },
+    "schema_version": {
+      "enum": [1, 2]
+    },
+    "toolkit_version": {
+      "enum": [
+        "0.1.0",
+        "0.1.1",
+        "0.2.0",
+        "0.2.1",
+        "0.2.2",
+        "0.2.3",
+        "0.3.0",
+        "0.3.1",
+        "0.4.0"
+      ]
+    },
+    "run_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "config_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "identity_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fixture_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "conversation_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "conversation_source": {
+          "enum": [
+            "operator",
+            "synthetic"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "smoke",
+            "qualification"
+          ]
+        },
+        "trials_per_boundary": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "boundaries": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "openai",
+              "ollama"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "prompt_characters": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "warmup_enabled": {
+          "description": "Absent on evidence recorded before schema_version 2, when a run behaved as if this were true.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "fixture_sha256",
+        "conversation_sha256",
+        "conversation_source",
+        "mode",
+        "trials_per_boundary",
+        "boundaries",
+        "prompt_characters"
+      ]
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total_seconds": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 600
+        },
+        "request_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120
+        },
+        "response_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 2000000
+        }
+      },
+      "required": [
+        "total_seconds",
+        "request_seconds",
+        "response_bytes"
+      ]
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "boundary": {
+            "enum": [
+              "openai",
+              "ollama"
+            ]
+          },
+          "repetition": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "started_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "outcome": {
+            "enum": [
+              "running",
+              "skipped",
+              "pass",
+              "schema_failure",
+              "protocol_failure",
+              "infrastructure_failure",
+              "timeout",
+              "cancelled",
+              "interrupted"
+            ]
+          },
+          "code": {
+            "enum": [
+              "pending",
+              "not_run",
+              "budget_exhausted",
+              "ok",
+              "missing_call",
+              "multiple_calls",
+              "missing_arguments",
+              "malformed_call",
+              "wrong_tool",
+              "missing_completion",
+              "invalid_arguments",
+              "response_limit",
+              "malformed_response",
+              "http_error",
+              "unavailable",
+              "timeout",
+              "cancelled",
+              "interrupted"
+            ]
+          },
+          "latency_seconds": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "call_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "correct_tool": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "completion_pass": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "valid_call": {
+            "type": "boolean"
+          },
+          "argument_representation": {
+            "enum": [
+              "object",
+              "array",
+              "string",
+              "boolean",
+              "integer",
+              "number",
+              "null",
+              "unknown",
+              "missing"
+            ]
+          },
+          "outer_parse_success": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "schema_valid": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "pattern": "^\\$(\\.(summary|acceptanceCriteria|verificationCommands|tasks|id|title|objective|workerPrompt|contextNote|difficulty|dependsOn|allowedPaths|<unknown>)|\\[[0-9]+\\])*$",
+                  "maxLength": 1024
+                },
+                "keyword": {
+                  "enum": [
+                    "parse",
+                    "type",
+                    "required",
+                    "additionalProperties",
+                    "enum",
+                    "minItems",
+                    "maxItems",
+                    "minLength",
+                    "maxLength"
+                  ]
+                },
+                "expected": {
+                  "enum": [
+                    "object",
+                    "array",
+                    "string",
+                    "boolean",
+                    "integer",
+                    "number",
+                    "null",
+                    "unknown",
+                    "missing"
+                  ]
+                },
+                "actual": {
+                  "enum": [
+                    "object",
+                    "array",
+                    "string",
+                    "boolean",
+                    "integer",
+                    "number",
+                    "null",
+                    "unknown",
+                    "missing"
+                  ]
+                },
+                "nested_json": {
+                  "enum": [
+                    null,
+                    "malformed",
+                    "valid_object",
+                    "valid_array",
+                    "valid_string",
+                    "valid_boolean",
+                    "valid_integer",
+                    "valid_number",
+                    "valid_null",
+                    "valid_unknown",
+                    "valid_missing"
+                  ]
+                }
+              },
+              "required": [
+                "path",
+                "keyword",
+                "expected",
+                "actual",
+                "nested_json"
+              ]
+            },
+            "maxItems": 64
+          },
+          "errors_truncated": {
+            "type": "boolean"
+          },
+          "interventions": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "recovered_after_interruption"
+              ]
+            },
+            "maxItems": 1
+          },
+          "predicted_per_second": {
+            "description": "llama.cpp/Ollama decode speed for this trial, when the boundary reports it (spill detection: a collapse over a long qualification run is a possible VRAM spill, not a confirmed cause). Absent on evidence recorded before schema_version 2.",
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "boundary",
+          "repetition",
+          "started_at",
+          "completed_at",
+          "outcome",
+          "code",
+          "latency_seconds",
+          "call_count",
+          "correct_tool",
+          "completion_pass",
+          "valid_call",
+          "argument_representation",
+          "outer_parse_success",
+          "schema_valid",
+          "errors",
+          "errors_truncated",
+          "interventions"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 200
+    },
+    "warmup": {
+      "description": "One unscored per-boundary warm-up request, run before the scored `attempts` trials so first-load costs (e.g. Vulkan shader compilation) never land inside a scored trial. Absent on evidence recorded before schema_version 2, or when the run disabled it (`contract.warmup_enabled: false`); never counted in `summary`.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "boundary": {
+            "enum": ["openai", "ollama"]
+          },
+          "started_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "completed_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "outcome": {
+            "enum": [
+              "running",
+              "skipped",
+              "pass",
+              "schema_failure",
+              "protocol_failure",
+              "infrastructure_failure",
+              "timeout",
+              "cancelled",
+              "interrupted"
+            ]
+          },
+          "code": {
+            "enum": [
+              "pending",
+              "not_run",
+              "budget_exhausted",
+              "ok",
+              "missing_call",
+              "multiple_calls",
+              "missing_arguments",
+              "malformed_call",
+              "wrong_tool",
+              "missing_completion",
+              "invalid_arguments",
+              "response_limit",
+              "malformed_response",
+              "http_error",
+              "unavailable",
+              "timeout",
+              "cancelled",
+              "interrupted"
+            ]
+          },
+          "latency_seconds": {
+            "type": ["number", "null"],
+            "minimum": 0
+          },
+          "predicted_per_second": {
+            "anyOf": [
+              {"type": "number", "minimum": 0},
+              {"type": "null"}
+            ]
+          }
+        },
+        "required": [
+          "boundary",
+          "started_at",
+          "completed_at",
+          "outcome",
+          "code",
+          "latency_seconds",
+          "predicted_per_second"
+        ]
+      },
+      "maxItems": 2
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "openai": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "planned": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "attempted": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "passed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "valid_call_rate": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "outer_parse_successes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "schema_valid_calls": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "valid": {
+              "description": "Same count as `passed`, named to sit alongside `invalid`/`timed_out`/`not_run`. Absent on evidence recorded before schema_version 2.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "invalid": {
+              "description": "Attempted, not timed out, and not a valid call: schema/protocol/infrastructure failures, wrong tool, cancellation. Absent on evidence recorded before schema_version 2.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "timed_out": {
+              "description": "Attempted but hit the per-request deadline. Kept separate from `invalid` so a slow-but-correct model does not read as an all-wrong model. Absent on evidence recorded before schema_version 2.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "not_run": {
+              "description": "Planned but never started (budget exhausted or cancelled before this row). Absent on evidence recorded before schema_version 2.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            }
+          },
+          "required": [
+            "planned",
+            "attempted",
+            "passed",
+            "valid_call_rate",
+            "outer_parse_successes",
+            "schema_valid_calls"
+          ]
+        },
+        "ollama": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "planned": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "attempted": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "passed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "valid_call_rate": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "outer_parse_successes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "schema_valid_calls": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "valid": {
+              "description": "Same count as `passed`, named to sit alongside `invalid`/`timed_out`/`not_run`. Absent on evidence recorded before schema_version 2.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "invalid": {
+              "description": "Attempted, not timed out, and not a valid call: schema/protocol/infrastructure failures, wrong tool, cancellation. Absent on evidence recorded before schema_version 2.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "timed_out": {
+              "description": "Attempted but hit the per-request deadline. Kept separate from `invalid` so a slow-but-correct model does not read as an all-wrong model. Absent on evidence recorded before schema_version 2.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "not_run": {
+              "description": "Planned but never started (budget exhausted or cancelled before this row). Absent on evidence recorded before schema_version 2.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            }
+          },
+          "required": [
+            "planned",
+            "attempted",
+            "passed",
+            "valid_call_rate",
+            "outer_parse_successes",
+            "schema_valid_calls"
+          ]
+        }
+      },
+      "required": [],
+      "minProperties": 1
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "context_tokens": {
+          "type": "integer",
+          "minimum": 512,
+          "maximum": 1048576
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 8192
+        },
+        "reasoning": {
+          "enum": [
+            "off",
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      },
+      "required": [
+        "context_tokens",
+        "max_output_tokens",
+        "reasoning"
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "schema_version",
+    "toolkit_version",
+    "run_id",
+    "created_at",
+    "config_sha256",
+    "identity_sha256",
+    "contract",
+    "limits",
+    "attempts",
+    "summary"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:poundlock-toolkit:tool-schema:1"
+}

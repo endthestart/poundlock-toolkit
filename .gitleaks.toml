@@ -1,0 +1,15 @@
+# gitleaks policy for the release gate. Keep the default ruleset and allow only
+# verified false positives, each scoped to one file and one assignment shape.
+# A real secret is never allowlisted: rotate it, then remove it from history.
+title = "Poundlock Toolkit gitleaks policy"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Canary value the artifact tests assert is absent from every exported file; the test server is loopback"
+condition = "AND"
+targetRules = ["generic-api-key"]
+paths = ['''^tests/test_evidence\.py$''']
+regexTarget = "line"
+regexes = ['''^\s+SECRET = "''']

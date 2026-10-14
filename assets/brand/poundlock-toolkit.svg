@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Poundlock Toolkit</title>
+  <desc id="desc">Measured inference routes converging through a calibrated gate.</desc>
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="#1d1f27"/>
+  <g fill="none" stroke="#01a982" stroke-width="28" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M92 152h78c39 0 70 31 70 70v2"/>
+    <path d="M92 256h116"/>
+    <path d="M92 360h78c39 0 70-31 70-70v-2"/>
+    <path d="M304 256h116"/>
+  </g>
+  <rect x="208" y="208" width="96" height="96" rx="30" fill="#f5b942"/>
+  <g fill="#1d1f27">
+    <rect x="229" y="252" width="12" height="28" rx="6"/>
+    <rect x="250" y="236" width="12" height="44" rx="6"/>
+    <rect x="271" y="220" width="12" height="60" rx="6"/>
+  </g>
+  <g stroke="#f5b942" stroke-width="10" stroke-linecap="round">
+    <path d="M112 126v-20M144 126v-12M176 126v-20"/>
+  </g>
+</svg>
+

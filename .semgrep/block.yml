@@ -1,0 +1,123 @@
+# Semgrep rules that fail the build. A rule belongs here only while it has no
+# findings; one with findings lives in report.yml until they are fixed.
+# Written for this repository and licensed with it: no registry rules, so the
+# run is offline and reproducible. Each rule has a positive and a negative
+# control in block.py (report.py for report.yml); run them with
+# `cd .semgrep && semgrep --test .` so a rule that never fires is caught.
+rules:
+  - id: toolkit-py-subprocess-shell
+    languages: [python]
+    severity: ERROR
+    message: >-
+      A command is run through a shell. Pass an argv list and keep shell=False.
+    pattern-either:
+      - pattern: subprocess.$F(..., shell=True, ...)
+      - pattern: os.system(...)
+      - pattern: os.popen(...)
+      - pattern: asyncio.create_subprocess_shell(...)
+    paths:
+      exclude: ["tests/**"]
+
+  - id: toolkit-py-shell-dash-c
+    languages: [python]
+    severity: WARNING
+    message: >-
+      A shell is started with -c. Its command text must be fixed, and every
+      value must reach it as a positional argument.
+    patterns:
+      - pattern-either:
+          - pattern: '[..., $SH, "-c", ...]'
+          - pattern: '[..., $SH, "-lc", ...]'
+      - metavariable-regex:
+          metavariable: $SH
+          regex: ^["'](/bin/|/usr/bin/)?(ba|z|da)?sh["']$
+    paths:
+      exclude: ["tests/**"]
+
+  - id: toolkit-py-dynamic-code
+    languages: [python]
+    severity: ERROR
+    message: Code is built or loaded from data at run time.
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: exec(...)
+      - pattern: pickle.load(...)
+      - pattern: pickle.loads(...)
+      - pattern: marshal.loads(...)
+      - pattern: yaml.load(...)
+    paths:
+      exclude: ["tests/**"]
+
+  - id: toolkit-py-archive-extract-without-filter
+    languages: [python]
+    severity: ERROR
+    message: >-
+      Archive members can escape the target with .. or absolute paths. Pass
+      filter="data" (Python 3.12) or validate every member name.
+    patterns:
+      - pattern-either:
+          - pattern: $T.extractall(...)
+          - pattern: $T.extract(...)
+      - pattern-not: $T.extractall(..., filter=..., ...)
+      - pattern-not: $T.extract(..., filter=..., ...)
+    paths:
+      exclude: ["tests/**"]
+
+  - id: toolkit-py-tls-verification-off
+    languages: [python]
+    severity: ERROR
+    message: Certificate verification is switched off.
+    pattern-either:
+      - pattern: $F(..., verify=False, ...)
+      - pattern: ssl._create_unverified_context(...)
+      - pattern: $C.check_hostname = False
+    paths:
+      exclude: ["tests/**"]
+
+  - id: toolkit-py-weak-hash
+    languages: [python]
+    severity: WARNING
+    message: >-
+      MD5 and SHA-1 are not collision resistant. Use SHA-256, or pass
+      usedforsecurity=False when the digest is only a cache key.
+    patterns:
+      - pattern-either:
+          - pattern: hashlib.md5(...)
+          - pattern: hashlib.sha1(...)
+      - pattern-not: hashlib.$H(..., usedforsecurity=False, ...)
+    paths:
+      exclude: ["tests/**"]
+
+  - id: toolkit-py-tempfile-mktemp
+    languages: [python]
+    severity: ERROR
+    message: tempfile.mktemp is racy; use mkstemp, mkdtemp or TemporaryDirectory.
+    pattern: tempfile.mktemp(...)
+    paths:
+      exclude: ["tests/**"]
+
+  - id: toolkit-py-urlopen-dynamic-url
+    languages: [python]
+    severity: WARNING
+    message: >-
+      An outbound request bypasses the hardened opener in backends.py (no
+      redirects, no proxy). Use that opener, or check the scheme, refuse
+      redirects and cap the response size here.
+    patterns:
+      - pattern-either:
+          - pattern: urllib.request.urlopen($U, ...)
+          - pattern: urlopen($U, ...)
+      - pattern-not: urllib.request.urlopen("...", ...)
+      - pattern-not: urlopen("...", ...)
+    paths:
+      exclude: ["tests/**"]
+
+  - id: toolkit-py-plain-http-literal
+    languages: [python]
+    severity: WARNING
+    message: >-
+      A non-loopback http:// URL is written in code. A credential sent to it
+      crosses the network in clear text; default to https or loopback.
+    pattern-regex: '["'']http://(?!127\.0\.0\.1|localhost|\[::1\]|inference[:/]|\{)[^"''\n]*["'']'
+    paths:
+      exclude: ["tests/**"]

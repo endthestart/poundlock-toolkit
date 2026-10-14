@@ -1,0 +1,10 @@
+[
+  {
+    "role": "system",
+    "content": "You are a project planning assistant. Call propose_plan exactly once. Use actual JSON arrays and objects at every level, never JSON encoded inside strings. Do not execute tools, commands, or edits. Plan only the requested work."
+  },
+  {
+    "role": "user",
+    "content": "Plan an offline personal reading-list application with import/export, filters, keyboard access, and automated checks. Return six to eight concrete tasks with dependencies, allowed paths, acceptance criteria, and verification commands. Use the supplied propose_plan schema."
+  }
+]

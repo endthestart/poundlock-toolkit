@@ -1,0 +1,124 @@
+name: Toolkit offline checks and packages
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  security:
+    # Every tool is pinned by version and, for images, by digest. Sources are
+    # streamed into each container, so no runner path is mounted.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # gitleaks scans the whole history
+      - name: Scan for secrets (gitleaks 8.30.1, working tree and history)
+        run: |
+          set -euo pipefail
+          # --redact keeps any finding out of the log; the log shows file, line and commit only.
+          tar cf - . | docker run --rm -i --cpus 1 --memory 1g --memory-swap 1g --pids-limit 128 \
+            --network none --read-only --tmpfs /scan:rw,nosuid,size=2g \
+            -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0='*' \
+            --entrypoint sh ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f -c '
+              tar xf - -C /scan
+              cd /scan
+              status=0
+              gitleaks dir --no-banner --redact -v --exit-code 1 . || status=1
+              gitleaks git --no-banner --redact -v --exit-code 1 . || status=1
+              exit $status'
+      - name: Scan lockfiles (osv-scanner 2.7.0)
+        run: |
+          set -euo pipefail
+          # The package's own dependencies are unpinned; the resolved environment is scanned in the validate job.
+          tar cf - requirements-ci.txt | docker run --rm -i --cpus 1 --memory 1g --memory-swap 1g --pids-limit 128 \
+            --read-only --tmpfs /scan:rw,nosuid,size=64m --workdir /scan \
+            --entrypoint sh ghcr.io/google/osv-scanner:v2.7.0@sha256:4f3b7e2c64b9d38a5febc5a7e4a3dfef1d1362f726dea7a2ef4762b46469fcd0 -c 'tar xf - -C /scan && /osv-scanner scan source --lockfile requirements.txt:requirements-ci.txt'
+      - name: Static analysis (Semgrep 1.180.0, own offline rules)
+        run: |
+          set -euo pipefail
+          # No registry rules and no network: the rules live in .semgrep/ and have tests.
+          # report.yml prints findings without failing; block.yml fails the build.
+          tar cf - --exclude=.git . | docker run --rm -i --cpus 2 --memory 2g --memory-swap 2g --pids-limit 256 \
+            --network none --read-only --tmpfs /scan:rw,nosuid,size=1g --tmpfs /tmp:rw,nosuid,size=256m -e HOME=/tmp \
+            --entrypoint sh semgrep/semgrep:1.180.0@sha256:529ee8a277ec8adc5b534d7c74eea0a47e9de21d62852b6ba7ac6ba9566845c3 -c '
+              set -eu
+              tar xf - -C /scan
+              cd /scan
+              (cd .semgrep && semgrep --metrics=off --disable-version-check --test .)
+              echo "Reported rules (Semgrep labels every finding Blocking; this step does not fail on them)"
+              semgrep scan --metrics=off --disable-version-check --config .semgrep/report.yml --exclude .semgrep --quiet . || true
+              echo "Blocking rules"
+              semgrep scan --metrics=off --disable-version-check --config .semgrep/block.yml --exclude .semgrep --error --quiet .'
+  validate:
+    needs: security
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Bounded Linux validation and package build
+        run: |
+          set -euo pipefail
+          # Stream source into the container rather than mounting the workspace.
+          git archive --format=tar HEAD | docker run --rm -i \
+            --cpus=3 --memory=3g --memory-swap=3g --pids-limit=256 \
+            --cap-drop=ALL --security-opt=no-new-privileges \
+            --tmpfs /work:rw,nosuid,size=2g --workdir /work \
+            python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 \
+            timeout --kill-after=10 900 sh -eu -c '
+              tar xf -
+              {
+                python -m pip install --no-cache-dir --require-hashes -r requirements-ci.txt
+                python -m pip install --no-cache-dir --no-deps --no-build-isolation -e .
+                ruff check src tests scripts
+                ruff format --check src tests scripts
+                python -m unittest discover -s tests -v
+                python -m build --no-isolation
+                python scripts/check_artifacts.py
+                python -m pip freeze > dist/validation-environment.txt
+              } >&2
+              tar cf - dist
+            ' > toolkit-ci-artifacts.tar
+          tar xf toolkit-ci-artifacts.tar
+      - name: Scan resolved Python environment (osv-scanner 2.7.0)
+        run: |
+          set -euo pipefail
+          # dist/validation-environment.txt is the pip freeze of the tested install, transitive packages included.
+          tar cf - -C dist validation-environment.txt | docker run --rm -i --cpus 1 --memory 1g --memory-swap 1g --pids-limit 128 \
+            --read-only --tmpfs /scan:rw,nosuid,size=64m --workdir /scan \
+            --entrypoint sh ghcr.io/google/osv-scanner:v2.7.0@sha256:4f3b7e2c64b9d38a5febc5a7e4a3dfef1d1362f726dea7a2ef4762b46469fcd0 -c 'tar xf - -C /scan && /osv-scanner scan source --lockfile requirements.txt:validation-environment.txt'
+      - name: Narrow Pi tool policy negative controls
+        run: |
+          set -euo pipefail
+          git archive --format=tar HEAD | docker run --rm -i \
+            --cpus=1 --memory=512m --memory-swap=512m --pids-limit=64 \
+            --network none --read-only --tmpfs /work:rw,nosuid,size=64m --workdir /work \
+            node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 \
+            timeout --kill-after=5 30 sh -eu -c 'tar xf -; node tests/test_policy.mjs'
+      - name: Build and scan the Pi recipe (Trivy 0.75.0, High and Critical with a fix fail)
+        run: |
+          set -euo pipefail
+          # Stream the build context from the committed tree.
+          IMAGE="toolkit-pi:${GITHUB_SHA}"
+          git archive --format=tar HEAD | docker build --quiet -f recipes/Pi.Dockerfile \
+            --build-arg NODE_BASE=node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 \
+            -t "$IMAGE" - > /dev/null
+          trap 'docker rmi "$IMAGE" > /dev/null' EXIT
+          docker run --rm --entrypoint sh "$IMAGE" -c '! command -v npm && pi --version'
+          docker save "$IMAGE" | docker run --rm -i --cpus 2 --memory 4g --memory-swap 4g \
+            -v toolkit-trivy:/scan -e TRIVY_CACHE_DIR=/scan/cache \
+            --entrypoint sh ghcr.io/aquasecurity/trivy:0.75.0@sha256:af6acf9a6b85dfe389a1941505c0ce9efef52a4719635e1a962f022a3d855daa -c '
+              set -eu
+              trap "rm -f /scan/image.tar" EXIT
+              cat > /scan/image.tar
+              trivy image --input /scan/image.tar --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --no-progress --exit-code 1'
+      - name: Retain tested artifacts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: poundlock-toolkit-${{ github.sha }}
+          path: dist/

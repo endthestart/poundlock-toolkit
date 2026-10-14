@@ -1,0 +1,838 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "endpoint": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "api": {
+      "enum": [
+        "openai",
+        "ollama"
+      ]
+    },
+    "credential_env": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]{0,63}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "data_destination": {
+      "enum": [
+        "local",
+        "private",
+        "external",
+        "unknown"
+      ]
+    },
+    "paid": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "revision": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "format": {
+          "enum": [
+            "gguf",
+            "mlx",
+            "safetensors",
+            "unknown"
+          ]
+        },
+        "quantization": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "artifact_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "format",
+        "quantization",
+        "artifact_bytes"
+      ]
+    },
+    "backend": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "llama.cpp",
+            "ollama",
+            "omlx",
+            "other"
+          ]
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9._+-]{1,80}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commit": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{7,40}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "application": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]{0,79}$"
+                },
+                "version": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9._+-]{1,80}$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "version"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "version"
+      ]
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "context_tokens": {
+          "type": "integer",
+          "minimum": 512,
+          "maximum": 1048576
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 8192
+        },
+        "temperature": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "reasoning": {
+          "enum": [
+            "off",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "reasoning_off_effort": {
+          "description": "When reasoning is off, send this reasoning_effort value instead of omitting it (Ollama needs \"none\" to disable thinking).",
+          "anyOf": [
+            {
+              "enum": [
+                "none"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "template_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prefix_cache": {
+          "enum": [
+            "unknown",
+            "enabled",
+            "disabled"
+          ]
+        },
+        "kv_quantization": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "speculative": {
+          "description": "Optional; absent means unrecorded, never 'none' by inference.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "enum": ["draft-mtp", "draft-model", "none"]
+            },
+            "draft_n_max": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": ["type", "draft_n_max"]
+        }
+      },
+      "required": [
+        "context_tokens",
+        "max_output_tokens",
+        "temperature",
+        "reasoning",
+        "template_sha256",
+        "prefix_cache",
+        "kv_quantization"
+      ]
+    },
+    "harness": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "direct",
+            "pi"
+          ]
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9._+-]{1,80}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "image": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^.+@sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "network": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "endpoint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "compaction_gate": {
+          "description": "Opt-in coding-workload variant: run Pi with compaction enabled and a small forced context window/reserve instead of the disabled default, to check the final report contract still validates after a forced compaction. A run only qualifies if every passed coding attempt recorded at least one completed compaction; one that never compacted did not exercise the gate and is reported as insufficient evidence.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "context_tokens": {
+              "type": "integer",
+              "minimum": 512,
+              "maximum": 1048576
+            },
+            "reserve_tokens": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1048576
+            },
+            "keep_recent_tokens": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1048576
+            }
+          },
+          "required": [
+            "enabled",
+            "context_tokens",
+            "reserve_tokens",
+            "keep_recent_tokens"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "image",
+        "network"
+      ]
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "enum": [
+            "unknown",
+            "operator",
+            "observed"
+          ]
+        },
+        "os": {
+          "enum": [
+            "Linux",
+            "Darwin",
+            "Windows",
+            "unknown"
+          ]
+        },
+        "architecture": {
+          "enum": [
+            "x86_64",
+            "arm64",
+            "aarch64",
+            "unknown"
+          ]
+        },
+        "memory": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "system_ram_bytes": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "system_available_bytes": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "unified_memory_bytes": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "gpu_pools": {
+              "type": "array",
+              "maxItems": 32,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "total_bytes": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "available_bytes": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "total_bytes",
+                  "available_bytes"
+                ]
+              }
+            },
+            "placement": {
+              "enum": [
+                "unknown",
+                "cpu",
+                "gpu",
+                "split"
+              ]
+            }
+          },
+          "required": [
+            "system_ram_bytes",
+            "system_available_bytes",
+            "unified_memory_bytes",
+            "gpu_pools",
+            "placement"
+          ]
+        }
+      },
+      "required": [
+        "source",
+        "os",
+        "architecture",
+        "memory"
+      ]
+    },
+    "workloads": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "extraction",
+          "coding",
+          "tool_schema",
+          "investigation"
+        ]
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total_seconds": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 600
+        },
+        "request_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120
+        },
+        "repetitions": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "response_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 2000000
+        },
+        "worker_memory_mb": {
+          "type": "integer",
+          "minimum": 128,
+          "maximum": 4096
+        },
+        "worker_disk_mb": {
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 128
+        },
+        "worker_cpus": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "worker_pids": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 128
+        },
+        "warmup_enabled": {
+          "description": "Unscored warm-up request per model/server before scored trials, so first-load costs (e.g. Vulkan shader compilation) never land inside a scored attempt. Optional; defaults to true when absent.",
+          "type": "boolean"
+        },
+        "prefix_cache_probe_enabled": {
+          "description": "Measure the prefix cache instead of only taking settings.prefix_cache on trust: unscored requests after the warm-up (a prompt, the same prompt, an agent turn that appends a new message after the reply, and the prompt with a small edit inside its last message), counted in the plan's request budget. Optional; defaults to false when absent. Not available for tool_schema scenarios.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "total_seconds",
+        "request_seconds",
+        "repetitions",
+        "response_bytes",
+        "worker_memory_mb",
+        "worker_disk_mb",
+        "worker_cpus",
+        "worker_pids"
+      ]
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min_context_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "max_task_seconds": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "min_available_memory_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "min_decode_tokens_per_second": {
+          "description": "Optional throughput floor; a warm decode speed below this is reported (not inferred as a cause) as a possible VRAM spill. Absent means unconfigured. Applied only to workloads that record a server-reported decode speed (direct extraction); Pi coding and investigation runs record none, so the floor is not applied to them and the report says so.",
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowed_destinations": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "local",
+              "private"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "min_context_tokens",
+        "max_task_seconds",
+        "min_available_memory_bytes",
+        "allowed_destinations"
+      ]
+    },
+    "tool_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "smoke",
+            "qualification"
+          ]
+        },
+        "trials": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "warmup_enabled": {
+          "description": "Unscored per-boundary warm-up trial before scored trials. Optional; defaults to true when absent.",
+          "type": "boolean"
+        },
+        "endpoints": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "openai": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "ollama": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            }
+          },
+          "required": [],
+          "minProperties": 1
+        },
+        "conversation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "enum": [
+                  "system",
+                  "user",
+                  "assistant"
+                ]
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 16000
+              }
+            },
+            "required": [
+              "role",
+              "content"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "mode",
+        "trials",
+        "endpoints"
+      ]
+    },
+    "investigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "enum": [
+            "findable",
+            "absent"
+          ]
+        }
+      },
+      "required": [
+        "variant"
+      ]
+    },
+    "memory_probe": {
+      "description": "Optional. Sample the named server process's memory while the run executes (Linux: process RSS and device-wide AMD VRAM; macOS: process RSS). Needs a loopback endpoint, because it reads processes on the machine Toolkit runs on (under target-run, the target). Name exactly one of pid or process; a process name must match exactly one running process. Absent means memory is not measured.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pid": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4194304
+        },
+        "process": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._+-]{1,64}$"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "pid"
+          ]
+        },
+        {
+          "required": [
+            "process"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "endpoint",
+    "api",
+    "credential_env",
+    "data_destination",
+    "paid",
+    "model",
+    "backend",
+    "settings",
+    "harness",
+    "inventory",
+    "workloads",
+    "limits",
+    "requirements"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:poundlock-toolkit:config:1",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "workloads": {
+            "contains": {
+              "const": "tool_schema"
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "tool_schema"
+        ],
+        "properties": {
+          "workloads": {
+            "const": [
+              "tool_schema"
+            ]
+          },
+          "harness": {
+            "properties": {
+              "name": {
+                "const": "direct"
+              }
+            }
+          },
+          "limits": {
+            "properties": {
+              "prefix_cache_probe_enabled": {
+                "const": false
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "memory_probe"
+          ]
+        }
+      },
+      "else": {
+        "not": {
+          "required": [
+            "tool_schema"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workloads": {
+            "contains": {
+              "const": "investigation"
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "investigation"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "investigation"
+          ]
+        }
+      }
+    }
+  ]
+}

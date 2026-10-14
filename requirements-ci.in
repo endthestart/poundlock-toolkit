@@ -1,0 +1,6 @@
+# Reproducible validation tools; application dependency bounds remain in pyproject.toml.
+# Compile requirements-ci.txt from this file with: uv pip compile requirements-ci.in --generate-hashes --python-version 3.12 -o requirements-ci.txt
+build==1.3.0
+setuptools==83.0.0
+ruff==0.15.6
+jsonschema==4.26.0

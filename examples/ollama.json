@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "endpoint": "http://127.0.0.1:11434",
+  "api": "ollama",
+  "credential_env": null,
+  "data_destination": "local",
+  "paid": false,
+  "model": {
+    "id": "example-model",
+    "revision": null,
+    "format": "gguf",
+    "quantization": null,
+    "artifact_bytes": null
+  },
+  "backend": {
+    "name": "ollama",
+    "version": null
+  },
+  "settings": {
+    "context_tokens": 8192,
+    "max_output_tokens": 512,
+    "temperature": 0,
+    "reasoning": "off",
+    "template_sha256": null,
+    "prefix_cache": "unknown",
+    "kv_quantization": null
+  },
+  "harness": {
+    "name": "direct",
+    "version": null,
+    "image": null,
+    "network": null
+  },
+  "inventory": {
+    "source": "unknown",
+    "os": "unknown",
+    "architecture": "unknown",
+    "memory": {
+      "system_ram_bytes": null,
+      "system_available_bytes": null,
+      "unified_memory_bytes": null,
+      "gpu_pools": [],
+      "placement": "unknown"
+    }
+  },
+  "workloads": [
+    "extraction"
+  ],
+  "limits": {
+    "total_seconds": 120,
+    "request_seconds": 20,
+    "repetitions": 3,
+    "response_bytes": 262144,
+    "worker_memory_mb": 512,
+    "worker_disk_mb": 16,
+    "worker_cpus": 1,
+    "worker_pids": 64
+  },
+  "requirements": {
+    "min_context_tokens": 4096,
+    "max_task_seconds": null,
+    "min_available_memory_bytes": null,
+    "allowed_destinations": [
+      "local",
+      "private"
+    ]
+  }
+}
