@@ -536,6 +536,22 @@ def _level(r):
     return {k: r[k] for k in ("level", "passed", "attempted")}
 
 
+def reasoning_sent(api, settings):
+    """What the measured requests told the server about thinking.
+
+    "omitted" sends nothing, so the model's own default applies; "disabled" is
+    an explicit off (native Ollama `think: false`, or `reasoning_effort: none`);
+    otherwise the effort level sent. `reasoning: off` alone is not enough to
+    know: on the OpenAI boundary it omits the field unless
+    `reasoning_off_effort` is set.
+    """
+    if settings["reasoning"] != "off":
+        return settings["reasoning"]
+    if api == "ollama" or settings.get("reasoning_off_effort") == "none":
+        return "disabled"
+    return "omitted"
+
+
 def summary(documents, now=None):
     """The `recommend --format json` document: the report's verdicts as data.
 
@@ -571,6 +587,12 @@ def summary(documents, now=None):
                 k: d["settings"][k]
                 for k in ("context_tokens", "max_output_tokens", "reasoning")
             }
+            # A tool-schema run can use two boundaries; each says its own.
+            row["settings"]["reasoning_sent"] = (
+                None
+                if d["schema"] == NAMESPACE
+                else reasoning_sent(d["api"], d["settings"])
+            )
         if d["schema"] == NAMESPACE:
             from .schema_evaluation import summaries
 
@@ -581,6 +603,9 @@ def summary(documents, now=None):
                     {
                         "boundary": b,
                         **{k: counts[b][k] for k in ("planned", "attempted", "passed")},
+                        "reasoning_sent": reasoning_sent(b, d["settings"])
+                        if d.get("settings")
+                        else None,
                     }
                     for b in d["contract"]["boundaries"]
                 ],

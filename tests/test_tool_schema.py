@@ -244,6 +244,11 @@ class SchemaTests(unittest.TestCase):
             for key in ("planned", "attempted", "passed"):
                 self.assertEqual(counts[boundary][key], doc["summary"][boundary][key])
         self.assertEqual(counts["openai"]["passed"], 0)
+        # Reasoning off omits the field on the OpenAI boundary but is an explicit
+        # think=false on native Ollama: the same run measured two behaviours.
+        self.assertIsNone(row["settings"]["reasoning_sent"])
+        self.assertEqual(counts["openai"]["reasoning_sent"], "omitted")
+        self.assertEqual(counts["ollama"]["reasoning_sent"], "disabled")
 
     def test_warmup_can_be_disabled(self):
         self.c["tool_schema"]["warmup_enabled"] = False

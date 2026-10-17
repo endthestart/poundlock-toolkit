@@ -479,10 +479,26 @@ class RecommendationTests(unittest.TestCase):
                     (w["level"], w["passed"], w["attempted"], w["planned"]),
                     (r["level"], r["passed"], r["attempted"], r["planned"]),
                 )
+        self.assertEqual(
+            rows[findable["run_id"]]["settings"]["reasoning_sent"], "omitted"
+        )
         [pair] = value["investigation_pairs"]
         self.assertTrue(pair["qualified"])
         self.assertEqual(pair["findable_run_id"], findable["run_id"])
         self.assertEqual(pair["absent_run_id"], absent["run_id"])
+
+    def test_summary_says_what_reaching_the_server_meant_for_thinking(self):
+        from poundlock_toolkit.reporting import reasoning_sent
+
+        off = {"reasoning": "off"}
+        self.assertEqual(reasoning_sent("openai", off), "omitted")
+        self.assertEqual(
+            reasoning_sent("openai", {**off, "reasoning_off_effort": "none"}),
+            "disabled",
+        )
+        self.assertEqual(reasoning_sent("ollama", off), "disabled")
+        self.assertEqual(reasoning_sent("openai", {"reasoning": "high"}), "high")
+        self.assertEqual(reasoning_sent("ollama", {"reasoning": "low"}), "low")
 
     def test_summary_pairs_only_both_variants_and_keeps_a_failure_visible(self):
         from poundlock_toolkit.reporting import summary

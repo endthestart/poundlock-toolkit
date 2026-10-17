@@ -10,6 +10,10 @@
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "level": {"enum": ["repeated task qualification", "observed smoke pass", "insufficient evidence"]},
     "count": {"type": "integer", "minimum": 0},
+    "reasoning_sent": {
+      "enum": ["omitted", "disabled", "low", "medium", "high", null],
+      "description": "What the measured requests told the server about thinking: omitted (nothing sent, so the model's default applied), disabled (an explicit off), or the effort level sent. null in a tool-schema result's settings, where each boundary reports its own, or when no settings were recorded."
+    },
     "verdict": {
       "type": "object",
       "additionalProperties": false,
@@ -46,11 +50,12 @@
               {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["context_tokens", "max_output_tokens", "reasoning"],
+                "required": ["context_tokens", "max_output_tokens", "reasoning", "reasoning_sent"],
                 "properties": {
                   "context_tokens": {"type": "integer", "minimum": 1},
                   "max_output_tokens": {"type": "integer", "minimum": 1},
-                  "reasoning": {"enum": ["off", "low", "medium", "high"]}
+                  "reasoning": {"enum": ["off", "low", "medium", "high"], "description": "As configured."},
+                  "reasoning_sent": {"$ref": "#/$defs/reasoning_sent"}
                 }
               }
             ]
@@ -88,9 +93,10 @@
                     "items": {
                       "type": "object",
                       "additionalProperties": false,
-                      "required": ["boundary", "planned", "attempted", "passed"],
+                      "required": ["boundary", "planned", "attempted", "passed", "reasoning_sent"],
                       "properties": {
                         "boundary": {"enum": ["openai", "ollama"]},
+                        "reasoning_sent": {"$ref": "#/$defs/reasoning_sent"},
                         "planned": {"$ref": "#/$defs/count"},
                         "attempted": {"$ref": "#/$defs/count"},
                         "passed": {"$ref": "#/$defs/count"}

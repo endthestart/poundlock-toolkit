@@ -7,7 +7,9 @@
   checkout; `poundlock-toolkit example` lists the names.
 - `recommend --format json` writes the report's verdicts as data, in the versioned
   shape `urn:poundlock-toolkit:recommendation:1`. Other programs, such as Poundlock's
-  capability converter, read this instead of importing Toolkit modules.
+  capability converter, read this instead of importing Toolkit modules. It records
+  what each run sent about thinking (`reasoning_sent`), since `reasoning: off`
+  omits the field on the OpenAI boundary but disables thinking on native Ollama.
 - CI tests Python 3.11, 3.12, 3.13 and 3.14, and attaches a CycloneDX SBOM of the
   wheel install to each release.
 - A release tag runs the full CI workflow on the tagged commit and publishes exactly
