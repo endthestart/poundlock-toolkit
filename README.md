@@ -137,3 +137,4 @@ schemas; Toolkit's Python modules can change between releases.
 - [Recovery, retention and removal](docs/OPERATIONS.md)
 - [Source and dependency notices](THIRD_PARTY.md)
 - [Contributing](CONTRIBUTING.md), [security](SECURITY.md)
+- [Roadmap](https://github.com/endthestart/poundlock/blob/main/ROADMAP.md) for Poundlock, Dispatch and Toolkit
