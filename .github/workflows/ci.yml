@@ -1,8 +1,12 @@
 name: Toolkit offline checks and packages
 on:
   push:
+    branches: ["**"] # a tag runs these checks through release.yml
   pull_request:
   workflow_dispatch:
+  # release.yml runs this same workflow on the tagged commit and publishes only
+  # the artifacts it tested.
+  workflow_call:
 permissions:
   contents: read
 jobs:
@@ -53,6 +57,40 @@ jobs:
               semgrep scan --metrics=off --disable-version-check --config .semgrep/report.yml --exclude .semgrep --quiet . || true
               echo "Blocking rules"
               semgrep scan --metrics=off --disable-version-check --config .semgrep/block.yml --exclude .semgrep --error --quiet .'
+  python-versions:
+    # The package claims Python 3.11+; validate covers 3.12 and builds the artifacts.
+    needs: security
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    name: python ${{ matrix.python }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: "3.11"
+            image: python:3.11-slim@sha256:e88e9763f943ec1834f992a4b51e0f24500486803e8bc534e5767af9ea65f6ce
+          - python: "3.13"
+            image: python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
+          - python: "3.14"
+            image: python:3.14-slim@sha256:a2b82f3c48559aa0a8446d9af49826b6e2b2016f4cd2afabfe6013ec53729170
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Unit tests
+        env:
+          IMAGE: ${{ matrix.image }}
+        run: |
+          set -euo pipefail
+          git archive --format=tar HEAD | docker run --rm -i \
+            --cpus=2 --memory=3g --memory-swap=3g --pids-limit=256 \
+            --cap-drop=ALL --security-opt=no-new-privileges \
+            --tmpfs /work:rw,nosuid,size=2g --workdir /work \
+            "$IMAGE" timeout --kill-after=10 900 sh -eu -c '
+              tar xf -
+              python -m pip install --no-cache-dir --require-hashes -r requirements-ci.txt
+              python -m pip install --no-cache-dir --no-deps --no-build-isolation -e .
+              python -m unittest discover -s tests'
   validate:
     needs: security
     runs-on: ubuntu-24.04
@@ -81,10 +119,27 @@ jobs:
                 python -m build --no-isolation
                 python scripts/check_artifacts.py
                 python -m pip freeze > dist/validation-environment.txt
+                # What a wheel install actually brings: the package and its
+                # resolved dependencies, with no pip, build or lint tools.
+                python -m venv --without-pip /tmp/runtime
+                python -m pip --python /tmp/runtime/bin/python install --no-cache-dir dist/*.whl
+                mkdir poundlock-toolkit-install && cp -R /tmp/runtime/lib poundlock-toolkit-install/
               } >&2
-              tar cf - dist
+              tar cf - dist poundlock-toolkit-install
             ' > toolkit-ci-artifacts.tar
           tar xf toolkit-ci-artifacts.tar
+      - name: Software bill of materials for the wheel install (Trivy 0.75.0, CycloneDX)
+        run: |
+          set -euo pipefail
+          version=$(sed -n 's/^version = "\(.*\)"/\1/p' pyproject.toml)
+          tar cf - poundlock-toolkit-install | docker run --rm -i --cpus 1 --memory 1g --memory-swap 1g --pids-limit 128 \
+            --network none --tmpfs /scan:rw,nosuid,size=256m --workdir /scan \
+            --entrypoint sh ghcr.io/aquasecurity/trivy:0.75.0@sha256:af6acf9a6b85dfe389a1941505c0ce9efef52a4719635e1a962f022a3d855daa -c '
+              set -eu
+              tar xf - -C /scan
+              trivy rootfs --quiet --offline-scan --skip-db-update --format cyclonedx --output /scan/sbom.cdx.json poundlock-toolkit-install >&2
+              cat /scan/sbom.cdx.json' > "dist/poundlock-toolkit-${version}.cdx.json"
+          python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); names={c["name"] for c in d["components"]}; assert {"poundlock-toolkit","jsonschema"} <= names, names' "dist/poundlock-toolkit-${version}.cdx.json"
       - name: Scan resolved Python environment (osv-scanner 2.7.0)
         run: |
           set -euo pipefail

@@ -5,45 +5,16 @@ on:
 permissions:
   contents: read
 jobs:
-  build:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - name: Check the tag names the package version
-        run: |
-          set -euo pipefail
-          version=$(sed -n 's/^version = "\(.*\)"/\1/p' pyproject.toml)
-          test "v${version}" = "${GITHUB_REF_NAME}"
-      - name: Test and build in the CI container
-        run: |
-          set -euo pipefail
-          # The same bounded container and hashed tool lock as the CI validate job.
-          git archive --format=tar HEAD | docker run --rm -i \
-            --cpus=2 --memory=3g --memory-swap=3g --pids-limit=256 \
-            --cap-drop=ALL --security-opt=no-new-privileges \
-            --tmpfs /work:rw,nosuid,size=2g --workdir /work \
-            python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 \
-            timeout --kill-after=10 900 sh -eu -c '
-              tar xf -
-              {
-                python -m pip install --no-cache-dir --require-hashes -r requirements-ci.txt
-                python -m pip install --no-cache-dir --no-deps --no-build-isolation -e .
-                python -m unittest discover -s tests -v
-                python -m build --no-isolation
-                python scripts/check_artifacts.py
-              } >&2
-              tar cf - dist
-            ' > dist.tar
-          tar xf dist.tar
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: dist
-          path: dist/
+  checks:
+    # The whole CI workflow on the tagged commit: secret, dependency and static
+    # scans, every supported Python and the artifact build and install checks.
+    # Nothing is published unless every job passes, and only the wheel and sdist
+    # those jobs tested are published; nothing is rebuilt here.
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
   publish:
-    needs: build
+    needs: checks
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     # Register this repository, workflow and environment as a trusted publisher on
@@ -57,10 +28,19 @@ jobs:
     steps:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          name: dist
+          name: poundlock-toolkit-${{ github.sha }}
           path: dist/
-      - name: Keep the checksum file out of the PyPI upload
-        run: mkdir sums && mv dist/SHA256SUMS sums/
+      - name: Check the tested artifacts and the tag agree
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          test -f "dist/poundlock_toolkit-${version}-py3-none-any.whl"
+          test -f "dist/poundlock_toolkit-${version}.tar.gz"
+          (cd dist && sha256sum --check --strict SHA256SUMS)
+          # Evidence goes on the GitHub release, not to PyPI.
+          mkdir evidence
+          mv dist/SHA256SUMS dist/validation-environment.txt dist/*.cdx.json evidence/
+          ls dist evidence
       - name: Upload to PyPI
         uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
         with:
@@ -71,5 +51,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh release create "${GITHUB_REF_NAME}" dist/* sums/SHA256SUMS --repo "${GITHUB_REPOSITORY}" \
-            --title "Poundlock Toolkit ${GITHUB_REF_NAME#v}" --notes "See CHANGELOG.md."
+          gh release create "${GITHUB_REF_NAME}" dist/* evidence/* --repo "${GITHUB_REPOSITORY}" \
+            --verify-tag --title "Poundlock Toolkit ${GITHUB_REF_NAME#v}" --notes "See CHANGELOG.md."
