@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.0 (unreleased)
+
+- `poundlock-toolkit example NAME --output FILE` writes a packaged example
+  configuration. The README quickstart now works from a wheel install, with no
+  checkout; `poundlock-toolkit example` lists the names.
+- `recommend --format json` writes the report's verdicts as data, in the versioned
+  shape `urn:poundlock-toolkit:recommendation:1`. Other programs, such as Poundlock's
+  capability converter, read this instead of importing Toolkit modules.
+- CI tests Python 3.11, 3.12, 3.13 and 3.14, and attaches a CycloneDX SBOM of the
+  wheel install to each release.
+- A release tag runs the full CI workflow on the tagged commit and publishes exactly
+  the wheel and sdist it tested.
+
 ## 0.4.0 (October 2026)
 
 The first public release.
