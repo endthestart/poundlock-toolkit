@@ -52,7 +52,7 @@ The Pi adapter checks the actual CLI version at run time. The 0.84.4, 0.85.0, 0.
 
 ## Review, run and remove
 
-Copy `examples/standalone.json` privately. Replace absolute target Python/model
+Write `poundlock-toolkit example standalone --output private/standalone.json`. Replace absolute target Python/model
 paths, model checksum, both image digests, exact model/backend/template identity,
 settings and target inventory. The all-zero digests are deliberately unusable.
 Defaults allocate a 4 GiB CPU server, three server CPUs and one 512 MiB/one CPU Pi

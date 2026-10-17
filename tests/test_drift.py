@@ -41,7 +41,7 @@ def reseal(reviewed):
 
 class DriftUnitTests(unittest.TestCase):
     def setUp(self):
-        self.c = config(ROOT / "examples/openai.json")
+        self.c = config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
         self.inv = inspect()
 
     def test_capacity_and_timestamps_do_not_invalidate_stable_identity(self):
@@ -183,7 +183,9 @@ class CliDriftTests(unittest.TestCase):
 
     def test_evaluate_with_changed_config_exits_with_named_drift(self):
         cfg = self.root / "config.json"
-        raw = json.loads((ROOT / "examples/openai.json").read_text())
+        raw = json.loads(
+            (ROOT / "src/poundlock_toolkit/data/examples/openai.json").read_text()
+        )
         cfg.write_text(json.dumps(raw))
         self.assertEqual(
             self.cli("plan", cfg, "--output", self.root / "plan.json")[0], 0
@@ -224,7 +226,7 @@ class TargetDriftTests(unittest.TestCase):
         self.env = patch.dict(os.environ, {"HOME": str(self.root)})
         self.env.start()
         self.target = {"transport": "local", "host": None, "python": sys.executable}
-        self.c = config(ROOT / "examples/openai.json")
+        self.c = config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
         self.c["limits"].update(total_seconds=10, request_seconds=2, repetitions=1)
         WireHandler.mode = "normal"
         self.server = ThreadingHTTPServer(("127.0.0.1", 0), WireHandler)

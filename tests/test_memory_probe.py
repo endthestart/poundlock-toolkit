@@ -421,7 +421,7 @@ class SamplerTests(unittest.TestCase):
 
 class PlanTests(unittest.TestCase):
     def setUp(self):
-        self.c = config(ROOT / "examples/openai.json")
+        self.c = config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
 
     def test_off_by_default_and_the_plan_is_unchanged(self):
         p = plan(self.c)
@@ -507,7 +507,7 @@ class PlanTests(unittest.TestCase):
                         validate(c, "config.schema.json")
 
     def test_a_tool_schema_scenario_cannot_carry_it(self):
-        c = config(ROOT / "examples/tool-schema.json")
+        c = config(ROOT / "src/poundlock_toolkit/data/examples/tool-schema.json")
         c["memory_probe"] = {"pid": 5}
         with self.assertRaises(ValueError):
             validate(c, "config.schema.json")
@@ -517,7 +517,9 @@ class EvaluationTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.c = with_probe(config(ROOT / "examples/openai.json"))
+        self.c = with_probe(
+            config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
+        )
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -707,7 +709,7 @@ class TargetFlowTests(unittest.TestCase):
         server = ThreadingHTTPServer(("127.0.0.1", 0), WireHandler)
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
-        c = config(ROOT / "examples/openai.json")
+        c = config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
         c["limits"].update(
             total_seconds=20,
             request_seconds=4,

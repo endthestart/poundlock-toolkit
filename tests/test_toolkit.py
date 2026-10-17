@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def fixture_config():
-    return config(ROOT / "examples/openai.json")
+    return config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
 
 
 class ToolkitTests(unittest.TestCase):

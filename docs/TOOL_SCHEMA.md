@@ -8,7 +8,7 @@ or their verification commands.
 
 ## Configure and review
 
-Copy `examples/tool-schema.json` to private storage. Replace the placeholder model
+Write `poundlock-toolkit example tool-schema --output private/tool-schema.json`. Replace the placeholder model
 identity with the exact advertised model and record known backend/settings identity.
 The `tool_schema.endpoints` object explicitly selects each boundary to test:
 

@@ -39,6 +39,7 @@ def main():
             "data/verify.py",
             "data/verify_investigation.py",
             "data/pi-policy.ts",
+            "data/examples/openai.json",
             "data/investigation/findable/answer-key.json",
             "data/investigation/findable/corpus/modules/epsilon-9.md",
             "data/investigation/absent/answer-key.json",
@@ -56,19 +57,14 @@ def main():
             run([python, "-m", "pip", "install", artifact], cwd)
             run([python, "-I", "-m", "poundlock_toolkit", "--help"], cwd)
             run([python, "-I", "-m", "poundlock_toolkit", "inspect"], cwd)
-            run(
-                [
-                    python,
-                    "-I",
-                    "-m",
-                    "poundlock_toolkit",
-                    "demo",
-                    ROOT / "examples/openai.json",
-                    "--output",
-                    "demo.json",
-                ],
-                cwd,
-            )
+            # The README's offline quickstart, verbatim, from a folder with no
+            # checkout: every input comes from the installed package.
+            toolkit = [python, "-I", "-m", "poundlock_toolkit"]
+            for name in ("openai", "tool-schema", "investigation"):
+                run([*toolkit, "example", name, "--output", f"{name}.json"], cwd)
+            run([*toolkit, "plan", "openai.json", "--output", "plan.json"], cwd)
+            run([*toolkit, "demo", "openai.json", "--output", "demo.json"], cwd)
+            run([*toolkit, "recommend", "demo.json", "--output", "report.md"], cwd)
             run(
                 [
                     python,
@@ -100,7 +96,7 @@ def main():
                     "-m",
                     "poundlock_toolkit",
                     "plan",
-                    ROOT / "examples/tool-schema.json",
+                    "tool-schema.json",
                     "--output",
                     "schema-plan.json",
                 ],
@@ -125,7 +121,7 @@ def main():
                     "-m",
                     "poundlock_toolkit",
                     "plan",
-                    ROOT / "examples/investigation.json",
+                    "investigation.json",
                     "--output",
                     "investigation-plan.json",
                 ],

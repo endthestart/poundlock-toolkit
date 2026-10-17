@@ -46,7 +46,9 @@ class EvidenceTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.c = complete_identity(config(ROOT / "examples/openai.json"))
+        self.c = complete_identity(
+            config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
+        )
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -202,7 +204,9 @@ class PiEvidenceCase(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.c = complete_identity(config(ROOT / "examples/pi.json"))
+        self.c = complete_identity(
+            config(ROOT / "src/poundlock_toolkit/data/examples/pi.json")
+        )
         self.runs = 0
 
     def tearDown(self):
@@ -260,7 +264,9 @@ class CompactionGateEvidenceTests(PiEvidenceCase):
         off["harness"]["compaction_gate"]["enabled"] = False
         no_coding = copy.deepcopy(self.c)
         no_coding["workloads"] = ["extraction"]
-        investigation = complete_identity(config(ROOT / "examples/investigation.json"))
+        investigation = complete_identity(
+            config(ROOT / "src/poundlock_toolkit/data/examples/investigation.json")
+        )
         investigation["harness"]["compaction_gate"] = dict(
             self.c["harness"]["compaction_gate"]
         )
@@ -363,7 +369,9 @@ class SpeedFloorScopeTests(PiEvidenceCase):
         self.assertEqual(r["notes"], [])
 
     def test_floor_is_not_applied_to_investigation_either(self):
-        c = complete_identity(config(ROOT / "examples/investigation.json"))
+        c = complete_identity(
+            config(ROOT / "src/poundlock_toolkit/data/examples/investigation.json")
+        )
         c["requirements"]["min_decode_tokens_per_second"] = 50
         d = evaluate(
             c,
@@ -399,7 +407,9 @@ class DraftAcceptanceTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.c = complete_identity(config(ROOT / "examples/openai.json"))
+        self.c = complete_identity(
+            config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
+        )
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -467,7 +477,9 @@ class SecretFreeArtifactTests(unittest.TestCase):
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
         self.thread.start()
         self.endpoint = f"http://127.0.0.1:{self.server.server_port}/private-path/v1"
-        self.c = complete_identity(config(ROOT / "examples/openai.json"))
+        self.c = complete_identity(
+            config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
+        )
         self.c.update(endpoint=self.endpoint, credential_env=self.CREDENTIAL)
         self.c["limits"].update(total_seconds=10, request_seconds=2, repetitions=1)
         self.env = patch.dict(

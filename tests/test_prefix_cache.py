@@ -220,7 +220,9 @@ class ServerCase(unittest.TestCase):
         Server.probe_messages = []
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.c = known_identity(config(ROOT / "examples/openai.json"))
+        self.c = known_identity(
+            config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
+        )
         self.c["endpoint"] = f"http://127.0.0.1:{self.server.server_port}"
 
     def tearDown(self):
@@ -715,7 +717,7 @@ class DeclaredAgainstMeasuredTests(unittest.TestCase):
 
 class PlanTests(unittest.TestCase):
     def setUp(self):
-        self.c = config(ROOT / "examples/openai.json")
+        self.c = config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
 
     def test_off_by_default_and_the_plan_is_unchanged(self):
         p = plan(self.c)
@@ -767,7 +769,7 @@ class PlanTests(unittest.TestCase):
         self.assertEqual((check["check"], check["status"]), ("plan_version", "stale"))
 
     def test_the_probe_cannot_be_combined_with_a_tool_schema_scenario(self):
-        c = config(ROOT / "examples/tool-schema.json")
+        c = config(ROOT / "src/poundlock_toolkit/data/examples/tool-schema.json")
         c["limits"]["prefix_cache_probe_enabled"] = True
         with self.assertRaises(ValueError):
             validate(c, "config.schema.json")

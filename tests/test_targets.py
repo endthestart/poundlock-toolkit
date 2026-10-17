@@ -69,7 +69,7 @@ class TargetTests(unittest.TestCase):
         self.env = patch.dict(os.environ, {"HOME": str(self.root)})
         self.env.start()
         self.target = {"transport": "local", "host": None, "python": sys.executable}
-        self.c = config(ROOT / "examples/openai.json")
+        self.c = config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
         self.c["limits"].update(total_seconds=10, request_seconds=2, repetitions=1)
 
     def tearDown(self):
@@ -321,7 +321,7 @@ class SetupInventoryTests(unittest.TestCase):
             self.assertIsNone(result[1]["total_bytes"])
 
     def test_setup_script_quotes_literals_and_is_finite(self):
-        spec = setup_spec(ROOT / "examples/standalone.json")
+        spec = setup_spec(ROOT / "src/poundlock_toolkit/data/examples/standalone.json")
         spec["model_path"] = "/models/a '$(touch SHOULD_NOT_EXIST).gguf"
         plan = setup_plan(spec)
         script = setup_script(spec, plan)
@@ -340,7 +340,7 @@ class SetupInventoryTests(unittest.TestCase):
         self.assertIn(shlex.quote(spec["model_path"]), script)
 
     def test_setup_plan_binding_and_privilege_limits(self):
-        spec = setup_spec(ROOT / "examples/standalone.json")
+        spec = setup_spec(ROOT / "src/poundlock_toolkit/data/examples/standalone.json")
         plan = setup_plan(spec)
         self.assertEqual(plan["downloads_bytes"], 0)
         self.assertEqual(plan["privileged_steps"], [])
@@ -349,9 +349,14 @@ class SetupInventoryTests(unittest.TestCase):
             setup_script(spec, plan)
 
     def test_setup_accepts_dispatch_pi_version_and_rejects_unknown_versions(self):
-        raw = json.loads((ROOT / "examples/standalone.json").read_text())
+        raw = json.loads(
+            (ROOT / "src/poundlock_toolkit/data/examples/standalone.json").read_text()
+        )
         self.assertEqual(
-            setup_spec(ROOT / "examples/standalone.json")["pi_version"], "1.1.0"
+            setup_spec(ROOT / "src/poundlock_toolkit/data/examples/standalone.json")[
+                "pi_version"
+            ],
+            "1.1.0",
         )
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "standalone.json"
@@ -361,7 +366,7 @@ class SetupInventoryTests(unittest.TestCase):
                 setup_spec(path)
 
     def test_setup_displayed_scope_is_bound(self):
-        spec = setup_spec(ROOT / "examples/standalone.json")
+        spec = setup_spec(ROOT / "src/poundlock_toolkit/data/examples/standalone.json")
         plan = setup_plan(spec)
         plan["scope"]["server_cpus"] = 1
         with self.assertRaises(ValueError):

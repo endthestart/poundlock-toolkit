@@ -19,11 +19,11 @@ are platform-specific. Do not copy the client's virtual environment to another O
 
 ```sh
 python3 -m venv "$HOME/toolkit-venv"
-"$HOME/toolkit-venv/bin/python" -m pip install /absolute/path/to/poundlock_toolkit-0.4.0-py3-none-any.whl
+"$HOME/toolkit-venv/bin/python" -m pip install poundlock-toolkit
 "$HOME/toolkit-venv/bin/poundlock-toolkit" inspect
 ```
 
-Copy `examples/target-local.json` or `examples/target-ssh.json` to private storage.
+Write `poundlock-toolkit example target-local` or `target-ssh` to private storage with `--output`.
 Set `python` to the target's absolute environment executable. SSH `host` is a
 normal alias already configured in your SSH client; username, key and port belong
 in that client's configuration. No passwords, private keys or forwarding flags

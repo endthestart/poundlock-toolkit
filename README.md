@@ -24,11 +24,12 @@ python3 -m venv .venv
 ```
 
 With the environment activated, try a synthetic end-to-end report. It needs no model,
-Docker or credentials:
+Docker or credentials, and works from any folder:
 
 ```sh
-poundlock-toolkit plan examples/openai.json --output plan.json
-poundlock-toolkit demo examples/openai.json --output demo.json
+poundlock-toolkit example openai --output openai.json
+poundlock-toolkit plan openai.json --output plan.json
+poundlock-toolkit demo openai.json --output demo.json
 poundlock-toolkit recommend demo.json --output report.md
 poundlock-toolkit export demo.json --output qualification.json
 poundlock-toolkit validate qualification.json
@@ -60,7 +61,9 @@ nested strings as failures, and export content-free field/type diagnostics.
 
 ## Existing endpoint
 
-Copy `examples/openai.json` or `examples/ollama.json` into an ignored private folder.
+Write an example into an ignored private folder and edit it:
+`poundlock-toolkit example openai --output private/endpoint.json` (or `ollama`;
+`poundlock-toolkit example` lists them all).
 Set the endpoint, advertised model ID, revision, quantization, backend build
 (`backend.version`, optional `backend.commit`), serving application release
 (`backend.application`: `{name, version}`, or `null` when served directly), template checksum, context, reasoning and inventory. Preserve unknowns as `null`.
@@ -117,6 +120,13 @@ substitutes a name.
 failures and unknowns. Reports qualify only the narrow fixtures actually tested.
 Public exports omit arbitrary endpoint/model labels; retain private configurations
 and mappings for reproducibility. Review even allowlisted exports before disclosure.
+
+`recommend --format json` writes the same verdicts as data for other programs: levels,
+pass and attempt counts, investigation pairs and tool-schema counts, in the versioned
+shape `urn:poundlock-toolkit:recommendation:1`
+([schema](src/poundlock_toolkit/data/recommendation.schema.json)). Version 1 only gains
+optional fields. The supported interfaces are the CLI, this summary and the result
+schemas; Toolkit's Python modules can change between releases.
 
 ## Reference
 

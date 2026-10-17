@@ -55,7 +55,7 @@ class ModelNameTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
         ModelsHandler.seen = []
-        self.c = config(ROOT / "examples/openai.json")
+        self.c = config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
         self.c["endpoint"] = f"http://127.0.0.1:{self.server.server_port}"
         self.c["model"]["id"] = SERVER_ID
         self.c["limits"].update(total_seconds=30, request_seconds=5)

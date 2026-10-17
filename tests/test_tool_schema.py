@@ -63,7 +63,7 @@ class SchemaTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name).resolve()
-        self.c = config(ROOT / "examples/tool-schema.json")
+        self.c = config(ROOT / "src/poundlock_toolkit/data/examples/tool-schema.json")
         self.c["limits"].update(total_seconds=10, request_seconds=2)
 
     def tearDown(self):
@@ -222,6 +222,29 @@ class SchemaTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             export(altered)
 
+    def test_summary_reports_tool_schema_counts_without_scoring_tasks(self):
+        from poundlock_toolkit.reporting import summary
+
+        def response(c, boundary):
+            args = valid_arguments()
+            if boundary == "openai":
+                args["tasks"] = json.dumps(args["tasks"])
+            return calls(args), True, None
+
+        doc = evaluate(self.c, self.root / "result.json", requester=response)
+        value = summary([doc])
+        validate(value, "recommendation.schema.json")
+        [row] = value["results"]
+        self.assertEqual(row["result_schema"], "urn:poundlock-toolkit:tool-schema:1")
+        self.assertEqual(row["workloads"], [])
+        self.assertIsNone(row["synthetic"])
+        self.assertEqual(row["result_sha256"], digest(export(doc)))
+        counts = {b["boundary"]: b for b in row["tool_schema"]["boundaries"]}
+        for boundary in ("openai", "ollama"):
+            for key in ("planned", "attempted", "passed"):
+                self.assertEqual(counts[boundary][key], doc["summary"][boundary][key])
+        self.assertEqual(counts["openai"]["passed"], 0)
+
     def test_warmup_can_be_disabled(self):
         self.c["tool_schema"]["warmup_enabled"] = False
         self.assertFalse(contract(self.c)["warmup_enabled"])
@@ -370,7 +393,7 @@ class SchemaWireTests(unittest.TestCase):
         self.server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
         self.thread.start()
-        self.c = config(ROOT / "examples/tool-schema.json")
+        self.c = config(ROOT / "src/poundlock_toolkit/data/examples/tool-schema.json")
         endpoint = f"http://127.0.0.1:{self.server.server_port}"
         self.c["endpoint"] = endpoint + "/v1"
         self.c["tool_schema"].update(

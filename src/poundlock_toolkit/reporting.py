@@ -5,7 +5,7 @@ import statistics
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from .cache_probe import EDIT_VERDICT_TEXT, describe, finding, reason_text
-from .core import validate
+from .core import digest, validate
 from .planning import PI_WORKLOADS
 
 # Evidence older than this is reported stale: the target, runtime or model may have
@@ -526,3 +526,114 @@ def investigation_pair(findable_doc, absent_doc):
         "findable": findable,
         "absent": absent,
     }
+
+
+SUMMARY_SCHEMA = "urn:poundlock-toolkit:recommendation:1"
+WORKLOADS = ("extraction", "coding", "investigation")
+
+
+def _level(r):
+    return {k: r[k] for k in ("level", "passed", "attempted")}
+
+
+def summary(documents, now=None):
+    """The `recommend --format json` document: the report's verdicts as data.
+
+    This is the supported way for another program to read Toolkit's scoring.
+    Levels, counts and pairings are decided here, once; a consumer maps them
+    and never re-scores attempts. Its shape is data/recommendation.schema.json,
+    versioned by `schema`; fields are only added within a version.
+    """
+    from . import __version__
+    from .tool_schema import NAMESPACE
+
+    now = now or datetime.now(timezone.utc)
+    results = []
+    variants = {}
+    for d in documents:
+        validate(d)
+        row = {
+            "result_schema": d["schema"],
+            "run_id": d["run_id"],
+            "result_sha256": digest(export(d)),
+            "identity_sha256": d["identity_sha256"],
+            "created_at": d["created_at"],
+            "toolkit_version": d["toolkit_version"],
+            "synthetic": None,
+            "harness": "direct",
+            "settings": None,
+            "investigation_variant": None,
+            "workloads": [],
+            "tool_schema": None,
+        }
+        if d.get("settings"):
+            row["settings"] = {
+                k: d["settings"][k]
+                for k in ("context_tokens", "max_output_tokens", "reasoning")
+            }
+        if d["schema"] == NAMESPACE:
+            from .schema_evaluation import summaries
+
+            counts = summaries(d)
+            row["tool_schema"] = {
+                "mode": d["contract"]["mode"],
+                "boundaries": [
+                    {
+                        "boundary": b,
+                        **{k: counts[b][k] for k in ("planned", "attempted", "passed")},
+                    }
+                    for b in d["contract"]["boundaries"]
+                ],
+            }
+        else:
+            row["synthetic"] = d["synthetic"]
+            row["harness"] = d["harness"]
+            for w in WORKLOADS:
+                r = recommendation(d, w, now)
+                row["workloads"].append(
+                    {
+                        "workload": w,
+                        **_level(r),
+                        "planned": r["planned"],
+                        "next_required_check": r["next_required_check"],
+                    }
+                )
+            variant = (d.get("investigation") or {}).get("variant")
+            planned = any(
+                a["stage"] == "task" and a["workload"] == "investigation"
+                for a in d["attempts"]
+            )
+            if variant and planned:
+                row["investigation_variant"] = variant
+                variants.setdefault(d["identity_sha256"], {}).setdefault(
+                    variant, []
+                ).append(d)
+        results.append(row)
+
+    pairs = []
+    for identity, found in sorted(variants.items()):
+        if "findable" not in found or "absent" not in found:
+            continue
+        # The newest run of each variant speaks for the configuration.
+        findable = max(found["findable"], key=lambda d: d["created_at"])
+        absent = max(found["absent"], key=lambda d: d["created_at"])
+        pair = investigation_pair(findable, absent)
+        pairs.append(
+            {
+                "identity_sha256": identity,
+                "findable_run_id": findable["run_id"],
+                "absent_run_id": absent["run_id"],
+                "qualified": pair["qualified"],
+                "findable": _level(pair["findable"]),
+                "absent": _level(pair["absent"]),
+            }
+        )
+    value = {
+        "schema": SUMMARY_SCHEMA,
+        "toolkit_version": __version__,
+        "evaluated_at": now.isoformat(),
+        "results": results,
+        "investigation_pairs": pairs,
+    }
+    validate(value, "recommendation.schema.json")
+    return value

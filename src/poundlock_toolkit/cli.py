@@ -48,6 +48,12 @@ def parser():
     setup_arguments(sub)
     sub.add_parser("inspect", help="Read-only local inventory and unknowns")
     s = sub.add_parser(
+        "example",
+        help="Write a packaged example configuration to edit; list them without a name",
+    )
+    s.add_argument("name", nargs="?")
+    s.add_argument("--output")
+    s = sub.add_parser(
         "plan", help="Show a bounded evaluation plan, without network calls"
     )
     s.add_argument("config")
@@ -73,6 +79,12 @@ def parser():
     )
     s.add_argument("results", nargs="+")
     s.add_argument("--output")
+    s.add_argument(
+        "--format",
+        choices=("markdown", "json"),
+        default="markdown",
+        help="json writes the versioned summary other programs read (urn:poundlock-toolkit:recommendation:1)",
+    )
     for name in ("export", "recover"):
         s = sub.add_parser(name)
         s.add_argument("result")
@@ -118,6 +130,28 @@ def main(argv=None):
             return run(args)
         if args.command == "inspect":
             print(json.dumps(inspect(), indent=2))
+        elif args.command == "example":
+            from .examples import names, text
+
+            if args.name is None:
+                print("\n".join(names()))
+                return EXIT_OK
+            if args.name not in names():
+                print(
+                    "Unknown example. Available: " + ", ".join(names()),
+                    file=sys.stderr,
+                )
+                return EXIT_INVALID
+            if not args.output:
+                print("example NAME needs --output FILE", file=sys.stderr)
+                return EXIT_INVALID
+            fresh(args.output)
+            fd = os.open(args.output, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            with os.fdopen(fd, "w") as f:
+                f.write(text(args.name))
+            print(
+                f"Wrote the {args.name} example to {args.output}; edit it before use."
+            )
         elif args.command == "plan":
             c = config(args.config)
             result = plan(c, args.readiness_only)
@@ -154,7 +188,13 @@ def main(argv=None):
                 else EXIT_EVAL_FAILED
             )
         elif args.command == "recommend":
-            text = report([read_json(p) for p in args.results])
+            documents = [read_json(p) for p in args.results]
+            if args.format == "json":
+                from .reporting import summary
+
+                text = json.dumps(summary(documents), indent=2, sort_keys=True) + "\n"
+            else:
+                text = report(documents)
             if args.output:
                 fresh(args.output)
                 fd = os.open(args.output, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)

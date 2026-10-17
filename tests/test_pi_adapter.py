@@ -20,7 +20,9 @@ from poundlock_toolkit.pi import (
 
 class PiAdapterTests(unittest.TestCase):
     def setUp(self):
-        self.c = config(Path(__file__).parents[1] / "examples/pi.json")
+        self.c = config(
+            Path(__file__).parents[1] / "src/poundlock_toolkit/data/examples/pi.json"
+        )
 
     def run_worker(self, events=None):
         calls = []

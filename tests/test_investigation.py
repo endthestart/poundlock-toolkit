@@ -44,7 +44,7 @@ CORRECT = {
 
 
 def investigation_config():
-    return config(ROOT / "examples/investigation.json")
+    return config(ROOT / "src/poundlock_toolkit/data/examples/investigation.json")
 
 
 class ToolCapableBackend(SyntheticBackend):
@@ -457,6 +457,47 @@ class RecommendationTests(unittest.TestCase):
         self.assertEqual(pair["absent"]["level"], "repeated task qualification")
         self.assertFalse(pair["qualified"])
 
+    def test_summary_carries_the_report_verdicts_and_the_pair(self):
+        from poundlock_toolkit.core import digest
+        from poundlock_toolkit.reporting import export, summary
+
+        findable = self.run_variant("findable", "findable.json")
+        absent = self.run_variant("absent", "absent.json")
+        value = summary([findable, absent])
+        validate(value, "recommendation.schema.json")
+        self.assertEqual(value["schema"], "urn:poundlock-toolkit:recommendation:1")
+        rows = {r["run_id"]: r for r in value["results"]}
+        for d in (findable, absent):
+            row = rows[d["run_id"]]
+            self.assertEqual(row["result_sha256"], digest(export(d)))
+            self.assertEqual(
+                row["investigation_variant"], d["investigation"]["variant"]
+            )
+            for w in row["workloads"]:
+                r = recommendation(d, w["workload"])
+                self.assertEqual(
+                    (w["level"], w["passed"], w["attempted"], w["planned"]),
+                    (r["level"], r["passed"], r["attempted"], r["planned"]),
+                )
+        [pair] = value["investigation_pairs"]
+        self.assertTrue(pair["qualified"])
+        self.assertEqual(pair["findable_run_id"], findable["run_id"])
+        self.assertEqual(pair["absent_run_id"], absent["run_id"])
+
+    def test_summary_pairs_only_both_variants_and_keeps_a_failure_visible(self):
+        from poundlock_toolkit.reporting import summary
+
+        findable = self.run_variant("findable", "findable.json")
+        self.assertEqual(summary([findable])["investigation_pairs"], [])
+        for attempt in findable["attempts"]:
+            if attempt["stage"] == "task":
+                attempt.update(outcome="task_quality_failure", independent_pass=False)
+        absent = self.run_variant("absent", "absent.json")
+        [pair] = summary([findable, absent])["investigation_pairs"]
+        self.assertFalse(pair["qualified"])
+        self.assertEqual(pair["findable"]["passed"], 0)
+        self.assertEqual(pair["absent"]["level"], "repeated task qualification")
+
 
 class SchemaAndPlanningTests(unittest.TestCase):
     def test_config_requires_investigation_block_when_workload_selected(self):
@@ -468,14 +509,14 @@ class SchemaAndPlanningTests(unittest.TestCase):
     def test_config_rejects_investigation_block_without_the_workload(self):
         from poundlock_toolkit.core import config as load_config
 
-        c = load_config(ROOT / "examples/openai.json")
+        c = load_config(ROOT / "src/poundlock_toolkit/data/examples/openai.json")
         c["investigation"] = {"variant": "findable"}
         with self.assertRaises(ValueError):
             validate(c, "config.schema.json")
 
     def test_legacy_document_without_investigation_block_still_validates(self):
         d = evaluate(
-            config(ROOT / "examples/openai.json"),
+            config(ROOT / "src/poundlock_toolkit/data/examples/openai.json"),
             Path(tempfile.mkdtemp()) / "r.json",
             backend=SyntheticBackend(),
         )
