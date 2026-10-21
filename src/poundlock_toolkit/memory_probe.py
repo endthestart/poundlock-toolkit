@@ -37,10 +37,15 @@ import threading
 import time
 from pathlib import Path
 
+from .inspection import drm_cards, pci_device_id, sysfs_number, sysfs_read
+
 INTERVAL_SECONDS = 0.5
 MAX_SAMPLES = 20_000
 NAME = re.compile(r"[A-Za-z0-9._+-]{1,64}")
 LOOPBACK = ("127.0.0.1", "::1", "localhost")
+# Sampling is evidence, never a gate: an attribute that cannot be decoded reads as
+# missing here, where the inventory lets the error through.
+UNREADABLE = (OSError, ValueError)
 
 
 class ProcessGone(Exception):
@@ -94,37 +99,27 @@ class LinuxReader:
     def name(self):
         return clean_name(self.text("comm", 64).strip())
 
-    @staticmethod
-    def number(path):
-        try:
-            with path.open() as stream:
-                value = stream.read(80).strip()
-        except (OSError, ValueError):
-            return None
-        return int(value) if value.isdigit() and len(value) < 21 else None
-
     def vram(self):
         """Device-wide VRAM in use on each AMD card that exposes it. Never summed."""
         pools = []
-        for card in sorted(self.drm.glob("card*")):
-            if not re.fullmatch(r"card[0-9]+", card.name):
-                continue
+        for card in drm_cards(self.drm):
             device = card / "device"
-            try:
-                vendor = (device / "vendor").read_text()[:16].strip()
-                pci = (device / "device").read_text()[:16].strip()
-            except (OSError, ValueError):
+            vendor = sysfs_read(device / "vendor", unreadable=UNREADABLE)
+            if vendor is None:
                 continue
-            used = self.number(device / "mem_info_vram_used")
-            if vendor != "0x1002" or used is None:
+            pci = sysfs_read(device / "device", unreadable=UNREADABLE)
+            if pci is None:
+                continue
+            used = sysfs_number(device / "mem_info_vram_used", UNREADABLE)
+            if vendor[:16].strip() != "0x1002" or used is None:
                 continue
             pools.append(
                 {
                     "drm_card": int(card.name[4:]),
-                    "pci_device_id": pci
-                    if re.fullmatch(r"0x[0-9a-fA-F]{4}", pci)
-                    else None,
-                    "total_bytes": self.number(device / "mem_info_vram_total"),
+                    "pci_device_id": pci_device_id(pci[:16].strip()),
+                    "total_bytes": sysfs_number(
+                        device / "mem_info_vram_total", UNREADABLE
+                    ),
                     "used_bytes": used,
                 }
             )

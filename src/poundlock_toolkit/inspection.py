@@ -9,24 +9,48 @@ from pathlib import Path
 from .core import now
 
 
+CARD = re.compile(r"card[0-9]+")
+PCI_ID = re.compile(r"0x[0-9a-fA-F]{4}")
+
+
+def drm_cards(root, limit=None):
+    """The `card<N>` entries of a DRM class directory, by name, leaving out
+    connectors such as card0-DP-1. `limit` caps how many entries are looked at."""
+    return [
+        card
+        for card in sorted(Path(root).glob("card*"))[:limit]
+        if CARD.fullmatch(card.name)
+    ]
+
+
+def sysfs_read(path, limit=None, unreadable=(OSError,)):
+    """Up to `limit` characters of a sysfs attribute (all of it for None), or
+    None when reading raises one of `unreadable`."""
+    try:
+        with path.open() as stream:
+            return stream.read(limit)
+    except unreadable:
+        return None
+
+
+def sysfs_number(path, unreadable=(OSError,)):
+    """An attribute holding a plain decimal count, such as VRAM bytes, or None."""
+    text = (sysfs_read(path, 80, unreadable) or "").strip()
+    return int(text) if text.isdigit() and len(text) < 21 else None
+
+
+def pci_device_id(text):
+    return text if PCI_ID.fullmatch(text) else None
+
+
 def drm_inventory(root=Path("/sys/class/drm")):
     """Bounded Linux ABI reads. Missing Intel/AMD memory reporting remains unknown."""
     devices = []
 
     def value(path):
-        try:
-            with path.open() as f:
-                return f.read(80).strip()
-        except OSError:
-            return ""
+        return (sysfs_read(path, 80) or "").strip()
 
-    def number(path):
-        v = value(path)
-        return int(v) if v.isdigit() and len(v) < 21 else None
-
-    for card in sorted(root.glob("card*"))[:64]:
-        if not re.fullmatch(r"card[0-9]+", card.name):
-            continue
+    for card in drm_cards(root, 64):
         device = card / "device"
         vendor = {"0x1002": "amd", "0x8086": "intel", "0x10de": "nvidia"}.get(
             value(device / "vendor"), "unknown"
@@ -39,14 +63,13 @@ def drm_inventory(root=Path("/sys/class/drm")):
         )
         if driver not in ("amdgpu", "i915", "xe", "nvidia", "nouveau"):
             driver = "unknown"
-        total = number(device / "mem_info_vram_total") if vendor == "amd" else None
-        used = number(device / "mem_info_vram_used") if vendor == "amd" else None
+        amd = vendor == "amd"
+        total = sysfs_number(device / "mem_info_vram_total") if amd else None
+        used = sysfs_number(device / "mem_info_vram_used") if amd else None
         devices.append(
             {
                 "vendor": vendor,
-                "pci_device_id": pci
-                if re.fullmatch(r"0x[0-9a-fA-F]{4}", pci)
-                else None,
+                "pci_device_id": pci_device_id(pci),
                 "driver": driver,
                 "total_bytes": total,
                 "available_bytes": total - used

@@ -38,6 +38,8 @@ from poundlock_toolkit.cli import main
 from poundlock_toolkit.core import Failure, config
 from poundlock_toolkit.demo import SyntheticBackend
 from poundlock_toolkit.evaluation import evaluate
+from poundlock_toolkit.inspection import drm_inventory
+from poundlock_toolkit.memory_probe import LinuxReader
 from poundlock_toolkit.schema_evaluation import evaluate as schema_evaluate
 from poundlock_toolkit.schema_evaluation import request as schema_request
 
@@ -721,6 +723,108 @@ def transport():
     return result
 
 
+def card(root, name, vendor=b"0x1002\n", pci=b"0x744c\n", driver=None, **files):
+    """A /sys/class/drm card; attribute contents are bytes, None leaves one out."""
+    device = root / name / "device"
+    device.mkdir(parents=True)
+    for attribute, content in (("vendor", vendor), ("device", pci), *files.items()):
+        if content is not None:
+            (device / attribute).write_bytes(content)
+    if driver is not None:
+        target = root.parent / "drivers" / driver
+        if driver != "missing":
+            target.mkdir(parents=True, exist_ok=True)
+        os.symlink(target, device / "driver")
+
+
+def mixed(root):
+    vram = {
+        "mem_info_vram_total": b"17163091968\n",
+        "mem_info_vram_used": b"1073741824\n",
+    }
+    card(root, "card0", driver="amdgpu", **vram)
+    (root / "card0-DP-1").mkdir()
+    (root / "card0-DP-1" / "status").write_text("connected\n")
+    card(root, "card1", b"0x8086\n", b"0x56a0\n", "i915", **vram)
+    card(root, "card2", b"0x10de\n", b"0x2684\n", "nvidia")
+    card(root, "card3", mem_info_vram_total=b"10000", mem_info_vram_used=b"20000")
+    card(root, "card4", mem_info_vram_total=b"10000")
+    card(root, "card5", mem_info_vram_used=b"not-a-number\n")
+    card(
+        root,
+        "card6",
+        mem_info_vram_total=b"123456789012345678901\n",
+        mem_info_vram_used=b"5\n",
+    )
+    card(root, "card7", pci=b"0x74\n", mem_info_vram_used=b"7\n")
+    card(root, "card8", b"  0x1002  \n", b"0x7ABC", mem_info_vram_used=b"8\n")
+    card(root, "card9", vendor=None, mem_info_vram_used=b"9\n")
+    card(root, "card10", pci=None, mem_info_vram_used=b"10\n")
+    card(root, "card11", vendor=None, mem_info_vram_used=b"11\n")
+    (root / "card11" / "device" / "vendor").mkdir()
+    card(root, "card12", b"0x1002" + b" " * 20 + b"junk\n", mem_info_vram_used=b"12")
+    card(root, "card13", pci=b"0x744c" + b" " * 12 + b"zz\n", mem_info_vram_used=b"13")
+    card(root, "card14", driver="radeon", mem_info_vram_used=b"14\n")
+    card(root, "card15", driver="missing", mem_info_vram_used=b"15\n")
+    card(root, "card16", mem_info_vram_total=b"0\n", mem_info_vram_used=b"0\n")
+    card(root, "card17", mem_info_vram_used=b"+5\n")
+    card(root, "card18", mem_info_vram_used=b"  42\n\n")
+    card(root, "card19", b"0x1234\n", mem_info_vram_used=b"19\n")
+    card(root, "cardX", mem_info_vram_used=b"20\n")
+    (root / "card20").mkdir()
+    (root / "renderD128").mkdir()
+
+
+def capped(root):
+    """More card* entries than the inventory reads: 60 cards, 9 connectors."""
+    for n in range(60):
+        card(root, f"card{n}", mem_info_vram_used=str(n).encode())
+    for n in range(1, 10):
+        (root / f"card0-DP-{n}").mkdir()
+
+
+def fixtures(root):
+    """The trees test_memory_probe and test_targets build."""
+    card(root, "card0", mem_info_vram_used=b"1000\n", mem_info_vram_total=b"16000\n")
+    card(root, "card1", pci=b"0x1002\n", mem_info_vram_used=b"3000\n")
+    card(root, "card2", b"0x10de\n")
+    card(root, "card3", b"0x8086", b"0x1234", mem_info_vram_total=b"16384")
+    card(root, "card4", mem_info_vram_used=b"not-a-number\n")
+    (root / "card4-DP-1").mkdir()
+
+
+SYSFS_TREES = {
+    "mixed": mixed,
+    "capped": capped,
+    "test fixtures": fixtures,
+    "undecodable vendor": lambda root: card(root, "card0", b"0x1002\xff\n"),
+    "undecodable used": lambda root: card(root, "card0", mem_info_vram_used=b"12\xff"),
+    "undecodable total": lambda root: card(
+        root, "card0", mem_info_vram_total=b"\xfe", mem_info_vram_used=b"5"
+    ),
+    "undecodable after 8 KiB": lambda root: card(
+        root, "card0", b"0x1002" + b" " * 10 + b"\n" + b"a" * 9000 + b"\xff\n"
+    ),
+    "superscript digit": lambda root: card(
+        root, "card0", mem_info_vram_used="\u00b2".encode()
+    ),
+}
+
+
+def sysfs():
+    """Both readers of AMD VRAM under /sys/class/drm (M8)."""
+    result = {}
+    for name, build in SYSFS_TREES.items():
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder) / "drm"
+            root.mkdir()
+            build(root)
+            result[name + ": inventory"] = line(answered(lambda: drm_inventory(root)))
+            reader = LinuxReader(4242, Path(folder) / "proc", root)
+            result[name + ": memory probe"] = line(answered(reader.vram))
+    return result
+
+
 def demo(example, folder):
     """`poundlock-toolkit demo`, end to end: exit code, printed report, document."""
     output, out, err = Path(folder) / "demo.json", io.StringIO(), io.StringIO()
@@ -769,6 +873,10 @@ class GoldenTests(unittest.TestCase):
     def test_transport(self):
         """The bodies sent and the replies parsed on both dialects (M4)."""
         self.assertGolden("transport", transport())
+
+    def test_sysfs_vram_readers(self):
+        """Inventory and memory-probe reads of AMD VRAM (M8)."""
+        self.assertGolden("sysfs", sysfs())
 
 
 if __name__ == "__main__":
