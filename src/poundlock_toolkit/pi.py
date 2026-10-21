@@ -16,7 +16,7 @@ import uuid
 from pathlib import Path
 from .core import Failure, atomic_json, data, digest
 from .backends import empty_metrics
-from .fixtures import CODING_FIXTURE, STARTER, VERIFIER_COMMAND  # noqa: F401 (re-exported)
+from .fixtures import CODING_FIXTURE
 
 
 _LEADING_CD = re.compile(r"^cd\s+\S+\s*&&\s*")

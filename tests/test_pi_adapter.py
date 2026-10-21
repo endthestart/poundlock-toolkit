@@ -6,10 +6,13 @@ import tempfile
 import unittest
 from unittest.mock import patch
 from poundlock_toolkit.core import config, Failure
-from poundlock_toolkit.fixtures import CODING_FIXTURE, INVESTIGATION_FIXTURE
+from poundlock_toolkit.fixtures import (
+    CODING_FIXTURE,
+    INVESTIGATION_FIXTURE,
+    VERIFIER_COMMAND,
+)
 from poundlock_toolkit.pi import (
     PiRunner,
-    VERIFIER_COMMAND,
     active_compaction_gate,
     canonical_call,
     count_compactions,
