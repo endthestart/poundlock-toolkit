@@ -10,6 +10,8 @@
   capability converter, read this instead of importing Toolkit modules. It records
   what each run sent about thinking (`reasoning_sent`), since `reasoning: off`
   omits the field on the OpenAI boundary but disables thinking on native Ollama.
+- The result schema drops the `verifier_failed` and `identity_mismatch` failure
+  codes: nothing writes them, and no recorded result uses them.
 - CI tests Python 3.11, 3.12, 3.13 and 3.14, and attaches a CycloneDX SBOM of the
   wheel install to each release.
 - A release tag runs the full CI workflow on the tagged commit and publishes exactly

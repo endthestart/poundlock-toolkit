@@ -495,10 +495,8 @@
               "fixture_changed",
               "unauthorized_file",
               "worker_failed",
-              "verifier_failed",
               "cleanup_failed",
-              "isolation_unavailable",
-              "identity_mismatch"
+              "isolation_unavailable"
             ]
           },
           "metrics": {
