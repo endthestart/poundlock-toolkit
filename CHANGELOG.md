@@ -5,6 +5,10 @@
 - `poundlock-toolkit example NAME --output FILE` writes a packaged example
   configuration. The README quickstart now works from a wheel install, with no
   checkout; `poundlock-toolkit example` lists the names.
+- The top-level `examples/` folder is gone from the checkout and the sdist. Its
+  configurations moved into the package, so replace paths such as
+  `examples/openai.json` with `poundlock-toolkit example`. The 0.1.0 example
+  results and their report were dropped.
 - `recommend --format json` writes the report's verdicts as data, in the versioned
   shape `urn:poundlock-toolkit:recommendation:1`. Other programs, such as Poundlock's
   capability converter, read this instead of importing Toolkit modules. It records
