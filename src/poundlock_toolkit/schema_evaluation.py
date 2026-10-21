@@ -212,6 +212,46 @@ def evaluate(c, output, *, progress=None, requester=None):
     def terminate(*_):
         raise KeyboardInterrupt()
 
+    def run(row, scored):
+        """One bounded request for `row`. A warm-up row (`scored` false) records
+        the verdict only, never the argument diagnostics."""
+        nonlocal cancelled
+        remaining = deadline - time.monotonic()
+        if remaining <= 0 or cancelled:
+            row["code"] = "not_run" if cancelled else "budget_exhausted"
+            return
+        row.update(started_at=now(), outcome="running", code="pending")
+        persist(output, doc)
+        started = time.monotonic()
+        try:
+            signal.setitimer(
+                signal.ITIMER_REAL, min(remaining, c["limits"]["request_seconds"])
+            )
+            if progress:
+                if scored:
+                    progress("tool_schema", row["boundary"], row["repetition"])
+                else:
+                    progress("tool_schema_warmup", row["boundary"], 0)
+            calls, completed, predicted_per_second = requester(c, row["boundary"])
+            result, code = trial_score(calls, completed)
+            row.update(
+                result if scored else {},
+                code=code,
+                outcome="pass" if result["valid_call"] else "schema_failure",
+                predicted_per_second=predicted_per_second,
+            )
+        except Failure as failure:
+            row.update(outcome=failure.outcome, code=failure.code)
+        except KeyboardInterrupt:
+            cancelled = True
+            row.update(outcome="cancelled", code="cancelled")
+        except (OSError, ValueError, TypeError, KeyError, RecursionError):
+            row.update(outcome="protocol_failure", code="malformed_response")
+        finally:
+            signal.setitimer(signal.ITIMER_REAL, 0)
+            row.update(latency_seconds=time.monotonic() - started, completed_at=now())
+            persist(output, doc)
+
     old_alarm = signal.signal(signal.SIGALRM, alarm)
     old_term = signal.signal(signal.SIGTERM, terminate)
     try:
@@ -219,74 +259,9 @@ def evaluate(c, output, *, progress=None, requester=None):
         # first-load costs (e.g. Vulkan shader compilation) never land inside
         # a scored attempt. Never affects `summary` or promotion.
         for row in doc["warmup"]:
-            remaining = deadline - time.monotonic()
-            if remaining <= 0 or cancelled:
-                row["code"] = "not_run" if cancelled else "budget_exhausted"
-                continue
-            row.update(started_at=now(), outcome="running", code="pending")
-            persist(output, doc)
-            started = time.monotonic()
-            try:
-                signal.setitimer(
-                    signal.ITIMER_REAL, min(remaining, c["limits"]["request_seconds"])
-                )
-                if progress:
-                    progress("tool_schema_warmup", row["boundary"], 0)
-                calls, completed, predicted_per_second = requester(c, row["boundary"])
-                _, code = trial_score(calls, completed)
-                row.update(
-                    code=code,
-                    outcome="pass" if code == "ok" else "schema_failure",
-                    predicted_per_second=predicted_per_second,
-                )
-            except Failure as failure:
-                row.update(outcome=failure.outcome, code=failure.code)
-            except KeyboardInterrupt:
-                cancelled = True
-                row.update(outcome="cancelled", code="cancelled")
-            except (OSError, ValueError, TypeError, KeyError, RecursionError):
-                row.update(outcome="protocol_failure", code="malformed_response")
-            finally:
-                signal.setitimer(signal.ITIMER_REAL, 0)
-                row.update(
-                    latency_seconds=time.monotonic() - started, completed_at=now()
-                )
-                persist(output, doc)
+            run(row, scored=False)
         for row in doc["attempts"]:
-            remaining = deadline - time.monotonic()
-            if remaining <= 0 or cancelled:
-                row["code"] = "not_run" if cancelled else "budget_exhausted"
-                continue
-            row.update(started_at=now(), outcome="running", code="pending")
-            persist(output, doc)
-            started = time.monotonic()
-            try:
-                signal.setitimer(
-                    signal.ITIMER_REAL, min(remaining, c["limits"]["request_seconds"])
-                )
-                if progress:
-                    progress("tool_schema", row["boundary"], row["repetition"])
-                calls, completed, predicted_per_second = requester(c, row["boundary"])
-                scored, code = trial_score(calls, completed)
-                row.update(
-                    scored,
-                    code=code,
-                    outcome="pass" if scored["valid_call"] else "schema_failure",
-                    predicted_per_second=predicted_per_second,
-                )
-            except Failure as failure:
-                row.update(outcome=failure.outcome, code=failure.code)
-            except KeyboardInterrupt:
-                cancelled = True
-                row.update(outcome="cancelled", code="cancelled")
-            except (OSError, ValueError, TypeError, KeyError, RecursionError):
-                row.update(outcome="protocol_failure", code="malformed_response")
-            finally:
-                signal.setitimer(signal.ITIMER_REAL, 0)
-                row.update(
-                    latency_seconds=time.monotonic() - started, completed_at=now()
-                )
-                persist(output, doc)
+            run(row, scored=True)
     finally:
         signal.setitimer(signal.ITIMER_REAL, 0)
         signal.signal(signal.SIGALRM, old_alarm)

@@ -1,0 +1,2639 @@
+{
+ "alarm": {
+  "document_sha256": "96417cd8fbb0fbf056f37881d0ade244431e35365984404f5e5b94ed1f8c8b6e",
+  "error": null,
+  "persisted_sha256": [
+   "5d470731ff03cc34e720a0b6f7b664334cf4853728e54899b8ca10e0b51a1d0a",
+   "3121caeeec1b143c65a258ac804c2d3db4c4bc548421d5ecef4004e98550734a",
+   "5c4b143f80b14d37d2e9333924d7f01fe2a53f36b7e87c7a91c15bcbd28d0c9e",
+   "60d82c6353b8dfa134e207f8db24d882857d92560a64b4a423eb011f42a3df46",
+   "08f8351443656f86e05899fa646d00d4c5ecd304d5eed007c13f68c7d3a86747",
+   "24f7c1e94d3532b5ce3d97129bbd291054745fc68d2a8666d30518c98d0faadf",
+   "4ca668f12b311134e36773e786d555bf5e3ae877f0c5a59be075d3d3b862db69",
+   "12c3f04417ce0bd740b1cff8f0507b7ebb0e059fbbb7d94d3e22550ca66147c9",
+   "96417cd8fbb0fbf056f37881d0ade244431e35365984404f5e5b94ed1f8c8b6e",
+   "96417cd8fbb0fbf056f37881d0ade244431e35365984404f5e5b94ed1f8c8b6e"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "timeout",
+    "timeout"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "timeout",
+    "timeout"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "argument-diagnostics": {
+  "document_sha256": "594bc9706374d0347556efbdb38c2ed814f883536b36da438cd90ab6fb8a82b3",
+  "error": null,
+  "persisted_sha256": [
+   "e8b28c506b503a888ea0555285b15c76a29b876e27f2590e1fc4c9d68e6b9531",
+   "99d1a88de9b9ce8774941ca514ff2ab5ec365a30dbef4c8184fbf7eb84603e09",
+   "5ec83f0df984bbe006f28c3c9837d833c3dc17ff3f6f8a549de4844280b87d57",
+   "90d7e13e162efc6a06a819b554aa6ef540041795d1de273bf19a9bf62764d290",
+   "43ec08d4602c1b2382d59a28aefa9ab25b1d6ebc338ca8cf408b30a34c259c47",
+   "842d603f9e630b3d6b01e8e53819045b453d3afa6a52b6936827e7723e9a9fbb",
+   "83814567d8e14c6337f4849b7249e06d23a6f4bc4e312d6287d54019e172868f",
+   "fc74fe0526e6006ec9f1438bc6653dc0d241f9f6ca49f66cc9d7c47c0099d3e0",
+   "5f2b56e8d50548098b9f9b1657991d273d1441ba917c0e54c654264b6df900d3",
+   "8bd2617d8f45128f0bd01dee8777e0512963db1ffed90bcb35d293caf0ff9520",
+   "86913202db1053e9fa802cff7229caab36e21884dad1681d3810cc1817fad751",
+   "64394600052478f1973cc87f7539554861eec153c8d16b3ae9e6f48e66ca6d43",
+   "594bc9706374d0347556efbdb38c2ed814f883536b36da438cd90ab6fb8a82b3",
+   "594bc9706374d0347556efbdb38c2ed814f883536b36da438cd90ab6fb8a82b3"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    2
+   ],
+   [
+    "tool_schema",
+    "openai",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "schema_failure",
+    "invalid_arguments"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "schema_failure",
+    "invalid_arguments"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "schema_failure",
+    "invalid_arguments"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "schema_failure",
+    "invalid_arguments"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "schema_failure",
+    "invalid_arguments"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "schema_failure",
+    "invalid_arguments"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "budget": {
+  "document_sha256": "e4df83824663f3677e60d9a2e079c6d489cd2742c4bb2a7655c4f0eba73eb1b2",
+  "error": null,
+  "persisted_sha256": [
+   "5cff4e8f0d6c81c46c16a33031c6a8405c59924d3402c4a7b277ee3c2244a3ac",
+   "4aa36073460729084b66ab7c964efd558dd1a52fba0a3139139c3952e46b43d4",
+   "b8fbccab8219f8d59dc224eaa6aad3c400d412e94d614bcaece7aacc974b7ae9",
+   "c4b8115b96e80c941d6092ce74dc763e97e2e69f196d62cb38bc1baec6887cdf",
+   "cdfa45752315d1a44864632d14f48ddce2b782bed2dc3bd94b0301ab387c5c89",
+   "24c645775823bbc6c4927085de2d937ca63353480c5cf53ed201f52052c1582f",
+   "d944981dd4efb3b4f2ad0a05acfe71f25906e00e8c966c8978e9d8b1a35a78a8",
+   "3d609356c9c1da7a01b74ca702ccb43beb4b87a2a14127e0da5506d8f9dd49e3",
+   "7ed0540658ab2abd6752be38e39a3135f0d2842a803a4380b7d7e9298e98f527",
+   "a5d6e066965902f169b417e5ca2169b5114bcbe030e7429d950f3bc868c1b55b",
+   "d9e4ebc296c64985c00c7650b8ea410579b7c5e74e38995348b80d3cb5a8212c",
+   "46c2bc9fa36d2d38a1885fc8ef5ff7f64e9abd89e2fd3de4e6297eb9bfded1d0",
+   "87ff59e8b10a55af83d871678fafd996a8a43d8edb90b97280561c52a2c8f928",
+   "9eb432c0b898e7ce6c656560d8f0840bbc88da2204d19df647fb698a842ae6a4",
+   "1aec433c723c3a674fc6a5bc18fc497b214c6beaff4e4fb95886919a08473335",
+   "e25a3754d7862a9cf1e33df4b647f59c2588b042e14e1ab91354c31a317e107e",
+   "187b1e96e39871887d0ee09a98ebfa4c7e9631f12e69000646116cbded4cffb7",
+   "611f52e1c9ec3c5ab0e42a5178fd8c43e5d3ee97474a3aa9be7cfeabd3ff9611",
+   "e3d869233d04da28801da5d011e33ca1240d47fc2f8c5977e46001c3ff71f558",
+   "1721c32c4eb08ba0851d491d3312b9d358bcf343750e7e1ea71b6bf0fe4ed5d7",
+   "7784e9e43811cb0e0ff1690f42016bfb78e1ad3b6763c726f5db6eb7237a1603",
+   "c07464f457e9e7863f795c323116e8009af0d0c7ba3a419922dc482b7cade362",
+   "da229c360b8dd3585fa5a2dc456d67c4498ceba9bae3c4b6e20b39df279bfa47",
+   "65b49e94c559b203f87d70bfe86fb5c9ba5a2269e66aee2116aaf2a88b612768",
+   "4a2c21872e11c0561c835fb205fa84bfcdbd4aadc0ace4ca3d7fc694f175a3fc",
+   "2bb52f64f914d9ba41bbef0d5f9ddf9027547b2b327606302573badd7b5b59be",
+   "a5fe2751c68e0649122959bc8101f1b3e8385c6f4c42a60ec613845e4c07bf44",
+   "e4df83824663f3677e60d9a2e079c6d489cd2742c4bb2a7655c4f0eba73eb1b2"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    2
+   ],
+   [
+    "tool_schema",
+    "openai",
+    2
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    3
+   ],
+   [
+    "tool_schema",
+    "openai",
+    3
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    4
+   ],
+   [
+    "tool_schema",
+    "openai",
+    4
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    5
+   ],
+   [
+    "tool_schema",
+    "openai",
+    5
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    6
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    3,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    3,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    4,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    4,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    5,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    5,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    6,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    6,
+    "skipped",
+    "budget_exhausted"
+   ],
+   [
+    "trial",
+    "ollama",
+    7,
+    "skipped",
+    "budget_exhausted"
+   ],
+   [
+    "trial",
+    "openai",
+    7,
+    "skipped",
+    "budget_exhausted"
+   ],
+   [
+    "trial",
+    "ollama",
+    8,
+    "skipped",
+    "budget_exhausted"
+   ],
+   [
+    "trial",
+    "openai",
+    8,
+    "skipped",
+    "budget_exhausted"
+   ],
+   [
+    "trial",
+    "ollama",
+    9,
+    "skipped",
+    "budget_exhausted"
+   ],
+   [
+    "trial",
+    "openai",
+    9,
+    "skipped",
+    "budget_exhausted"
+   ],
+   [
+    "trial",
+    "ollama",
+    10,
+    "skipped",
+    "budget_exhausted"
+   ],
+   [
+    "trial",
+    "openai",
+    10,
+    "skipped",
+    "budget_exhausted"
+   ]
+  ],
+  "unused_responses": 9
+ },
+ "cancel-in-trial": {
+  "document_sha256": "325a50b9ce233b8902884ded581f96c37ff52dc01a3514f40ca555b1c5c3600a",
+  "error": null,
+  "persisted_sha256": [
+   "e8b28c506b503a888ea0555285b15c76a29b876e27f2590e1fc4c9d68e6b9531",
+   "99d1a88de9b9ce8774941ca514ff2ab5ec365a30dbef4c8184fbf7eb84603e09",
+   "22c5ed6bd10c6e780ac9e177a7f0dddc329fdacb4e282f09e498739b66922ba4",
+   "8b8aedf0b6e13a9cc60003200bc2cec142d39387219bc25cd50a1fc6e08671f3",
+   "559c4a79e2ab1081ce96eeda892e80ad256fc4a54c2721552cda10465e11800f",
+   "f2ee6c0c024e1ee23befdd4a087381b92e0547b68bfb195277ac6672eeebf02c",
+   "661ed05fb578f2e00e12f11cb433fdc930ac98d7b70ed732f9069020222962c7",
+   "93981cde5ba6fc3451ddee0ec6ee9095b27c317ca81c82a172d3694171bc58d0",
+   "325a50b9ce233b8902884ded581f96c37ff52dc01a3514f40ca555b1c5c3600a",
+   "325a50b9ce233b8902884ded581f96c37ff52dc01a3514f40ca555b1c5c3600a"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "cancelled",
+    "cancelled"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "cancel-in-warmup": {
+  "document_sha256": "b845fd9ed808226739d4e64fbc444d0b14591b71444da388dbcaa11f50f40e48",
+  "error": null,
+  "persisted_sha256": [
+   "e8b28c506b503a888ea0555285b15c76a29b876e27f2590e1fc4c9d68e6b9531",
+   "99d1a88de9b9ce8774941ca514ff2ab5ec365a30dbef4c8184fbf7eb84603e09",
+   "b845fd9ed808226739d4e64fbc444d0b14591b71444da388dbcaa11f50f40e48",
+   "b845fd9ed808226739d4e64fbc444d0b14591b71444da388dbcaa11f50f40e48"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "cancelled",
+    "cancelled"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "no-warmup": {
+  "document_sha256": "9fd351f6b70357c9ea0b6631a49e7709a2035df153aecfccb12b1e4addd4c433",
+  "error": null,
+  "persisted_sha256": [
+   "53b939f64c0a928052da249e39bfdc43ccf7db61e604517d85bedd0552cf4112",
+   "557775512374171d5231801915aef922277d9e2426e653af6654c6fb1ed1f4dd",
+   "970dd1068625b1eae1779de143edcfda65788d12916eed6acac7c4c4409d628d",
+   "58dc2fa6bcb64ab36a7b9ec12e8a9b984b15d76dc8a1da240bbcec6bf31b5935",
+   "9fd351f6b70357c9ea0b6631a49e7709a2035df153aecfccb12b1e4addd4c433",
+   "9fd351f6b70357c9ea0b6631a49e7709a2035df153aecfccb12b1e4addd4c433"
+  ],
+  "progress": [
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "trial",
+    "ollama",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "operator-conversation": {
+  "document_sha256": "b23a7cb0ff4b02a1a144316b57c415d7cb8ac526dfafe141868cded817863ca3",
+  "error": null,
+  "persisted_sha256": [
+   "16e520c9df8c1f7977866bdceca7ebc74ad81fedaf1729144746bd12eb9acd50",
+   "18b3039c913b7f6ddbff6bec7ae246ed5af903bc85eac03813b3de009cb295d2",
+   "1eb7e0b7fce0158ef707041b582952017fa1f9a619eb707afeb069f9c68640b8",
+   "1e310365635fa818117a76ec88eb8b6aac08e8749e37c3b78c3fb0d80f95907f",
+   "5c779a1dd72a99942ec6962f9fbc78efacd6525ceea82ca5dc931f133578a0c7",
+   "9c1ca2fdbc5ce74a3ea4da21968013340a483155746702dc04f3eb13fef5fcf2",
+   "b23a7cb0ff4b02a1a144316b57c415d7cb8ac526dfafe141868cded817863ca3",
+   "b23a7cb0ff4b02a1a144316b57c415d7cb8ac526dfafe141868cded817863ca3"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "ff65c32641f9b85acc7bb2ee082161544acb0c0647c235e494667872a478beee",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "673832f870123f541600a63e35c59e2fecc23d6221da2c100d6cb9fab54be55d",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "ff65c32641f9b85acc7bb2ee082161544acb0c0647c235e494667872a478beee",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "673832f870123f541600a63e35c59e2fecc23d6221da2c100d6cb9fab54be55d",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "ff65c32641f9b85acc7bb2ee082161544acb0c0647c235e494667872a478beee",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "673832f870123f541600a63e35c59e2fecc23d6221da2c100d6cb9fab54be55d",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "openai",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "qualification-mode": {
+  "document_sha256": "47b9d3aeae8ee432f8a07f986fffbcb44ca0567d0e7026fc4b1c0c48bc3ad765",
+  "error": null,
+  "persisted_sha256": [
+   "c09a3a7e0e18dd79f86d33ec26dd2ad2366726cef1020d54c94a06e2edc2b521",
+   "4e4d716aa1103caa2aefef57a7ec87608a1d354c248077340049cc8579d93270",
+   "c977d8e9c3e4336a777edf664c9c2959d9be6c197fbe97f9367378ae5cce64b8",
+   "edd897862a8dc8c14403693a86ce1e5dee1ce0a3b9eb35b86fc1d4e215e8a81c",
+   "47b9d3aeae8ee432f8a07f986fffbcb44ca0567d0e7026fc4b1c0c48bc3ad765",
+   "47b9d3aeae8ee432f8a07f986fffbcb44ca0567d0e7026fc4b1c0c48bc3ad765"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "6957181ce330c5ca121eb29b7ffeccebbbc96dd2e34cb9d11ea53aaf0e15c642",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "high"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "17cc7671c77c8420f96e1fdb662b4a9c45364bf8daa884c90b71d54efdca76c0",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6957181ce330c5ca121eb29b7ffeccebbbc96dd2e34cb9d11ea53aaf0e15c642",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "high"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "17cc7671c77c8420f96e1fdb662b4a9c45364bf8daa884c90b71d54efdca76c0",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "reasoning-low": {
+  "document_sha256": "a938960f88ff2c6be67b6d413020a811b1d98a34a5cf91bac9aa9de2bdaa9dd1",
+  "error": null,
+  "persisted_sha256": [
+   "c03958a97bf9d8fb8c1d9acfc16fc86aa7a691d7b4a9529d8335c15ecb9773ba",
+   "d034fe995d16eb93b822d764c17be9587b07453b934243d21becbe00c69d3253",
+   "ef84f73c18c9904572585577c64e32471b2c5a23ebc3951e74251878f9439e71",
+   "776a8d0da08f352d8d69c9fdc00400520997fc7f9763acbae32fe3751176c58d",
+   "cfb518a1b4b13cef2c4072eebed0377e171b52cd9078884b58ec49e63788d41c",
+   "67902f0f2b405d4b592a5b722e860b8e0270751c3a07887d239ba64b567955b9",
+   "938249f973c8593a8f17af9eea51a1f5fe82030725213aada07b4c03aa7f4d66",
+   "8235d42771271ac816bff460fe4f485fde64aba87c475801d76f4abbe9a68527",
+   "a938960f88ff2c6be67b6d413020a811b1d98a34a5cf91bac9aa9de2bdaa9dd1",
+   "a938960f88ff2c6be67b6d413020a811b1d98a34a5cf91bac9aa9de2bdaa9dd1"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "fc23083bba29f219b8559107c11df02421a349fbeff45e9f2456e305f29c0ff2",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "low"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "0f536089d2f428c872499c2eb4d862ae41b166008764ac0a932d2958f6d65e20",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "reasoning_effort": "low",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "fc23083bba29f219b8559107c11df02421a349fbeff45e9f2456e305f29c0ff2",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "low"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "0f536089d2f428c872499c2eb4d862ae41b166008764ac0a932d2958f6d65e20",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "reasoning_effort": "low",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "reasoning-off-none": {
+  "document_sha256": "b3fd9d78d897f165247fd721ccf135bedcf1302b5bc8a7ab480f04b78e19545e",
+  "error": null,
+  "persisted_sha256": [
+   "e2c7b9c35b2c0a2487683acd3fdd05901eaae415db59ef36c65e1ebcbd4f1c7c",
+   "b13af842b46ba10cd6db5cceaa51d49df185a12d00071c55bf5a58d4465226bb",
+   "1443f98c9b2eaf9ff2554f2d630ba4646c99b621c0b4c07b70d8712ad8e8c569",
+   "2a4b28ee74961346a6eac7d7f069691b4c0cc1840a2fa95e421c87aee1202f77",
+   "5940e06b64a655d764e642fe3196968cf9c392ffa162d00a29b7f09f327146ee",
+   "1c735492e10b2b9b404ace9f53b2b3efdd1809e277db362e5b308e493fb0f2e5",
+   "73671708de220d10e7ee5ac6d14cff022c27031f6e858da9f6c45fe6b0cea52f",
+   "8562f0a5b8c8c6889da2d33144f8e62112818043ad2199f2b8c2bdc7b5cea276",
+   "b3fd9d78d897f165247fd721ccf135bedcf1302b5bc8a7ab480f04b78e19545e",
+   "b3fd9d78d897f165247fd721ccf135bedcf1302b5bc8a7ab480f04b78e19545e"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "b0a800dd8fb78f2b514f749a4acb6035779e59a2d06d583c5c73852eedd72508",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "reasoning_effort": "none",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "b0a800dd8fb78f2b514f749a4acb6035779e59a2d06d583c5c73852eedd72508",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "reasoning_effort": "none",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "scoring-failures": {
+  "document_sha256": "08fc241fc05ded6aeabc331fb67fef4ea55028c93fd4b892ab0e1079f3502c6d",
+  "error": null,
+  "persisted_sha256": [
+   "3864fe66463a8bb178833c039e01e9ea9cd9b829952e18bcec7a8667516c22f5",
+   "3fdb571ea152d7e8f603cce4d56bb814b283796c83ca1f94ff04cc85d0fc931e",
+   "fef7023a4410fcdace96d923055df26f9a52cf2b5fd750da33709e5b90da6ba2",
+   "ecd1ade398ff6f67aca225721b0a9a0a912a5eccd3a05d6756707ad228d6efd9",
+   "11cf43b67b6e74b0a932115862de6ff5029596e91c031d343e675a8294768104",
+   "ce0cd95383af66fab2f949f51649b0c81d3ecc10cde92660545bf07f2031545c",
+   "37fd34c996b15c9ff94803e8ded0055b395b75ae1bc9604e816ed514c8c86c2b",
+   "99cb8587c50e588c7c482a9bd51ee83c2cb3fce8f10e42178e2d4a8d060f5e0d",
+   "4e8fb8cf466e01004a378b4a002eb0ed4f1a6d594cbe8702638230c4b2260efc",
+   "c870803526f3312114623052255e6e1299b4dc3420a350ab7f54171e120c25c4",
+   "92e6a3092ba0b469ce20e39c2e97a888485900c1708a70c896df93ec8f8c255e",
+   "96e7f6dfeea82ae2519d4f618dad4251c02378411c961798a341eed1e6f32660",
+   "344d2eaa8db8544e51a1aab515fff14929bdd96d4a8c2a6a935c192654392322",
+   "49c39b30207dafdd3011fc532e1c398d2bedfde28ae337bd4531fa95db0d6496",
+   "2fa871f4f2157c00b83faeff755fe072775ce6b1d1a0d648251f6bce34107e4a",
+   "304d30e06eab0ca968e587f0428600959ce4759ef34eb11cd22dcce1d29870fd",
+   "08fc241fc05ded6aeabc331fb67fef4ea55028c93fd4b892ab0e1079f3502c6d",
+   "08fc241fc05ded6aeabc331fb67fef4ea55028c93fd4b892ab0e1079f3502c6d"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    2
+   ],
+   [
+    "tool_schema",
+    "openai",
+    2
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    3
+   ],
+   [
+    "tool_schema",
+    "openai",
+    3
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "schema_failure",
+    "invalid_arguments"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "schema_failure",
+    "multiple_calls"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "schema_failure",
+    "wrong_tool"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "schema_failure",
+    "missing_arguments"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "schema_failure",
+    "missing_completion"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "schema_failure",
+    "missing_completion"
+   ],
+   [
+    "trial",
+    "ollama",
+    3,
+    "schema_failure",
+    "malformed_call"
+   ],
+   [
+    "trial",
+    "openai",
+    3,
+    "schema_failure",
+    "missing_call"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "transport-failures": {
+  "document_sha256": "8ceb34eac34a1720fc42e65af76e6bcf44e57879f33a027a1f390d76c2986fe7",
+  "error": null,
+  "persisted_sha256": [
+   "6a8562681d5bd388deae82eae799cbca3781421c9b452372cf7213882b00e1e9",
+   "2ef334777f936433bb67326852c2d61360f4544a2011d6ac4a4b2b7d4d60d686",
+   "2c66b43cb513522e7f34106a4381ca474af32348b5e736cec5fd29ac118dbd6b",
+   "5773b04bde52fe055901f2b1eccd1fc9639c3db408e03adda59abd5148ea45ed",
+   "fcea59b5d92ad94865bea6bc6652ed2cf8ab4530766d78ef38284c2675b0854e",
+   "115ead0b0cbc36689813eb71200881ec1e7fa2058700acb91208635992c27b54",
+   "1193bb9975126b3741092476f8a4ddf4bf3c408e03bbd23de64868d9897a9564",
+   "07450c1d6f93d72b874c0d886dfc565ee42ee0b7ef6e14fdfd033c87d1812ce6",
+   "20eaf9ea5126928403d28d188bb0d9beed4edc2786b2d3c24f9a9eba46f97672",
+   "9e5125a4cfc13adb09b336ee20d25c371fddcd65d38ebe0ac639db83aa4f42b3",
+   "2a777790636a1aeca0c81da0ab38694a029aba08a6f481b8906de1b9dfa434f9",
+   "7eaf41bdec0a7ef9dac3b8b1baa716f139ea59b899a3cab2b2da607b2aba4aa2",
+   "741bafd939c250026c668680af039baeaf683adb4425696c3cc4017c560ce4be",
+   "19383b560edf1dda4a6c9ca1398f3498294564ed8b8c0034eeaf708bfd43eb77",
+   "5ec0542c6311c167745187e5801df3dd3baadc90c69948f22c1207f01e359027",
+   "a7d1ce62ea5d3650c85f030ea5ac97c9a0ca0d35ec0697cbbcbee733617eb1e0",
+   "5120678a32c839efffe13e06be1739808874520e6f3545787ca180da9b67d5da",
+   "62d375840455485776075df8031922854df8112694e15fb9d69894f3af783caa",
+   "878a79574ddd57ef08456f3b542b3bd20bdf8f776491fc57ebc93df7dd7b3acc",
+   "bc6938541e9bfa5314656e38f16a3af6849e1c736fcce18e9ee2e895e67baced",
+   "8ceb34eac34a1720fc42e65af76e6bcf44e57879f33a027a1f390d76c2986fe7",
+   "8ceb34eac34a1720fc42e65af76e6bcf44e57879f33a027a1f390d76c2986fe7"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    2
+   ],
+   [
+    "tool_schema",
+    "openai",
+    2
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    3
+   ],
+   [
+    "tool_schema",
+    "openai",
+    3
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    4
+   ],
+   [
+    "tool_schema",
+    "openai",
+    4
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "protocol_failure",
+    "malformed_response"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "protocol_failure",
+    "response_limit"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "infrastructure_failure",
+    "http_error"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "protocol_failure",
+    "http_error"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "infrastructure_failure",
+    "unavailable"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "protocol_failure",
+    "malformed_response"
+   ],
+   [
+    "trial",
+    "ollama",
+    3,
+    "protocol_failure",
+    "malformed_response"
+   ],
+   [
+    "trial",
+    "openai",
+    3,
+    "protocol_failure",
+    "malformed_response"
+   ],
+   [
+    "trial",
+    "ollama",
+    4,
+    "protocol_failure",
+    "malformed_response"
+   ],
+   [
+    "trial",
+    "openai",
+    4,
+    "infrastructure_failure",
+    "http_error"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "valid": {
+  "document_sha256": "ee07e7e5236b178f8e87540d4d27880da5e408154c8b80beda1ce1549f542f4b",
+  "error": null,
+  "persisted_sha256": [
+   "e8b28c506b503a888ea0555285b15c76a29b876e27f2590e1fc4c9d68e6b9531",
+   "99d1a88de9b9ce8774941ca514ff2ab5ec365a30dbef4c8184fbf7eb84603e09",
+   "f41753702ea851eca9b524214964d37f2ad292d8940e9a9fac49827078a087c0",
+   "98422ceb90f7c3aef6721f0491d6ef2bf893bc1a62c73cc03e113b52b13f289c",
+   "992d1c89b7f8f0987169fb17774f1764c67b9115464982d73a3c138e1856f2ac",
+   "8f9ab96980f2de5322acea64bf07f7ee5150552e90986b7532e7ff1622af8ab9",
+   "66e59d214c444ce6a6d929fb0dc98b4467ecf306b1557a772dc9aa26e292342e",
+   "7a5da0b48c695da45d94c3980c4bf75b469e5793d1ba6a1c1bec7d5d67613c96",
+   "f4f9ad1962a02b3fba2f675b65c843d254be03e99784dc119d510577cbbb7bfa",
+   "a969e97183065c151f4188ed28968d83f4f7060bc1c3249583753409d0359456",
+   "6170cbc683a960bb540ed05bb928394b3e34388ecc1ea3cb2fd5dec619e47c62",
+   "60231e291bf2cedefc8489d01508a4d53400df90541b2fe9855a56a957e74d87",
+   "ee07e7e5236b178f8e87540d4d27880da5e408154c8b80beda1ce1549f542f4b",
+   "ee07e7e5236b178f8e87540d4d27880da5e408154c8b80beda1ce1549f542f4b"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    2
+   ],
+   [
+    "tool_schema",
+    "openai",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   },
+   {
+    "body_sha256": "7bbd12cce42c6a0952a2ae2a3e246169cdde8e5b0cc807252e5f4324c07660b3",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 16384,
+      "num_predict": 4096,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9a922e5cdc53fd806f9f47db451f35f10ee03758177034102b9503a731253e64",
+    "fields": {
+     "max_tokens": 4096,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0bf2dd51361ff4814e5d620e466cfefda63e673d2b19b97f06ca3f8ab86d2a70",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "8cd5295143437664659ba20741c7f4a6109196fa249dcb766a55a8d9d7f390a7",
+    "url": "http://127.0.0.1:11434/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ }
+}

@@ -1,0 +1,1071 @@
+{
+ "about": "Recorded HTTP responses replayed in order by tests/test_equivalence.py. `config` sets dotted paths on the named example configuration; a response is a status and body, an unreachable server, or a signal delivered while the request is in flight.",
+ "qualification": {
+  "ollama-failures": {
+   "config": {},
+   "example": "ollama.json",
+   "responses": [
+    {
+     "body": "{\"models\": [{\"name\": \"example-model\"}, {\"name\": \"other\"}]}",
+     "path": "/api/tags",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": false, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\", \"eval_count\": 5, \"eval_duration\": 0}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"content\": 5}, \"done\": true}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\", \"eval_duration\": 900000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"length\"}",
+     "path": "/api/chat",
+     "status": 200
+    }
+   ]
+  },
+  "ollama-pass": {
+   "config": {},
+   "example": "ollama.json",
+   "responses": [
+    {
+     "body": "{\"models\": [{\"name\": \"example-model\"}, {\"name\": \"other\"}]}",
+     "path": "/api/tags",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\", \"load_duration\": 1500000000, \"prompt_eval_count\": 120, \"prompt_eval_duration\": 300000000, \"eval_count\": 18, \"eval_duration\": 450000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\", \"load_duration\": 0, \"prompt_eval_count\": 120, \"prompt_eval_duration\": 300000000, \"eval_count\": 18, \"eval_duration\": 450000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\", \"load_duration\": 1500000000, \"prompt_eval_count\": 120, \"prompt_eval_duration\": 300000000, \"eval_count\": 18, \"eval_duration\": 450000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\", \"load_duration\": 1500000000, \"prompt_eval_count\": 120, \"prompt_eval_duration\": 300000000, \"eval_count\": 18, \"eval_duration\": 450000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\", \"prompt_eval_count\": 10, \"eval_count\": 3, \"eval_duration\": 1}",
+     "path": "/api/chat",
+     "status": 200
+    }
+   ]
+  },
+  "ollama-probe": {
+   "config": {
+    "limits.prefix_cache_probe_enabled": true
+   },
+   "example": "ollama.json",
+   "responses": [
+    {
+     "body": "{\"models\": [{\"name\": \"example-model\"}, {\"name\": \"other\"}]}",
+     "path": "/api/tags",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\", \"load_duration\": 1500000000, \"prompt_eval_count\": 120, \"prompt_eval_duration\": 300000000, \"eval_count\": 18, \"eval_duration\": 450000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\", \"prompt_eval_count\": 400, \"prompt_eval_duration\": 900000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\", \"prompt_eval_count\": 400, \"prompt_eval_duration\": 40000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\", \"prompt_eval_count\": 400, \"prompt_eval_duration\": 45000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"length\", \"prompt_eval_count\": 400, \"prompt_eval_duration\": 500000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    }
+   ]
+  },
+  "ollama-reasoning-medium": {
+   "config": {
+    "settings.reasoning": "medium"
+   },
+   "example": "ollama.json",
+   "responses": [
+    {
+     "body": "{\"models\": [{\"name\": \"example-model\"}, {\"name\": \"other\"}]}",
+     "path": "/api/tags",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"OK\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"role\": \"assistant\", \"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    }
+   ]
+  },
+  "openai-alarm": {
+   "config": {},
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quan\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"tity\\\": 7, \\\"expedited\\\": false}\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "path": "/v1/chat/completions",
+     "signal": "SIGALRM"
+    }
+   ]
+  },
+  "openai-cancel": {
+   "config": {},
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "path": "/v1/chat/completions",
+     "signal": "SIGTERM"
+    }
+   ]
+  },
+  "openai-failures": {
+   "config": {},
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "path": "/v1/chat/completions",
+     "status": 503
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quan\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"tity\\\": 7, \\\"expedited\\\": false}\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\":\\\"TK-104\\\",\\\"quantity\\\":8,\\\"expedited\\\":false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "openai-not-listed": {
+   "config": {},
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"data\": [{\"id\": \"other\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    }
+   ]
+  },
+  "openai-off-none": {
+   "config": {
+    "settings.reasoning_off_effort": "none"
+   },
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quan\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"tity\\\": 7, \\\"expedited\\\": false}\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "openai-oversize": {
+   "config": {
+    "limits.response_bytes": 1024
+   },
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "openai-pass": {
+   "config": {},
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 12, \"completion_tokens\": 2}, \"timings\": {\"predicted_per_second\": 87.5, \"prompt_per_second\": 400.25, \"prompt_n\": 37, \"predicted_n\": 18, \"draft_n\": 16, \"draft_n_accepted\": 12, \"prompt_ms\": 92.5, \"cache_n\": 83}}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 12, \"completion_tokens\": 2, \"prompt_tokens_details\": {\"cached_tokens\": 8}}}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quan\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"tity\\\": 7, \\\"expedited\\\": false}\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: {\"choices\": [], \"usage\": {\"prompt_tokens\": 120, \"completion_tokens\": 18}}\n\ndata: {\"timings\": {\"predicted_per_second\": 87.5, \"prompt_per_second\": 400.25, \"prompt_n\": 37, \"predicted_n\": 18, \"draft_n\": 16, \"draft_n_accepted\": 12, \"prompt_ms\": 92.5, \"cache_n\": 83}}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"```json\\n{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\\n```\"}, \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 120, \"completion_tokens\": 18}}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 120, \"completion_tokens\": 18}, \"timings\": {\"predicted_per_second\": 87.5, \"prompt_per_second\": 400.25, \"prompt_n\": 37, \"predicted_n\": 18, \"draft_n\": 16, \"draft_n_accepted\": 12, \"prompt_ms\": 92.5, \"cache_n\": 0}}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "openai-probe": {
+   "config": {
+    "limits.prefix_cache_probe_enabled": true
+   },
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"O\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"K\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: {\"choices\": [], \"usage\": {\"prompt_tokens\": 400, \"completion_tokens\": 1, \"prompt_tokens_details\": {\"cached_tokens\": 0}}}\n\ndata: {\"timings\": {\"prompt_ms\": 900.0, \"prompt_n\": 400}}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"O\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"K\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: {\"choices\": [], \"usage\": {\"prompt_tokens\": 400, \"completion_tokens\": 1, \"prompt_tokens_details\": {\"cached_tokens\": 390}}}\n\ndata: {\"timings\": {\"prompt_ms\": 40.0, \"prompt_n\": 10}}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"O\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"K\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: {\"choices\": [], \"usage\": {\"prompt_tokens\": 400, \"completion_tokens\": 1, \"prompt_tokens_details\": {\"cached_tokens\": 395}}}\n\ndata: {\"timings\": {\"prompt_ms\": 45.0, \"prompt_n\": 5}}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"O\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"K\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: {\"choices\": [], \"usage\": {\"prompt_tokens\": 400, \"completion_tokens\": 1, \"prompt_tokens_details\": {\"cached_tokens\": 200}}}\n\ndata: {\"timings\": {\"prompt_ms\": 500.0, \"prompt_n\": 200}}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quan\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"tity\\\": 7, \\\"expedited\\\": false}\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: {\"choices\": [], \"usage\": {\"prompt_tokens\": 120, \"completion_tokens\": 18}}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "openai-protocol": {
+   "config": {},
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{broken",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"error\": {\"message\": \"overloaded\"}}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"length\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "openai-reasoning-high": {
+   "config": {
+    "settings.reasoning": "high"
+   },
+   "example": "openai.json",
+   "responses": [
+    {
+     "body": "{\"object\": \"list\", \"data\": [{\"id\": \"other\"}, {\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quan\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"tity\\\": 7, \\\"expedited\\\": false}\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "openai-unreachable": {
+   "config": {},
+   "example": "openai.json",
+   "responses": [
+    {
+     "error": "unreachable",
+     "path": "/v1/models"
+    }
+   ]
+  },
+  "pi-tools": {
+   "config": {
+    "limits.repetitions": 2
+   },
+   "example": "pi.json",
+   "pi": [
+    {
+     "completion_pass": true,
+     "independent_pass": true,
+     "metrics": {
+      "compactions": 0,
+      "loops_detected": 0,
+      "wall_seconds": 42.5
+     },
+     "response_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+     "completion_pass": false,
+     "independent_pass": true,
+     "metrics": {
+      "compactions": 1,
+      "loops_detected": 2,
+      "wall_seconds": 40.0
+     },
+     "response_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+   ],
+   "responses": [
+    {
+     "body": "{\"data\": [{\"id\": \"example-model\"}]}",
+     "path": "/v1/models",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"OK\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": null, \"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"record_value\", \"arguments\": \"{\\\"key\\\": \\\"answer\\\", \\\"value\\\": 123}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": ": keep-alive\n\ndata: {\"choices\": [{\"delta\": {\"role\": \"assistant\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"reasoning_content\": \"thinking\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quan\"}}]}\n\ndata: {\"choices\": [{\"delta\": {\"content\": \"tity\\\": 7, \\\"expedited\\\": false}\"}}]}\n\ndata: {\"choices\": [{\"delta\": {}, \"finish_reason\": \"stop\"}]}\n\ndata: {\"choices\": [], \"usage\": {\"prompt_tokens\": 120, \"completion_tokens\": 18}}\n\ndata: {\"timings\": {\"predicted_per_second\": 87.5, \"prompt_per_second\": 400.25, \"prompt_n\": 37, \"predicted_n\": 18, \"draft_n\": 16, \"draft_n_accepted\": 12, \"prompt_ms\": 92.5, \"cache_n\": 83}}\n\ndata: [DONE]\n\n",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"content\": \"{\\\"order_id\\\": \\\"TK-104\\\", \\\"quantity\\\": 7, \\\"expedited\\\": false}\"}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  }
+ },
+ "tool_schema": {
+  "alarm": {
+   "config": {
+    "tool_schema.trials": 1
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "path": "/v1/chat/completions",
+     "signal": "SIGALRM"
+    },
+    {
+     "path": "/api/chat",
+     "signal": "SIGALRM"
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "argument-diagnostics": {
+   "config": {
+    "tool_schema.trials": 2
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": \"[]\"}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": {}}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": 5, \"tasks\": [{}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"tasks\\\":[],\\\"tasks\\\":[]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": \"{\\\"id\\\": \\\"x\\\"}\"}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"[1, 2]\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "budget": {
+   "config": {
+    "limits.total_seconds": 5,
+    "tool_schema.trials": 10
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "cancel-in-trial": {
+   "config": {
+    "tool_schema.trials": 2
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "path": "/v1/chat/completions",
+     "signal": "SIGTERM"
+    }
+   ]
+  },
+  "cancel-in-warmup": {
+   "config": {
+    "tool_schema.trials": 2
+   },
+   "responses": [
+    {
+     "path": "/api/chat",
+     "signal": "SIGTERM"
+    }
+   ]
+  },
+  "no-warmup": {
+   "config": {
+    "tool_schema.trials": 1,
+    "tool_schema.warmup_enabled": false
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "operator-conversation": {
+   "config": {
+    "tool_schema.conversation": [
+     {
+      "content": "Plan only; call propose_plan once.",
+      "role": "system"
+     },
+     {
+      "content": "Plan a small CLI that renames photos.",
+      "role": "user"
+     }
+    ],
+    "tool_schema.endpoints": {
+     "openai": "http://127.0.0.1:8080/v1"
+    },
+    "tool_schema.trials": 2
+   },
+   "responses": [
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "qualification-mode": {
+   "config": {
+    "settings.reasoning": "high",
+    "tool_schema.endpoints": {
+     "ollama": "http://127.0.0.1:11434"
+    },
+    "tool_schema.mode": "qualification",
+    "tool_schema.trials": 1
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\", \"eval_count\": 900, \"eval_duration\": 12345678901}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    }
+   ]
+  },
+  "reasoning-low": {
+   "config": {
+    "settings.reasoning": "low",
+    "tool_schema.trials": 1
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "reasoning-off-none": {
+   "config": {
+    "settings.reasoning_off_effort": "none",
+    "tool_schema.trials": 1
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "scoring-failures": {
+   "config": {
+    "tool_schema.trials": 3
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": \"[broken\"}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{}\"}}, {\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"other_tool\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"length\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"length\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [null]}, \"done\": true, \"done_reason\": \"stop\"}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": []}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  },
+  "transport-failures": {
+   "config": {
+    "limits.response_bytes": 2048,
+    "tool_schema.trials": 4
+   },
+   "responses": [
+    {
+     "body": "{broken",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"filler\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "path": "/api/chat",
+     "status": 500
+    },
+    {
+     "path": "/v1/chat/completions",
+     "status": 400
+    },
+    {
+     "error": "unreachable",
+     "path": "/api/chat"
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": []}, \"finish_reason\": \"stop\"}, {\"message\": {\"tool_calls\": []}, \"finish_reason\": \"stop\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": {}}, \"done\": true}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [], \"choices\": []}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": []}, \"done\": true, \"x\": NaN}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "path": "/v1/chat/completions",
+     "status": 429
+    }
+   ]
+  },
+  "valid": {
+   "config": {
+    "tool_schema.trials": 2
+   },
+   "responses": [
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\", \"eval_count\": 120, \"eval_duration\": 3000000000}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}], \"timings\": {\"predicted_per_second\": 41.5}}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\", \"eval_count\": 7, \"eval_duration\": 0}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}]}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    },
+    {
+     "body": "{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": {\"summary\": \"Reading list\", \"acceptanceCriteria\": [\"works offline\"], \"verificationCommands\": [\"npm test\"], \"tasks\": [{\"id\": \"one\", \"title\": \"Create storage\", \"objective\": \"Persist books\", \"workerPrompt\": \"Add a storage module\", \"acceptanceCriteria\": \"Round trip works\", \"contextNote\": \"Existing app\", \"difficulty\": \"small\", \"dependsOn\": [], \"allowedPaths\": [\"src/\"], \"verificationCommands\": [\"npm test\"]}]}}}]}, \"done\": true, \"done_reason\": \"stop\", \"eval_duration\": 5}",
+     "path": "/api/chat",
+     "status": 200
+    },
+    {
+     "body": "{\"choices\": [{\"message\": {\"tool_calls\": [{\"type\": \"function\", \"function\": {\"name\": \"propose_plan\", \"arguments\": \"{\\\"summary\\\": \\\"Reading list\\\", \\\"acceptanceCriteria\\\": [\\\"works offline\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"], \\\"tasks\\\": [{\\\"id\\\": \\\"one\\\", \\\"title\\\": \\\"Create storage\\\", \\\"objective\\\": \\\"Persist books\\\", \\\"workerPrompt\\\": \\\"Add a storage module\\\", \\\"acceptanceCriteria\\\": \\\"Round trip works\\\", \\\"contextNote\\\": \\\"Existing app\\\", \\\"difficulty\\\": \\\"small\\\", \\\"dependsOn\\\": [], \\\"allowedPaths\\\": [\\\"src/\\\"], \\\"verificationCommands\\\": [\\\"npm test\\\"]}]}\"}}]}, \"finish_reason\": \"tool_calls\"}], \"timings\": {\"predicted_per_second\": 12, \"prompt_n\": 40}}",
+     "path": "/v1/chat/completions",
+     "status": 200
+    }
+   ]
+  }
+ }
+}

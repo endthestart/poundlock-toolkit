@@ -1,0 +1,3776 @@
+{
+ "demo investigation.json": {
+  "document_sha256": "be73e0e0a9fecd4d4682ccfb639d64019802e7abc3c2af3e7e1162cd6b9a3938",
+  "exit": 1,
+  "persisted_sha256": [
+   "1881e4ecbc50bd79f71c378bdb57d5033e7ce37dc07610fff38760509550e71b",
+   "97929357a886943c7fe974e972ee4ac73692e8f8a1dccc82ace57399428b6164",
+   "ef83aa7ce7512a9cf297f4cbb2cfa7b851d5d69e85202c09b9b410ac841c0f68",
+   "6f3b1cf995d6c534279384532f64b4ae0f6fa6d7e93303d2f1c196dda938ccfb",
+   "faa08b7e7d0e6deafbc8b1edaea6aa16b036537c251fe4c24aaa79e4242ae874",
+   "f3bdb07999210107de0106674ffe2b98cb599b96053fbfe7bb924a4e5036885e",
+   "6c576e6397976be6fb1802e873ef65361a14c6c9ab6766786a8f14846c1b7ac7",
+   "8505662224ac5130c23beb1563ebc51ad4af481e22cae1980099c4bf393d82c6",
+   "3aa28bb8f3ac437d4aa3718dd3bd954a6eddec461a99f10167b22c87c5afd27d",
+   "1dcab1c5f678796a86a55804b656f373eaa8e871597208d55205f9607dbee0d9",
+   "4722acc68c658e1f3bd31839529f49e688d670d5a5c2ad85854d8159608e942b",
+   "9840008afc674bfa0bea3c730883a1dac96ba190bd6ebd51e552697660dc4bd7",
+   "893fede03d31ab043bbe41a407634e1a8a8299481afcd0312218db683b60b6fc",
+   "12596a1fe5f05046c53490e6cc60b4ddcf97db893e51280ca8171b676bd808fa",
+   "3969dcc996458173d87db2104d4cfeb461d5a50cb0e32b6967853e9a5aa31356",
+   "62208651283ee3125680c1f3fbe06811fcde4eb9c8d9b3e65bd4403ade2e5846",
+   "be73e0e0a9fecd4d4682ccfb639d64019802e7abc3c2af3e7e1162cd6b9a3938"
+  ],
+  "requests": [],
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "tool",
+    "tool",
+    0,
+    "protocol_failure",
+    "wrong_output"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "investigation",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "investigation",
+    2,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "investigation",
+    3,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "stderr": "",
+  "stdout": "# Poundlock Toolkit qualification report\n\nEvidence applies only to the frozen fixture and configuration. No universal ranking or production admission is implied.\n\nFor extraction: no supplied configuration has sufficient evidence for repeated task qualification.\n\nFor coding: no supplied configuration has sufficient evidence for repeated task qualification.\n\nFor investigation: no supplied configuration has sufficient evidence for repeated task qualification.\n\n## Run 00000000-0000-0000-0000-000000000001\nObserved: 2026-01-01T00:00:01+00:00. Configuration: `d7ce72da6668dc7bd6b7cca637f54a6d6688f3b565f7130afcba01f3fd94f260`.\nBackend: llama.cpp; API: openai; harness: pi.\nServing application release: not recorded. Backend build: unknown; commit: unknown.\nPrefix cache: not measured (declared unknown; the probe is off, so this is the operator's statement, not an observation).\nMemory: not measured (no memory_probe configured); the model's peak memory is unknown.\n\n### extraction: insufficient evidence\n0/0 attempted task runs independently passed; 0 planned. Median successful task duration: unknown seconds.\nOutcomes: untested\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=pass, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n### coding: insufficient evidence\n0/0 attempted task runs independently passed; 0 planned. Median successful task duration: unknown seconds.\nOutcomes: untested\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- A required readiness or compatibility gate did not pass.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=fail, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n### investigation: insufficient evidence\n0/0 attempted task runs independently passed; 3 planned. Median successful task duration: unknown seconds.\nOutcomes: skipped=3\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- A required readiness or compatibility gate did not pass.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=fail, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n| Stage | Workload | Repetition | Outcome | Seconds | First useful output | Decode tokens/s | Draft acceptance |\n|---|---|---:|---|---:|---:|---:|---:|\n| readiness | readiness | 0 | pass (ok) | 0.1250 | unknown | unknown | unknown |\n| warmup | warmup | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| api | api | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| tool | tool | 0 | protocol_failure (wrong_output) | 0.2500 | unknown | unknown | unknown |\n| performance | extraction | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | investigation | 1 | skipped (not_run) | unknown | unknown | unknown | unknown |\n| task | investigation | 2 | skipped (not_run) | unknown | unknown | unknown | unknown |\n| task | investigation | 3 | skipped (not_run) | unknown | unknown | unknown | unknown |\n\nPer-attempt cache state is unknown; the only cache observation is the prefix-cache probe above, when it ran. Attached service load/cold residency, remote placement, cost and any memory the probe did not read remain unknown. No confidence intervals are claimed for these small samples.\n\n"
+ },
+ "demo ollama.json": {
+  "document_sha256": "316f4e3a5afe80be2e6913178af97fa0effc8d4b2d366922ec9b73a004775399",
+  "exit": 0,
+  "persisted_sha256": [
+   "8b336a39df3f29ecbf2e898c93b3c04bf419f3b3cc83922e96b3059b550b2ac0",
+   "782680ec21fdffe7bdb0dc3e8bb85b6d2c92f47bd22207788365f6b7dfdedd83",
+   "0f919b48673c40fa23df5d2f59612048e06feaf3cc755392f818f2f355be8645",
+   "9a824763bf92ee2007a06109e1707576ff6dcdb3dbdb1a46034c3791f6f6a792",
+   "8e313a6c7a5b91d1eecc1e40591d45f28713026f2a36245113ce54d0b8b87cca",
+   "0aa8d24b8345c3d573f46d4338afc9f6110e80a5621025dc089fb8ff2b4c94ff",
+   "96e053bc0e14659d6369e4160e8cd3ee1015d8091db08531ed2fc1be1471840e",
+   "e622266d115e6ac6392f7ca325a241eb6cd2561dfe52a3f22a27b04780ea5119",
+   "14e54cf68a906725d88c58f32d52a0a386010dbc55c1df4369b49301e806ea7f",
+   "fd5e44fe3bda090f3a1ae615dedff66617266ba462cedbcafc82befb595fa70b",
+   "eef8c374459be1e678dfe417958a86114d0cf97c29f942a5c6b989df8d01ad26",
+   "3067d1775a13910e2e996e8b6eb9de207c5639b27c89bba53c0dc05c91732ce2",
+   "fe791d646eabe546eca21e2c416e44b1d3305877bcf6fe3dca63d6b3305b95b5",
+   "bc8184562834e3fa2db681d434b411d5ade85a62a17f1c5f32281113a20b0b1e",
+   "316f4e3a5afe80be2e6913178af97fa0effc8d4b2d366922ec9b73a004775399"
+  ],
+  "requests": [],
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    3,
+    "pass",
+    "ok"
+   ]
+  ],
+  "stderr": "",
+  "stdout": "# Poundlock Toolkit qualification report\n\nEvidence applies only to the frozen fixture and configuration. No universal ranking or production admission is implied.\n\nFor extraction: no supplied configuration has sufficient evidence for repeated task qualification.\n\nFor coding: no supplied configuration has sufficient evidence for repeated task qualification.\n\nFor investigation: no supplied configuration has sufficient evidence for repeated task qualification.\n\n## Run 00000000-0000-0000-0000-000000000001\nObserved: 2026-01-01T00:00:01+00:00. Configuration: `65e3b162ff5fce35400f6f044d1859af9754e7881f0a5bfc8e314dea2e112a8a`.\nBackend: ollama; API: ollama; harness: direct.\nServing application release: not recorded. Backend build: unknown; commit: unknown.\nPrefix cache: not measured (declared unknown; the probe is off, so this is the operator's statement, not an observation).\nMemory: not measured (no memory_probe configured); the model's peak memory is unknown.\n\n### extraction: insufficient evidence\n3/3 attempted task runs independently passed; 3 planned. Median successful task duration: 0.25 seconds.\nOutcomes: pass=3\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=pass, latency=pass, throughput=pass, compaction=pass, repetitions=pass.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n### coding: insufficient evidence\n0/0 attempted task runs independently passed; 0 planned. Median successful task duration: unknown seconds.\nOutcomes: untested\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- A required readiness or compatibility gate did not pass.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=unknown, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n### investigation: insufficient evidence\n0/0 attempted task runs independently passed; 0 planned. Median successful task duration: unknown seconds.\nOutcomes: untested\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- A required readiness or compatibility gate did not pass.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=unknown, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n| Stage | Workload | Repetition | Outcome | Seconds | First useful output | Decode tokens/s | Draft acceptance |\n|---|---|---:|---|---:|---:|---:|---:|\n| readiness | readiness | 0 | pass (ok) | 0.1250 | unknown | unknown | unknown |\n| warmup | warmup | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| api | api | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| performance | extraction | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 1 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 2 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 3 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n\nPer-attempt cache state is unknown; the only cache observation is the prefix-cache probe above, when it ran. Attached service load/cold residency, remote placement, cost and any memory the probe did not read remain unknown. No confidence intervals are claimed for these small samples.\n\n"
+ },
+ "demo openai.json": {
+  "document_sha256": "c59814ca0abd832d565d1432c668c7926eb3a91f78ee98fa797f451952347c3d",
+  "exit": 0,
+  "persisted_sha256": [
+   "fb4122b7e14343171dc3821cc156e038a91b86db310426d3b56b4266e07a8963",
+   "460f64ca8c8e2d4689515aea60d6a2b27e1d3adb4713cb8f15aec2113782ec32",
+   "03cc9a77b64e7feff4503a016d6765fd2f2eb94d9bb3b522d72d085f522e1b4d",
+   "e94e3dda7fdf7e9f4f17372c3ad32d7de41a8fd7c8915c1c7ef21ceded7cd1b7",
+   "890710b63130a2fb08e1b4c8054cf725324eb979cbb9c10a36b6e2a68f1eff8e",
+   "450f6b9a9c18a1ead509cfe82205eb94e06df8a0462d007cf16c36df53588adf",
+   "f1ecb882f65885f93f31cbef770c154fe5008e91428d8742774d71f9e45ceeca",
+   "f848056e244cb2a755dd07ae2739442c7d9defb55b05db26fae67d71a28b687f",
+   "b502c47acaa1130d9ddf8e2e013bb21726061958cfb88a64300be58394a0c603",
+   "438228a5942fee26c39ed73e7373fe35a79cdf2f0968ccd4dd4695cf42010bf0",
+   "40445e12ce5c5016d3aee7e27772ecb611ad011a338c30f026b01f28c016a41d",
+   "779327e03b90270d9dff332d01d8d87fbf952b8f6effbdba2c9e83b739ce6674",
+   "d1d6f4c805846f032f53cff447b2bcf68aba26930c3c41f4be66a8233a396336",
+   "86112115367cc48d55783b993e9c6a80c3ac644c5a98dfee9b2dcb0edca5396b",
+   "c59814ca0abd832d565d1432c668c7926eb3a91f78ee98fa797f451952347c3d"
+  ],
+  "requests": [],
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    3,
+    "pass",
+    "ok"
+   ]
+  ],
+  "stderr": "",
+  "stdout": "# Poundlock Toolkit qualification report\n\nEvidence applies only to the frozen fixture and configuration. No universal ranking or production admission is implied.\n\nFor extraction: no supplied configuration has sufficient evidence for repeated task qualification.\n\nFor coding: no supplied configuration has sufficient evidence for repeated task qualification.\n\nFor investigation: no supplied configuration has sufficient evidence for repeated task qualification.\n\n## Run 00000000-0000-0000-0000-000000000001\nObserved: 2026-01-01T00:00:01+00:00. Configuration: `04bf83335896b413a0d6dd0eaa1b6e0edd239352b6291417bd4bebeea1b9e470`.\nBackend: llama.cpp; API: openai; harness: direct.\nServing application release: not recorded. Backend build: unknown; commit: unknown.\nPrefix cache: not measured (declared unknown; the probe is off, so this is the operator's statement, not an observation).\nMemory: not measured (no memory_probe configured); the model's peak memory is unknown.\n\n### extraction: insufficient evidence\n3/3 attempted task runs independently passed; 3 planned. Median successful task duration: 0.25 seconds.\nOutcomes: pass=3\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=pass, latency=pass, throughput=pass, compaction=pass, repetitions=pass.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n### coding: insufficient evidence\n0/0 attempted task runs independently passed; 0 planned. Median successful task duration: unknown seconds.\nOutcomes: untested\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- A required readiness or compatibility gate did not pass.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=unknown, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n### investigation: insufficient evidence\n0/0 attempted task runs independently passed; 0 planned. Median successful task duration: unknown seconds.\nOutcomes: untested\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- A required readiness or compatibility gate did not pass.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=unknown, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n| Stage | Workload | Repetition | Outcome | Seconds | First useful output | Decode tokens/s | Draft acceptance |\n|---|---|---:|---|---:|---:|---:|---:|\n| readiness | readiness | 0 | pass (ok) | 0.1250 | unknown | unknown | unknown |\n| warmup | warmup | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| api | api | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| performance | extraction | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 1 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 2 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 3 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n\nPer-attempt cache state is unknown; the only cache observation is the prefix-cache probe above, when it ran. Attached service load/cold residency, remote placement, cost and any memory the probe did not read remain unknown. No confidence intervals are claimed for these small samples.\n\n"
+ },
+ "demo pi.json": {
+  "document_sha256": "ef28257c2a893d780b64b397cbb67bb863920d33e54921ac839b0633bef6dc62",
+  "exit": 1,
+  "persisted_sha256": [
+   "4ef2c8fe1332e20e3a448cbd186da331a890385b7ed0ef904ca54f612b84a6b0",
+   "fe44beaeec711f5b0ccc35fe397c3ec30f51e50c3166d444263207047a7d4ef5",
+   "c4c13fed3c793a1f1074be8a714466e7a6b34cd88dbb9db175a42319cc687241",
+   "ff7eeff692afd5fb57a7bb234daff6f106b5edf8bde70f9375d7f70523f67c5e",
+   "76a7bba97171c48c65e695ec0fe28d2a5294801adbb162649bdb90d12a872742",
+   "f089d9357e9b149c5572317c7f1928387189d025554c7e3b7dd9aef0e5a0829e",
+   "4ae48d6a5d3a817b13a3d7bf24adfb8aa0d01e07f629c02af481a238360a8c35",
+   "4371539637b391a80f5931283794f48d6cf6cfa6a95562143f47e2f669cf2f73",
+   "0a4e2e78bcc50fe221d8a03f6a9d6c0e0bdb2bdcbaa71757607fb22a627067a9",
+   "1cbc61077669e999b0d9d237170fd55302a46211428f1dd8fbcd56a411a303bb",
+   "bd94f014afcd79885cb5df4b4cf0da5d2e90818daa8bfcdd9c3bf0db33b729c3",
+   "8c3616b8f22bafc4e7ed67a47d7e6f15f4ed63cc37be9daa106e96d916087a73",
+   "3c47c9bb04730ffae640f79b41bda12479912c05a106bd8fc4bdecd828450109",
+   "3ef56e6055eeeeffcb51d115925ff3cac50083946a9029d076905e300b8d8d1d",
+   "1c7a5f9cde9bbc51931abc39213e44fcf43d8fdd2a3ee2c2788bd13166b5e74b",
+   "44abf0689cf493f6039e2a7f6ad95a529ad31349cde8efa33c7e74a682ae7db7",
+   "82f2ee9b417f42d05409f6daf2221a80037dedaaf3143c72216b8618bf8e8e15",
+   "16024e5b61656f59ec8d46d864bed2ef431db927df71a8af21c0999b5a156b6d",
+   "ecf16fd91f2faa0c5c174a7a4872d074c09f26142696ccfbd4e8744cd28ee0c4",
+   "671df72e121fe79cf328c45af590278b9ccb320b03e10f2f20949a3fda594094",
+   "c2798458510c7db4da80870918f261466ec1dae5eda26700d1fcb28e0772d2f7",
+   "77d9d3a910aa687c5430745047e35126c2dd92a3acd21cb73f45d1d0fdf6896e",
+   "ef28257c2a893d780b64b397cbb67bb863920d33e54921ac839b0633bef6dc62"
+  ],
+  "requests": [],
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "tool",
+    "tool",
+    0,
+    "protocol_failure",
+    "wrong_output"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    3,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "coding",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "coding",
+    2,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "coding",
+    3,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "stderr": "",
+  "stdout": "# Poundlock Toolkit qualification report\n\nEvidence applies only to the frozen fixture and configuration. No universal ranking or production admission is implied.\n\nFor extraction: no supplied configuration has sufficient evidence for repeated task qualification.\n\nFor coding: no supplied configuration has sufficient evidence for repeated task qualification.\n\nFor investigation: no supplied configuration has sufficient evidence for repeated task qualification.\n\n## Run 00000000-0000-0000-0000-000000000001\nObserved: 2026-01-01T00:00:01+00:00. Configuration: `d7ce72da6668dc7bd6b7cca637f54a6d6688f3b565f7130afcba01f3fd94f260`.\nBackend: llama.cpp; API: openai; harness: pi.\nServing application release: not recorded. Backend build: unknown; commit: unknown.\nPrefix cache: not measured (declared unknown; the probe is off, so this is the operator's statement, not an observation).\nMemory: not measured (no memory_probe configured); the model's peak memory is unknown.\n\n### extraction: insufficient evidence\n3/3 attempted task runs independently passed; 3 planned. Median successful task duration: 0.25 seconds.\nOutcomes: pass=3\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=pass, latency=pass, throughput=pass, compaction=pass, repetitions=pass.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n### coding: insufficient evidence\n0/0 attempted task runs independently passed; 3 planned. Median successful task duration: unknown seconds.\nOutcomes: skipped=3\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- A required readiness or compatibility gate did not pass.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=fail, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n### investigation: insufficient evidence\n0/0 attempted task runs independently passed; 0 planned. Median successful task duration: unknown seconds.\nOutcomes: untested\n\n- Synthetic demonstration; not measured model or hardware qualification.\n- Exact model/backend/template/cache identity is incomplete.\n- Serving application release is not recorded; a backend build/commit alone cannot distinguish application releases.\n- A required readiness or compatibility gate did not pass.\n- At least one attempt failed, was interrupted, or has no verified pass.\n- Fewer than three verified repetitions; repeated qualification is not established.\n\nChecks: measured=fail, freshness=pass, identity=unknown, serving_application=unknown, requirements=pass, capacity=pass, gates=fail, latency=pass, throughput=pass, compaction=pass, repetitions=unknown.\nNext required check: measured\nNext useful test: Freeze missing identity/inventory, then plan a new bounded run.\n\n| Stage | Workload | Repetition | Outcome | Seconds | First useful output | Decode tokens/s | Draft acceptance |\n|---|---|---:|---|---:|---:|---:|---:|\n| readiness | readiness | 0 | pass (ok) | 0.1250 | unknown | unknown | unknown |\n| warmup | warmup | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| api | api | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| tool | tool | 0 | protocol_failure (wrong_output) | 0.2500 | unknown | unknown | unknown |\n| performance | extraction | 0 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 1 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 2 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | extraction | 3 | pass (ok) | 0.2500 | unknown | unknown | unknown |\n| task | coding | 1 | skipped (not_run) | unknown | unknown | unknown | unknown |\n| task | coding | 2 | skipped (not_run) | unknown | unknown | unknown | unknown |\n| task | coding | 3 | skipped (not_run) | unknown | unknown | unknown | unknown |\n\nPer-attempt cache state is unknown; the only cache observation is the prefix-cache probe above, when it ran. Attached service load/cold residency, remote placement, cost and any memory the probe did not read remain unknown. No confidence intervals are claimed for these small samples.\n\n"
+ },
+ "ollama-failures": {
+  "document_sha256": "c28cb6ea2c8ffbd1d58b63a9e1c18374e54db9e9924f0aee27c3ec71d539095e",
+  "error": null,
+  "persisted_sha256": [
+   "1087b2615c7b2e635b259e02c3cd14bb6ff8c2ba68f0f3144c2e34e04d898024",
+   "af00f49d143c10ffff7f5fe6a5c5740b824e42a0819d0c3b66793675b1cee2dc",
+   "6152dceb5012c6696315ef6699bc51fe09fc65c30aae3322983a7a6b51119ecc",
+   "b7e1fe2a9107ab2b19bfce9981d3c5c23a0711080b163398988e79ee3d47145f",
+   "bc99cc28a1c9c55d1ea2e0efdd3e0629374549f43e6f6d6366d23da02f9c9a6c",
+   "1f5515d9f642ae3014ec67d085aff3847fb40037719e820676e5e777a232cfd1",
+   "f374599cd613da351c51c5e49a3b4ef84ed2885edb77015e92d187118870c91c",
+   "4341ab12a23ce0a5ccf8cf0be8a578e9cf49b3108a666c1df3b6ff3a379b4f7e",
+   "23d9b733025635b19d077888e2c16dcaab3fc3e165f121b336b4ea0abb8a9d55",
+   "5a5497ed0ff38a64ec28754de2f6cd71ede7cff9a2af928c2bf39adeba26d128",
+   "4c2410305acbd07e36e82927bc57d8f77e9f4fa1d7c25d4774f7e6f09a55f239",
+   "74ca145f69a84f841ddcb9e8f722e0d1f357ab81e7b34834bd92a0fdb38ce094",
+   "c28cb6ea2c8ffbd1d58b63a9e1c18374e54db9e9924f0aee27c3ec71d539095e"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:11434/api/tags"
+   },
+   {
+    "body_sha256": "4216727122f2fe9e1309936c2c061185d515ef10104bd3cc49db7c1e70be6c14",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "4216727122f2fe9e1309936c2c061185d515ef10104bd3cc49db7c1e70be6c14",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "completion_failure",
+    "missing_completion"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "protocol_failure",
+    "malformed_response"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "completion_failure",
+    "missing_completion"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "ollama-pass": {
+  "document_sha256": "d93328a7c897ac255661245cc96a5e4962a9e2e2d14d8c5254a7b15dafc4779c",
+  "error": null,
+  "persisted_sha256": [
+   "1087b2615c7b2e635b259e02c3cd14bb6ff8c2ba68f0f3144c2e34e04d898024",
+   "af00f49d143c10ffff7f5fe6a5c5740b824e42a0819d0c3b66793675b1cee2dc",
+   "6152dceb5012c6696315ef6699bc51fe09fc65c30aae3322983a7a6b51119ecc",
+   "b7e1fe2a9107ab2b19bfce9981d3c5c23a0711080b163398988e79ee3d47145f",
+   "17c6112e6a46537b7a313284db114f9285bc7aa2033eb266a2e3a995b9c91b38",
+   "8e009e9f6a6f15c65e9a9b92cb4fe991991a45c5ec6151833be8b9cf246d1d58",
+   "3dad6a28776be82d91c8c26653f2cc6c2dffa1986b6503495d926e900ef24b4b",
+   "03b38f0c09b003805433c4e61c9e8ad890b964e05d442ad4123467b446ffa479",
+   "dd2e6393cbbb1f3872c4bb9fa254b3aff83c5c1c8df8e3c8d92f4ac44308e061",
+   "bdf3f3b77b2b0b85b3a8e434d320357f1339dcbae3a987fe356749962294d112",
+   "31ce950f5226a64f1573a068a42f6886e05ce63ad223d2d917b1d8f5401225bc",
+   "c9b723597253b2d91c84e720e175b7e2eae65b36cbf961b2c2764a9abc4c4d59",
+   "d93328a7c897ac255661245cc96a5e4962a9e2e2d14d8c5254a7b15dafc4779c"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:11434/api/tags"
+   },
+   {
+    "body_sha256": "4216727122f2fe9e1309936c2c061185d515ef10104bd3cc49db7c1e70be6c14",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "4216727122f2fe9e1309936c2c061185d515ef10104bd3cc49db7c1e70be6c14",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "ollama-probe": {
+  "document_sha256": "1e498acc0b8236bae1dfd5ad6ba82a945155242b0a1bffa1de8969123ce10a69",
+  "error": null,
+  "persisted_sha256": [
+   "4799ad95d0e736f88bb99e5f7849d4db8360269826da619329b570f33d26fcb5",
+   "33167b7f6ba84f871e4f554462b242d0570108c9fba5522c500be2c7a2166345",
+   "156a8a3541162c53218be8526be7de79d9bf97a28730367a1db18eb80dd0de2d",
+   "cc8b8a13a17076fbeb4634a217eac78037796e3fc9b45126be20325330c5a829",
+   "4340e291705ca724b93d2f0954102480afb0ae8665967b1062de428b49f25c10",
+   "7d6be3103496d6c1f3f2532c96cd8a4cdf1a8509f66e451f86a087b27de04744",
+   "e30c6c19c45752e2b7e6008f89b779ee0a0d4fb6319dbce2ba30fa7b9c926fe3",
+   "68efb5f0d6206feafa6e57142874e7ccedad733d2eb6952d3f107aa43733df75",
+   "7c28e9f050da7d41d343bc25c715effe27e4b978da694cb0526f051674398fb0",
+   "f324b4f7239057e3d2a96445cde0b806900ee4fcb43a02713e9d62120e80091e",
+   "1e9a0819fb497a63532688567371085f937c2537b9df8e113f3aeb285501fac7",
+   "25b811abfe32e00b1d472cd6020e87c21b4b6d1449d97326ef1ab27ab317cd5d",
+   "4c6a887705417584ce3df591f84bd8cfc510a8aa2a1b04788471d03e84d24fe8",
+   "11f4adfed0949202fe53b491601dafd41cde64855ee34e41823c90298222b3bb",
+   "4d174d1837a898d59c276fe8f60e0257ef301028eb5f7721d94374bc46c0a2e3",
+   "f991e401589244f46d0a1e0229271aa73061e04fc7ebbb50c50c3055785af939",
+   "677e480f60eaf098089ba5948020645da3c80baeea0d077e96a16bb45b68d50f",
+   "9011ed06c9f1ae929b1af45384d4f26f15e9b3b2649d48427563c2f8d3ea2e41",
+   "afabc63fe747eec00358a7fb1a46b004c884239018f78edb062aa3c6e75b0465",
+   "646f1518c5c2d916d35692e383b872a2a8508111dd7e2795e78454069655a4fe",
+   "6bd340fbcc708259bf275dedf8c0bedb417b84b7274e426af17c0a8e30491e93",
+   "1e498acc0b8236bae1dfd5ad6ba82a945155242b0a1bffa1de8969123ce10a69"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    1
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    2
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    3
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    4
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:11434/api/tags"
+   },
+   {
+    "body_sha256": "4216727122f2fe9e1309936c2c061185d515ef10104bd3cc49db7c1e70be6c14",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "69cbbabf7edff857071a5466c7d35524e04d20fb76b28a5333ecea661d1c5824",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 8,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "af05def2ce78197ff718811974a82b0af29eb4162e3a4211a35d6556af321461",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "69cbbabf7edff857071a5466c7d35524e04d20fb76b28a5333ecea661d1c5824",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 8,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "af05def2ce78197ff718811974a82b0af29eb4162e3a4211a35d6556af321461",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "d11600c0c85616a3f7db2768d6022238202e6b6b89f7ce94509b20ca2d3ffb34",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 8,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0f3106588a2b3c8d10ed7a73d0ad183b514ba8286561806a2e20fa4c23a7faba",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "455ac460128450f14b89e3ca9b77eac55bccacbdb553198a21f656393b64b20e",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 8,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "fc87e1a69ff437558a2d680c59b5eccb3ae9ff4059e040d6adf2e12b46399950",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "4216727122f2fe9e1309936c2c061185d515ef10104bd3cc49db7c1e70be6c14",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "6890e5cd2755538769c20082b21cea90f6f01d506cb72be8d2aa931d52c06929",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": false
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    3,
+    "pass",
+    "ok"
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    4,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "ollama-reasoning-medium": {
+  "document_sha256": "dfc7d4057814a885470307f2b823320bdbb886b06d9a34c625a2a0d1e948bf63",
+  "error": null,
+  "persisted_sha256": [
+   "194f427ffc1702ae5c1c974c608b0d75ddad8413e5b5d90a29df80a43fb29f6d",
+   "041227faa74b2c1b140c7ec1e04a05777ed5c2832da4a48c1256ada64a8ff5f9",
+   "452e6ec36d53a3ed401d3edfbd4bb5187cf9722fe19bc34da08693e18b222cfd",
+   "418b2d3f591e90fcd010dead9277144709f2d1780ff2c17e369b6c85046234ad",
+   "1f54decff0efe916c243bed6677a84f11dd84723206a651f3ec4c488d38a388d",
+   "3e8784ffe18f1b1f5165ef2a746dc0bd2e25671b7dbbf336f5484ba72a0abd1b",
+   "74ca2f992a33484f3df54a55d6ef7c5f72569248babb2c9a8a446f46b571c4b7",
+   "b18064c8ed83b8d3a7def10c9ffce88c0dae1a1d08b74c7492870a44dc9cc794",
+   "aa8e295f51ad1e16c4e382c1d04b3fb7092fa07ff268feca8cc92c3d13c09382",
+   "183de361c1a3dbd067fcd23cc2498e6d073c733d6a74d90ac768c97a74ab6a2e",
+   "4b26a03d85c58250272aadf18f348e217a71a942b4775f106790733655c55bbb",
+   "4c520824ae2cea9b881259567fb8e040763b26a81b3602d7515dfba6c95028f6",
+   "dfc7d4057814a885470307f2b823320bdbb886b06d9a34c625a2a0d1e948bf63"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:11434/api/tags"
+   },
+   {
+    "body_sha256": "f61a6f32636b3372c54f48886df483726a9cf736f2a323033b9b9f7f2f7880b6",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "medium"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "f61a6f32636b3372c54f48886df483726a9cf736f2a323033b9b9f7f2f7880b6",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "medium"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9868a16fa3b4fc744457b17daf2d4173049709c794b42dc67fa28d62d44692c9",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "medium"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9868a16fa3b4fc744457b17daf2d4173049709c794b42dc67fa28d62d44692c9",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "medium"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   },
+   {
+    "body_sha256": "9868a16fa3b4fc744457b17daf2d4173049709c794b42dc67fa28d62d44692c9",
+    "fields": {
+     "model": "example-model",
+     "options": {
+      "num_ctx": 8192,
+      "num_predict": 512,
+      "temperature": 0
+     },
+     "stream": false,
+     "think": "medium"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:11434/api/chat"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-alarm": {
+  "document_sha256": "238889092c5ea09d8421d752a0d3749e892ed95cfa727cc09e09859536b2a9b5",
+  "error": null,
+  "persisted_sha256": [
+   "3965023b23f968371253975680598b0e67033e8c14cc603f74481313cd5174f2",
+   "806f5126bbb823670c9e2fbfbe9ec33cc20a5f5cee5518755c2a8616e3da1218",
+   "62318d308079f567a2c35a088062bf1038ba0830e7141427579bab3bf98b320c",
+   "d8133af9c938bc56c7272afa7b9c699cba84cc1beb83c34905ffc7b4ee1eb302",
+   "15fddbafddf9221d1343a999f9f5e1b5f5d8e3ed6681155dcb23834c092bc279",
+   "c4637837d0dd6e4d07e9ef50bfc2557a267c79389a42ba27baca22e4472e9955",
+   "5445b536e4c2403c08f82615147611a0a6aa746669d9c2b6b279f53d9f4c5663",
+   "337f0807382e7f13a664eb2921a67892a3062ce6bd588322d5cd87974e8e0835",
+   "0a5274f0d4fa860ce6a61ac415f0e734b6b7f35c4b35d653a19fefd1005b7ce4",
+   "122a609515f76a843b1cbaa902989f5aa4fd0bf9a3423c9766dd7d34f5893300",
+   "6421a93bbe6b482da2f5637d8b5e2d47edaa22663f30c6afe0c1ab50230d2546",
+   "a287edeaa75227ed3c293958f109635c9ba9c3ee9defacee23e9e81bcee8c060",
+   "238889092c5ea09d8421d752a0d3749e892ed95cfa727cc09e09859536b2a9b5"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30223e49b64116121bc0627ab947c41dd9e54ad832bbf02ea9bc56744d336da8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "timeout",
+    "timeout"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-cancel": {
+  "document_sha256": "9764dbe202c2a9a67c969671b57ce52268ff85861595da6bbb7d8dd7ef800766",
+  "error": null,
+  "persisted_sha256": [
+   "3965023b23f968371253975680598b0e67033e8c14cc603f74481313cd5174f2",
+   "806f5126bbb823670c9e2fbfbe9ec33cc20a5f5cee5518755c2a8616e3da1218",
+   "62318d308079f567a2c35a088062bf1038ba0830e7141427579bab3bf98b320c",
+   "d8133af9c938bc56c7272afa7b9c699cba84cc1beb83c34905ffc7b4ee1eb302",
+   "15fddbafddf9221d1343a999f9f5e1b5f5d8e3ed6681155dcb23834c092bc279",
+   "c4637837d0dd6e4d07e9ef50bfc2557a267c79389a42ba27baca22e4472e9955",
+   "5445b536e4c2403c08f82615147611a0a6aa746669d9c2b6b279f53d9f4c5663",
+   "337f0807382e7f13a664eb2921a67892a3062ce6bd588322d5cd87974e8e0835",
+   "45c886c85fb2d8d0ef63aa3a9161335f62b69744ce4ba7119b5e1488606429cb",
+   "a5043bc9078d01eed0562514886d8b9d05e8cd1314fff85e1e5c2446035f51d9",
+   "4ca5b989809b6d8eae9d549dfa5f6d8a0731e5c6ebe63774de5221287af86a30",
+   "b88850e35dd266455e614e166e1d055d446b9a50b9dd1aaa964e4a68232a8cd5",
+   "9764dbe202c2a9a67c969671b57ce52268ff85861595da6bbb7d8dd7ef800766"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30223e49b64116121bc0627ab947c41dd9e54ad832bbf02ea9bc56744d336da8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "cancelled",
+    "cancelled"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-failures": {
+  "document_sha256": "9d318679a960a3a58d03755e14a6b2448be86ce6005ba8e9b7a878586f7b6c73",
+  "error": null,
+  "persisted_sha256": [
+   "3965023b23f968371253975680598b0e67033e8c14cc603f74481313cd5174f2",
+   "806f5126bbb823670c9e2fbfbe9ec33cc20a5f5cee5518755c2a8616e3da1218",
+   "62318d308079f567a2c35a088062bf1038ba0830e7141427579bab3bf98b320c",
+   "d8133af9c938bc56c7272afa7b9c699cba84cc1beb83c34905ffc7b4ee1eb302",
+   "379411ccca4d7189c749c18412d6bcb89a41f332db9c0840ca5fab49f6eedf2b",
+   "89cab76c24f8561e782dd3dfde71a595a4065206c49ca85680ca490c0121aefd",
+   "84317b237f2d65d505b08ed976a07941fe754cb22787da8d273c03cee1a7adc6",
+   "5c965ccb33d8eb5418dd5c064f74976e1b2053596efcc9c356e9c903bb4c1ef0",
+   "2a0a2be2d3e0eaff50c6d0874e5fe24f5286a7667b0e5495c497245058636e61",
+   "aa3cbfa57b8fc903331553c1976b688967d07d572f44c4d558b514b522c69a22",
+   "620d69f7f19d15babede81c4dab3f0c947b84c6d08881db05369f53a9cf0dc9f",
+   "dbbdec49fb762deabe8f67bfb3ac4e54e7d3bee06897a74e0d83dd4d938a6333",
+   "9d318679a960a3a58d03755e14a6b2448be86ce6005ba8e9b7a878586f7b6c73"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30223e49b64116121bc0627ab947c41dd9e54ad832bbf02ea9bc56744d336da8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "infrastructure_failure",
+    "http_error"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "completion_failure",
+    "missing_completion"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "task_quality_failure",
+    "wrong_output"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-not-listed": {
+  "document_sha256": "afad944dc60dc24e1d20e7fcf5f07a1abea981de78d16d03db5aa6853dd5d4ac",
+  "error": null,
+  "persisted_sha256": [
+   "3965023b23f968371253975680598b0e67033e8c14cc603f74481313cd5174f2",
+   "806f5126bbb823670c9e2fbfbe9ec33cc20a5f5cee5518755c2a8616e3da1218",
+   "787e1f3784d04a04a51925cebed6b46e6a7494040e462fc709bf436c11013f72",
+   "1c10505330a94279953c1476e37e3e5be12a8435aac86032e9a17a1aac2c73ba",
+   "a0cb09f19273c13f20a85f16d85283040a5f1b6d2c35b88bf8c94fe02cc53c9f",
+   "e9aaf9c9563b43e4136389113c202f10c70f718784ce21c8522bfb2f64918a69",
+   "aa16581cb76b0787fe2309b56395ecfa57748e9f0485f464f6edf8c16232e471",
+   "2dbada0542e26ce9f83e329fce94c29108e8afeb2c831ba28cb8e2e13a854e4a",
+   "1018ddf88c5f9ffc6bb2e32a963e54a5fac0d5a142e9b1d59e5b85bfa21a7be9",
+   "56973a063116af0760bb0ea3bd2ab87962e2fbb0acf9dc339ebf959d472c89e0",
+   "a5712aec5a9ccf41c6e2230e5840e25fd27a023435690f8ffb52c11291b51d47",
+   "e938a3715b86284c57f23a27eadbc05c719dd75496544affdd24ea81c3b99d53",
+   "afad944dc60dc24e1d20e7fcf5f07a1abea981de78d16d03db5aa6853dd5d4ac"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "protocol_failure",
+    "model_not_listed"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-off-none": {
+  "document_sha256": "67bec4d7dda0eb458f460594bea2ddb11c94084e03a98d322918ebdf23615016",
+  "error": null,
+  "persisted_sha256": [
+   "f40a5b83d9087a4e796c7764d79a9592a8e4c1df68bcc66f9b0915eaf5b3d95d",
+   "23f121b422b7ce20c55752f0229dc96e4f9f9a61afca035a421ba56835eb1eb8",
+   "7165f1b7922369f8f0cd1be6c30724d32c3916c8457522f5debf79ff34288452",
+   "cca71a37a79c4bcbc34c1e26227109bfe51694161048e4164fee0531bd2274a9",
+   "d53268ca115ada25d95e7002589304b7ef6ce91d18961cb71683c25ee373e32a",
+   "b76e5b36b45931d850b67e35fd5a9cfcb6a74b5c526615222307359ade2d2cc3",
+   "877ac3adb0186783b2d14460044465b57ff208dec39c19eb396f534f4b1a1b18",
+   "e2004dfc6dd688449ffedd1f8e3138a7c5c493fee73c27ed1ee29fc20aba8a4d",
+   "5069326047b26c69462a56c8593fb179e330ae7b92901ff305edd76d4281edb1",
+   "7bf412ab438f0b15b290b167778c5f6a11247e755fec91fc20db9d2e46d02fe6",
+   "e4c86330079bb1d2ad183ae98c6e9171d7e4f04a64564d732bcde0a4e9bad091",
+   "c19fc9ae56676c12d54e7f882922fe13418cbd05130188630ccb0a499a4b1b6f",
+   "67bec4d7dda0eb458f460594bea2ddb11c94084e03a98d322918ebdf23615016"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5d287bfcf3862a996da4968d6b8d97ec40b9f9bd1d9b7f123778710b299db9a8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "none",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5d287bfcf3862a996da4968d6b8d97ec40b9f9bd1d9b7f123778710b299db9a8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "none",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "edd4fd1b207161c8bc5dd66f4ec29752d3706cbc8c101fd17b3796d02739b23c",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "none",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "87cb7ede827c3bcfc1070dca25deb9a4987a21cbfee23e3e66e0a3316088c7fb",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "none",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "87cb7ede827c3bcfc1070dca25deb9a4987a21cbfee23e3e66e0a3316088c7fb",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "none",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-oversize": {
+  "document_sha256": "62579e08fad3edc5b5b95821ea8bb08428ad3f3247b6574af1b5a688e4516182",
+  "error": null,
+  "persisted_sha256": [
+   "cea5d398b9d06ae00cbb87cabd7feb7cccf3ae01fb779754ccecc98344df85b5",
+   "e75cba41b2b0e835f2896e4d9130523ae60c39f364def006bbd6a89eb6b2d0fd",
+   "cd6e117a10da2880bb8e44b9d9d5973bee396506e5183e52d5e4df0cb869eb51",
+   "0e08524d5968390a80779c79acd40cd38bc3bcd447d4db1ce1c7ceb958548502",
+   "483193d92f4c34f41e6dd11d61619bcd0702d0099fbc466a439c6c387243abee",
+   "5fa913d528c9e72a128ede0c623926b25a01b474cb79a923619645957d582174",
+   "e2df494dd8152c060dc09df107ef376703aad611e36bae477f8079c8845a27a2",
+   "8eb8946d9ba8834d9d477c139c104b7ae8b64e3b269d7ea528e54fd04ffd5d4b",
+   "b3744e86dd2f592ef3fdc200bba39978b4cd4d4909db6d907b7875ab2f3143a0",
+   "78c08b7a2ae75088255219fd9960b7967450161a782f714aa15b0c16da4cf9c7",
+   "f905f2b0fe311a265f023e948390291d86945f9f6ebe521865a8247a06a3130b",
+   "a82061caae4d4fbf3cb7252cf98c15dffd8a7a74fedd0dd9841c095d312b0a04",
+   "62579e08fad3edc5b5b95821ea8bb08428ad3f3247b6574af1b5a688e4516182"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30223e49b64116121bc0627ab947c41dd9e54ad832bbf02ea9bc56744d336da8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "protocol_failure",
+    "response_limit"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "protocol_failure",
+    "response_limit"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-pass": {
+  "document_sha256": "fa5a14b20fb74bd08cb704ceae7c303b12d4980630d8eb2a5887feed3abd6bad",
+  "error": null,
+  "persisted_sha256": [
+   "3965023b23f968371253975680598b0e67033e8c14cc603f74481313cd5174f2",
+   "806f5126bbb823670c9e2fbfbe9ec33cc20a5f5cee5518755c2a8616e3da1218",
+   "62318d308079f567a2c35a088062bf1038ba0830e7141427579bab3bf98b320c",
+   "d8133af9c938bc56c7272afa7b9c699cba84cc1beb83c34905ffc7b4ee1eb302",
+   "81bb82f2e10661a2946d33d41d034d8875b4ec80bf057f82e8ec8d657692d589",
+   "a3f24ee022307648224d00b7fa3b575c608dac7845cfbcf256762dd6ad200d86",
+   "f4b3794dfa1a5ba1347bfbadbeb8436c43587d6e6d77edf29a017590ecf60772",
+   "755c42af21aecae2462e399fc47eff26109bab601676ccfed00405f0aacf281d",
+   "ae255eff421d9e3d484703a065c93558bd7b84c7d31fb93eea2e87b63ced72dd",
+   "4b9ba2968f082c20d1228ff1d8eac3917e2ab8a280699581885ef3bf3eb08716",
+   "c23a653ac919a6112d6cf18f8274265953b46e4d51d4926e86b962cfa2783bf1",
+   "4c1819e722012f074e0f4b3c02cd61a5ecec2e3ef2920ee8b3b482bbfc600373",
+   "fa5a14b20fb74bd08cb704ceae7c303b12d4980630d8eb2a5887feed3abd6bad"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30223e49b64116121bc0627ab947c41dd9e54ad832bbf02ea9bc56744d336da8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-probe": {
+  "document_sha256": "e4258429bab856ab7e8bc304bb0d18391ae162f2ba8be3854184f216b00f0691",
+  "error": null,
+  "persisted_sha256": [
+   "4066a4d3e8218bf06c784353d79899f3f36c7e574880f3b9b9db8dab8c498f2d",
+   "ec953ec443590c0a552259db36beeaea8371ce931278602d26058c0ecabce85c",
+   "dd95ed80d9817058c558a354c65c0d12e97196a579961f8dd2439f53c9b31b93",
+   "f4439ea945d814d09148d0f839ed2d190c0a9fd0172b80ec25347d1f7677aae8",
+   "71fce92bc2f7813ac89ac2818aeefa2b7fd7b4afd4b422aa34c7f1ff601b26a2",
+   "2225c8107006f4539e129bd98e5dcdc5d739e7517bad944ee2bac418b9b09e82",
+   "1bd54957c724d5b7e6d017eea545283e176717e899a4aac56af2df3c9100d2b8",
+   "eaa5e6d2027e1ae5b065fd82c449c9761851175ea99b0a48abdd5ab81ebb30df",
+   "0114f111e818aea46ee5aab64706ac0a5bf6eb5c737d809e1eaf06bd68356f3c",
+   "bca78c9b538be551c00f5196365cf120bc84b15bfae5c08ea2e68f1b02aa6e90",
+   "411521cc781abc62198a513aa0e25e59e9405dd67979602d35291f3f3db4395e",
+   "806270be34fc4792cd84e17fc00962e3b7cb4530102c286b04b847287de53534",
+   "1f62ed7d7417d422ab847dd436b4c6529c2effbfcca14d64beda5485fdecf827",
+   "b2390578116653967a4ad84c2f6db63f28bce69912b4d896a61e13a8b40002dc",
+   "c3cfe9885307f14a2cb314517a31507ae9c5561270f3dc6ca18fbec403a034de",
+   "9fed5a62dd09e5249bbaa88b4831ba1593e9bea44343ce110d1779a00e26887e",
+   "7bb723ffeb288fc4388577ac9f0fbc5d97fa3841eed5d7e5b7d7a3f5f54013af",
+   "7796ce6454793e0193a1eb217dcae66f4a31f95256d4e355a5d1900048b57d27",
+   "6ad6e76c202965d782c5d617e77be2b532d62e8b19ea79c4dbb06348c808a1cd",
+   "b6dea64e3498906a7799609bc3497e5db7ec268533e56798a3dc2c519b6987b1",
+   "9d2f5589ce2938f549d59bc75aff2b429677913d41c16992e22205464af5d331",
+   "e4258429bab856ab7e8bc304bb0d18391ae162f2ba8be3854184f216b00f0691"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    1
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    2
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    3
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    4
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "59fa9d73bea21ddfcb1a3a13638973a3c44bcd16fe01f2ab1f16b2b9bb017621",
+    "fields": {
+     "max_tokens": 8,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "af05def2ce78197ff718811974a82b0af29eb4162e3a4211a35d6556af321461",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "59fa9d73bea21ddfcb1a3a13638973a3c44bcd16fe01f2ab1f16b2b9bb017621",
+    "fields": {
+     "max_tokens": 8,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "af05def2ce78197ff718811974a82b0af29eb4162e3a4211a35d6556af321461",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "4fcf55fa75d35a172f77b5da5ff48ee9cb06806bb2e12e79bc62552a1254bb65",
+    "fields": {
+     "max_tokens": 8,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "0f3106588a2b3c8d10ed7a73d0ad183b514ba8286561806a2e20fa4c23a7faba",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "bb2039fc683dd9d384e8fb802047d5c11815ef33206406b955c0c06641c7d194",
+    "fields": {
+     "max_tokens": 8,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "fc87e1a69ff437558a2d680c59b5eccb3ae9ff4059e040d6adf2e12b46399950",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30223e49b64116121bc0627ab947c41dd9e54ad832bbf02ea9bc56744d336da8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    3,
+    "pass",
+    "ok"
+   ],
+   [
+    "cache_probe",
+    "cache_probe",
+    4,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-protocol": {
+  "document_sha256": "719601b2913e5211d2e063b5d34dffc01b3ac0b85b6347d0fc7b2503d7c66840",
+  "error": null,
+  "persisted_sha256": [
+   "3965023b23f968371253975680598b0e67033e8c14cc603f74481313cd5174f2",
+   "806f5126bbb823670c9e2fbfbe9ec33cc20a5f5cee5518755c2a8616e3da1218",
+   "62318d308079f567a2c35a088062bf1038ba0830e7141427579bab3bf98b320c",
+   "d8133af9c938bc56c7272afa7b9c699cba84cc1beb83c34905ffc7b4ee1eb302",
+   "9b901dcf59a1859b5fd2659d657940c201a8631ab3f14db6944e22237c880a46",
+   "a085a345701fccd53527e4c319d0f44c936668a5e6de86319f899f135d9671a3",
+   "e3e80574e398f64a3aa070fd9bacef1b00ec81b3e33d54eab1747e36ac909544",
+   "44380ed65da5edd5491224decf7ad185dca96390150d77fb511eca6051fe293c",
+   "1a25b3febef85a6512a25e9108483184ee80ed4377083730bc18b4b5aaf7f921",
+   "6593bcfd041465192007c213720491027099746e07569123fedfeb5c575bd497",
+   "a0e0a7e5d10d918baac6c48f3caaf0d8571f679a12713975368c640d0aff1213",
+   "8ea2cb6723956d5e45ddabe45ad20f31016fc71d66ad800b9123c6c0d60c09f1",
+   "719601b2913e5211d2e063b5d34dffc01b3ac0b85b6347d0fc7b2503d7c66840"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30223e49b64116121bc0627ab947c41dd9e54ad832bbf02ea9bc56744d336da8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "protocol_failure",
+    "malformed_response"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "protocol_failure",
+    "malformed_response"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "completion_failure",
+    "missing_completion"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-reasoning-high": {
+  "document_sha256": "0249730fbf15e332730675c34d2f0103092adb6e113ad89b2c704df0ecee72bb",
+  "error": null,
+  "persisted_sha256": [
+   "9d9082e7cbd1d32737842f8b5310cb47cd0a9fb7f6e125b69a27b438dc16e0be",
+   "f377e793725a2f3ba9353b11be1630f4f01c727a9962481d7e3319f1a1de1a3a",
+   "be688b17ab9d4ee9fc1034c064732c2b7c842f6037660d309cfc5b4705a535f7",
+   "e709c61683aaab4f63b4bd8ca2c1eaa0d74ed2e4ad7bbf7222e656d5acd8179e",
+   "38b35f6da47e45b8631cfa4d21fbd5d2f9a7ce84832c273bf1bc3b901afb5e2d",
+   "26d9cb813d9f3d5eeb398e36e28e70603b8dce0b0d8c165657271db776dfc1e5",
+   "89ceabfcbc008b2a394f740162c6a3830d88f09076abf6a14133146d417ccd9a",
+   "91f8d00da97b21fa371022531e3e490f4b18cb033009911d222c0245f88af311",
+   "15f5ce26b0e805cf425b356df5a115a618320b3da94fd77df884d052ae5f816b",
+   "6bb07b9e4ce11a0ebabb56aedf1a515298372bcb271175e2e7e0f991930c38a2",
+   "a557893ae2647b4d6dd485d4ddf8894b0a181916d390717c30ec8f99261bd5e2",
+   "dbe9ca25589ef32308ffa7a3688d9f4750f73828c6906d1d45cee1e5f352653f",
+   "0249730fbf15e332730675c34d2f0103092adb6e113ad89b2c704df0ecee72bb"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "e06329497f051033fa4cb367ef0a9d860fba60e284091a1aac9ea54308a102d7",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "high",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "e06329497f051033fa4cb367ef0a9d860fba60e284091a1aac9ea54308a102d7",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "high",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "55bd807664d31f708bf038395b1857270d4aef7de93debe5b1324dc20d6214d0",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "high",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "e8a8ff2fca2ba460ce6a5775c28d8a74492fa3f82c58d0dea4cd3abd4c602e3f",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "high",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "e8a8ff2fca2ba460ce6a5775c28d8a74492fa3f82c58d0dea4cd3abd4c602e3f",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "reasoning_effort": "high",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai-unreachable": {
+  "document_sha256": "c68a6a4b8539be35b1d98a362faafda352a9ae03f403298d17a7443520f467d6",
+  "error": null,
+  "persisted_sha256": [
+   "3965023b23f968371253975680598b0e67033e8c14cc603f74481313cd5174f2",
+   "806f5126bbb823670c9e2fbfbe9ec33cc20a5f5cee5518755c2a8616e3da1218",
+   "35b7abc7dda44dfc4c711cbcbe6ab8bf6a601dba2fbfd130e54db143628ce393",
+   "edd97e0b5d9dddb8e3c87f839a7b38f1a8fefa91a9d42ff408ea5ee4b2b612ca",
+   "f328537792da2cb7580834abfd5f30c6b536d88275b202700e516781ef3f61fd",
+   "8fbbb925923b412e6e8e1e431754ae0e417748bf39598446e84f1426256a85b4",
+   "2cf1efd22b1dc6ee43a4c4c62d2640b38232f8ab3a4c89afc69ed3136fe01209",
+   "fdd4b7a36d1ad9ef7bfc03461fe8e72f2a42071b51842966d88bd8f719cf367b",
+   "20f99301e827cb7df2a52b87b3ac6308569bb678f3176544b7e2240557e827ed",
+   "cd173388981bf0ee385603e8ed95b70ed076b966f441a872776254b2e949add0",
+   "af4db427cbca0b4c029296f63a322d60ed1a71de10a627d50e6a347d394f0031",
+   "4de11d2d60cf346fd3754870b809557928139d2d01e0cdfb96052e161ec7b989",
+   "c68a6a4b8539be35b1d98a362faafda352a9ae03f403298d17a7443520f467d6"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "infrastructure_failure",
+    "unavailable"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "pi-tools": {
+  "document_sha256": "240ae13a30a7c12e99066e897a139fe4e6e8d455273b5166f549d472effeed59",
+  "error": null,
+  "persisted_sha256": [
+   "f122260aee7249097537fba13c2810a63176ddc22aa3ebbd5fd49fc444d7465a",
+   "4935db9c9d3bcdc5298e4374cc7aa0130d3f70d48c0918a59b6758f586b2e89b",
+   "f2b715f30f8878aa828bc5760e8682ad7b2e727e8b1a8d2bfebd387433239fb5",
+   "909a28736f2e6bb89558d0c2180b14cbfe10982508565a0a3cee1cfc5d3a0f2a",
+   "7ea86df9962192398070e386317859d4c0832246a8fc52587d535fd191f992df",
+   "37e43e2b95a13d5d8e0d6d5757741cd2812bffd207686e1edf5e5ba2563ec5e9",
+   "2c6ac0b8da5411514345295a40dea31c9f0e4c7b6bead0c66c6f1b521727ae0a",
+   "98d18bd01bbaf012c706bd85d9a07023baefee02b218098b9c165aa29ff73948",
+   "127cef6f1f2b411ac13d54acfc36f6ef3eca6fc97724da5510e8d500367c149d",
+   "ef4a906b2bfc201c0514bfee27bf422ba25785da8309fd74603161d758f308bd",
+   "397d441bd648c085c79b56072d25e8d9106b0a7e300e539973e0b656e048a773",
+   "ebc7c33b18cc0abd83ce461d9e543d59d5d3601ef9a1c3986ae95092eb1b378b",
+   "51aab4a9f7943c304611f09b184a515ad594d04f7f94d6dae517182edda768bf",
+   "2bdcb4b8294b3c2a5d7114ce676fd97826b11aad75a0b091148fb17d970403f9",
+   "d0a80b299b55ad89600fb5abb613c81d580224b877c3c76720ddbd8a7877e8de",
+   "aeac250c62b6684b428c3ced33a1665f23e23241cd150c47c35050ebb62e84e1",
+   "59f8df0f549ed6d7b2f4d3c9b794b63a3899d88cff0bf8859020cc3504a0742c",
+   "7f6be01c9b0a415de56945e74da33adb068f5a7331c903fb6614781503a0e053",
+   "240ae13a30a7c12e99066e897a139fe4e6e8d455273b5166f549d472effeed59"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "tool",
+    "tool",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ],
+   [
+    "task",
+    "coding",
+    1
+   ],
+   [
+    "task",
+    "coding",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://inference:8080/v1/models"
+   },
+   {
+    "body_sha256": "201cb8310a76abfa46dc66e91ddc5d06a9f3355715d7482d692efc1c17bc3efc",
+    "fields": {
+     "max_tokens": 2048,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://inference:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "201cb8310a76abfa46dc66e91ddc5d06a9f3355715d7482d692efc1c17bc3efc",
+    "fields": {
+     "max_tokens": 2048,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://inference:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "f1691954b660978c7a411094988f5b153307de07155ede42b808d9f747b71bd2",
+    "fields": {
+     "max_tokens": 2048,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0,
+     "tool_choice": "required"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "70a8bce2b804f4823771b0c0531d91bb625adea23b72b87394eab176e3e45f90",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "b297e327fb903df38238f9ea4729541e647493fad99d97a815f3325b065f82e4",
+    "url": "http://inference:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "98b826f0d221dfd5929f450f9ee1987c6cc226c1525e02d16a354e392e65231d",
+    "fields": {
+     "max_tokens": 2048,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://inference:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30fdbd6281e9562f5bda15fd00e7778932e990df51dc5b52a3a6b0cdd93370f9",
+    "fields": {
+     "max_tokens": 2048,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://inference:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30fdbd6281e9562f5bda15fd00e7778932e990df51dc5b52a3a6b0cdd93370f9",
+    "fields": {
+     "max_tokens": 2048,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://inference:8080/v1/chat/completions"
+   }
+  ],
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "tool",
+    "tool",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "coding",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "coding",
+    2,
+    "completion_failure",
+    "missing_completion"
+   ]
+  ],
+  "unused_responses": 0
+ }
+}
