@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 from .core import atomic_json, config, read_json
+from .memory_probe import endpoint_is_local
 from .targets import control, inventory, save_result, start, target_config, target_plan
 
 
@@ -47,22 +48,12 @@ def run(args):
     if args.command == "target-inspect":
         result = inventory(target)
     elif args.command == "target-config":
-        from urllib.parse import urlsplit
-
         result = config(args.config)
         endpoints = [
             result["endpoint"],
             *result.get("tool_schema", {}).get("endpoints", {}).values(),
         ]
-        if any(
-            urlsplit(endpoint).hostname
-            not in (
-                "127.0.0.1",
-                "::1",
-                "localhost",
-            )
-            for endpoint in endpoints
-        ):
+        if not all(endpoint_is_local(endpoint) for endpoint in endpoints):
             raise ValueError(
                 "Observed target inventory only applies to target loopback endpoints; use authorized operator inventory otherwise"
             )
