@@ -8,7 +8,7 @@ results. Toolkit never installs drivers, tunes hosts or downloads model catalogs
 | Python CLI | Linux and macOS, Python >=3.11 | Tests and clean wheel/sdist installs run in Linux CI and locally on macOS |
 | Generic OpenAI API | `/models`, chat completion, streamed content/usage, forced tool calls | Offline wire tests; live endpoint authentication gate documented separately |
 | Native Ollama API | `/api/tags`, bounded nonstream `/api/chat`, native timing fields | Second configuration tested against synthetic wire server; real Ollama model unqualified |
-| Pi coding | Existing pinned Docker image, Python 3, Pi 1.0.0 interface, existing internal network | Adapter and verifier checks offline in this repo's CI; separately run live in operator use against local models over multiple days, including forced-compaction and coding-under-load sessions -- that usage is outside this repo's own test suite |
+| Pi coding | Existing pinned Docker image, Python 3, Pi 1.1.0 interface, existing internal network | Adapter and verifier checks offline in this repo's CI; separately run live in operator use against local models over multiple days, including forced-compaction and coding-under-load sessions -- that usage is outside this repo's own test suite |
 | Windows | No execution deadline/isolation contract qualified | Explicitly unqualified |
 | Local/SSH targets | Same installed package; finite SSH invocation | Offline transport fixtures; physical SSH model flow pending |
 | AMD/Intel Linux | Bounded DRM vendor/device/driver inspection; AMD sysfs VRAM when available | Fixture-tested; Intel memory remains unknown |
