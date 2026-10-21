@@ -298,6 +298,7 @@ def summaries(doc):
 
 
 def report(documents):
+    """The tool-call part of reporting.report, which validates each document."""
     out = [
         "# Tool-call schema adherence",
         "",
@@ -305,7 +306,6 @@ def report(documents):
         "",
     ]
     for doc in documents:
-        validate(doc)
         out += [
             f"Run {doc['run_id']}; configuration `{doc['identity_sha256']}`.",
             f"Mode: {doc['contract']['mode']}; conversation: {doc['contract']['conversation_source']}; fixture `{doc['contract']['fixture_sha256']}`.",

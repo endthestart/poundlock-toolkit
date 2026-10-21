@@ -250,6 +250,29 @@ class SchemaTests(unittest.TestCase):
         self.assertEqual(counts["openai"]["reasoning_sent"], "omitted")
         self.assertEqual(counts["ollama"]["reasoning_sent"], "disabled")
 
+    def test_report_validates_each_document_once(self):
+        from poundlock_toolkit.demo import SyntheticBackend
+        from poundlock_toolkit.evaluation import evaluate as qualify
+
+        def response(c, boundary):
+            return calls(valid_arguments()), True, None
+
+        schema_doc = evaluate(self.c, self.root / "schema.json", requester=response)
+        regular = qualify(
+            config(ROOT / "src/poundlock_toolkit/data/examples/openai.json"),
+            self.root / "demo.json",
+            backend=SyntheticBackend(),
+            synthetic=True,
+        )
+        with (
+            patch("poundlock_toolkit.reporting.validate", wraps=validate) as checked,
+            patch(
+                "poundlock_toolkit.schema_evaluation.validate", wraps=validate
+            ) as schema_checked,
+        ):
+            report([regular, schema_doc])
+        self.assertEqual(checked.call_count + schema_checked.call_count, 2)
+
     def test_warmup_can_be_disabled(self):
         self.c["tool_schema"]["warmup_enabled"] = False
         self.assertFalse(contract(self.c)["warmup_enabled"])

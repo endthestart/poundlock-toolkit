@@ -45,6 +45,12 @@ from poundlock_toolkit.fixtures import (
 )
 from poundlock_toolkit.inspection import drm_inventory
 from poundlock_toolkit.memory_probe import LinuxReader
+from poundlock_toolkit.reporting import (
+    investigation_pair,
+    recommendation,
+    report,
+    summary,
+)
 from poundlock_toolkit.schema_evaluation import evaluate as schema_evaluate
 from poundlock_toolkit.schema_evaluation import request as schema_request
 
@@ -949,6 +955,169 @@ def completion():
     return result
 
 
+IDENTIFIED = {
+    "model.revision": "fixed-revision",
+    "model.quantization": "Q4_K_M",
+    "backend.version": "1.0",
+    "backend.application": None,
+    "settings.template_sha256": "a" * 64,
+    "settings.prefix_cache": "disabled",
+    "settings.kv_quantization": "f16",
+}
+WORKLOADS = ("extraction", "coding", "investigation")
+
+
+class Slower(SyntheticBackend):
+    def complete(self, prompt, tool=False, stream=False):
+        result = super().complete(prompt, tool=tool, stream=stream)
+        result["metrics"]["wall_seconds"] = 0.5
+        return result
+
+
+class ToolCapable(SyntheticBackend):
+    """The demo backend, with a valid answer to the tool gate."""
+
+    def complete(self, prompt, tool=False, stream=False):
+        result = super().complete(prompt, tool=tool, stream=stream)
+        if tool:
+            result["calls"] = RECORD_CALL
+        return result
+
+
+def document(example, settings, replay=None, **kwargs):
+    """The result document one evaluation writes, as `recommend` reads it."""
+    with tempfile.TemporaryDirectory() as folder:
+        c = configured(example, LIMITS | settings, folder)
+        if "memory_probe" in kwargs:
+            c["memory_probe"] = kwargs.pop("memory_probe")
+        run(c, folder, replay or Replay(), **kwargs)
+        return json.loads((Path(folder) / "result.json").read_text())
+
+
+def report_documents():
+    docs = {}
+    for example in DEMOS:
+        docs["demo " + example] = document(
+            example, {}, backend=SyntheticBackend(), synthetic=True
+        )
+    for name, scenario in sorted(RECORDED["qualification"].items()):
+        docs[name] = document(
+            scenario["example"],
+            {"limits.repetitions": 2} | scenario["config"],
+            Replay(scenario["responses"]),
+            pi_factory=RecordedPi(scenario.get("pi", ())),
+        )
+    passes = [RECORDED["qualification"]["pi-tools"]["pi"][0]] * 3
+    for variant in ("findable", "absent"):
+        docs["investigation " + variant] = document(
+            "investigation.json",
+            {"investigation.variant": variant},
+            backend=ToolCapable(),
+            pi_factory=RecordedPi(passes),
+        )
+    docs["qualified"] = document("openai.json", IDENTIFIED, backend=SyntheticBackend())
+    docs["qualified, slower"] = document("openai.json", IDENTIFIED, backend=Slower())
+    docs["memory probe"] = document(
+        "openai.json",
+        {},
+        backend=SyntheticBackend(),
+        memory_probe={"pid": 4242},
+        memory_reader=Sampled(),
+        memory_interval=3600,
+    )
+    docs["stored 0.2.1"] = json.loads(
+        (TESTS / "data/result-0.2.1-prefix-cache-probe.json").read_text()
+    )
+    for name in (
+        "valid",
+        "scoring-failures",
+        "transport-failures",
+        "cancel-in-warmup",
+        "budget",
+        "no-warmup",
+    ):
+        scenario = RECORDED["tool_schema"][name]
+        docs["tool schema " + name] = document(
+            "tool-schema.json", scenario["config"], Replay(scenario["responses"])
+        )
+    return docs
+
+
+def refused(call):
+    try:
+        return {"result_sha256": sha256(call().encode())}
+    except ValueError as exc:
+        return {"error": f"ValueError: {exc}"}
+
+
+def reports():
+    """Reports, summaries and verdicts over many result documents (L5)."""
+    result = {}
+    with deterministic():
+        docs = report_documents()
+        regular = {
+            k: d
+            for k, d in docs.items()
+            if "attempts" in d and "stage" in d["attempts"][0]
+        }
+        schema = {k: d for k, d in docs.items() if k not in regular}
+        for name, doc in docs.items():
+            result[f"report, {name}"] = sha256(report([doc]).encode())
+            result[f"summary, {name}"] = sha256(line(summary([doc])).encode())
+        for name, doc in regular.items():
+            verdicts = {w: recommendation(doc, w) for w in WORKLOADS}
+            result[f"recommendations, {name}"] = (
+                line(
+                    {
+                        w: [r["level"], r["passed"], r["attempted"], r["planned"]]
+                        for w, r in verdicts.items()
+                    }
+                )
+                + " "
+                + sha256(line(verdicts).encode())
+            )
+        mixed = [d for pair in zip(regular.values(), schema.values()) for d in pair]
+        lists = {
+            "all regular": list(regular.values()),
+            "all tool schema": list(schema.values()),
+            "mixed": mixed,
+            "mixed, tool schema first": mixed[1:] + mixed[:1],
+            "empty": [],
+        }
+        for name, documents in lists.items():
+            text = report(documents)
+            result[f"report of {name}"] = sha256(text.encode())
+            result[f"summary of {name}"] = sha256(line(summary(documents)).encode())
+        later = REPORTED_AT + timedelta(days=400)
+        result["report of all regular, a year on"] = sha256(
+            report(lists["all regular"], later).encode()
+        )
+        result["report text, demo openai.json"] = report([docs["demo openai.json"]])
+        result["report text, qualified and tool schema"] = report(
+            [docs["qualified"], docs["qualified, slower"], docs["tool schema valid"]]
+        )
+        result["investigation pair"] = line(
+            investigation_pair(
+                docs["investigation findable"], docs["investigation absent"]
+            )
+        )
+        invalid = copy.deepcopy(docs["demo openai.json"])
+        invalid["unexpected"] = True
+        invalid_schema = copy.deepcopy(docs["tool schema valid"])
+        invalid_schema["attempts"][0]["outcome"] = "unheard-of"
+        for name, documents in (
+            ("invalid after valid", [docs["qualified"], invalid]),
+            ("invalid tool schema first", [invalid_schema, docs["qualified"]]),
+            ("invalid tool schema after regular", [docs["qualified"], invalid_schema]),
+        ):
+            result[f"report, {name}"] = refused(lambda: report(documents))
+            result[f"summary, {name}"] = refused(lambda: line(summary(documents)))
+        result["recommendation, invalid"] = refused(
+            lambda: line(recommendation(invalid, "extraction"))
+        )
+    return result
+
+
 def demo(example, folder):
     """`poundlock-toolkit demo`, end to end: exit code, printed report, document."""
     output, out, err = Path(folder) / "demo.json", io.StringIO(), io.StringIO()
@@ -1005,6 +1174,10 @@ class GoldenTests(unittest.TestCase):
     def test_pi_self_report_checks(self):
         """The coding and investigation completion checks (M10)."""
         self.assertGolden("completion", completion())
+
+    def test_reports(self):
+        """Reports, summaries and verdicts, valid and invalid input (L5)."""
+        self.assertGolden("reports", reports())
 
 
 if __name__ == "__main__":

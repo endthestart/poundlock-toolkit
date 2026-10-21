@@ -175,6 +175,11 @@ def memory_text(doc):
 
 def recommendation(doc, workload, now=None):
     validate(doc)
+    return _recommendation(doc, workload, now)
+
+
+def _recommendation(doc, workload, now=None):
+    """`recommendation` for a document that has already been validated."""
     now = now or datetime.now(timezone.utc)
     checks = {}
     rows = [
@@ -404,6 +409,7 @@ def acceptance_rate(metrics):
 
 
 def report(documents, now=None):
+    """The markdown report. Every document is validated once, before any is read."""
     from .tool_schema import NAMESPACE
     from .schema_evaluation import report as schema_report
 
@@ -412,9 +418,14 @@ def report(documents, now=None):
     schema_docs = [d for d in documents if d["schema"] == NAMESPACE]
     regular = [d for d in documents if d["schema"] != NAMESPACE]
     if schema_docs:
-        return (report(regular, now) + "\n" if regular else "") + schema_report(
+        return (_report(regular, now) + "\n" if regular else "") + schema_report(
             schema_docs
         )
+    return _report(regular, now)
+
+
+def _report(documents, now):
+    """The qualification part of `report`, for validated documents."""
     out = [
         "# Poundlock Toolkit qualification report",
         "",
@@ -422,7 +433,7 @@ def report(documents, now=None):
         "",
     ]
     for workload in ("extraction", "coding", "investigation"):
-        candidates = [(d, recommendation(d, workload, now)) for d in documents]
+        candidates = [(d, _recommendation(d, workload, now)) for d in documents]
         qualified = [
             (d, r) for d, r in candidates if r["level"] == "repeated task qualification"
         ]
@@ -442,7 +453,6 @@ def report(documents, now=None):
                 "",
             ]
     for d in documents:
-        validate(d)
         out += [
             f"## Run {d['run_id']}",
             f"Observed: {d['created_at']}. Configuration: `{d['identity_sha256']}`.",
@@ -453,7 +463,7 @@ def report(documents, now=None):
             "",
         ]
         for w in ("extraction", "coding", "investigation"):
-            r = recommendation(d, w, now)
+            r = _recommendation(d, w, now)
             out += [
                 f"### {w}: {r['level']}",
                 f"{r['passed']}/{r['attempted']} attempted task runs independently passed; {r['planned']} planned. Median successful task duration: {r['median_task_seconds'] if r['median_task_seconds'] is not None else 'unknown'} seconds.",
