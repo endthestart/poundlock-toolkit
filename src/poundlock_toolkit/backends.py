@@ -78,6 +78,28 @@ def reasoning_effort(settings):
     return settings.get("reasoning_off_effort")
 
 
+def openai_sampling(settings, max_tokens=None):
+    """OpenAI-boundary sampling fields; `max_tokens` overrides the output budget."""
+    return {
+        "temperature": settings["temperature"],
+        "max_tokens": max_tokens or settings["max_output_tokens"],
+    }
+
+
+def ollama_options(settings, max_tokens=None):
+    """Native Ollama `options`; `max_tokens` overrides the output budget."""
+    return {
+        "temperature": settings["temperature"],
+        "num_predict": max_tokens or settings["max_output_tokens"],
+        "num_ctx": settings["context_tokens"],
+    }
+
+
+def ollama_think(settings):
+    """Native Ollama `think`, a dialect of its own: false, or the chosen level."""
+    return False if settings["reasoning"] == "off" else settings["reasoning"]
+
+
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, *args, **kwargs):
         raise Failure("protocol_failure", "http_error")
@@ -180,8 +202,7 @@ class Backend:
         payload = {
             "model": self.c["model"]["id"],
             "messages": chat_messages(prompt, history),
-            "temperature": settings["temperature"],
-            "max_tokens": max_tokens or settings["max_output_tokens"],
+            **openai_sampling(settings, max_tokens),
             "stream": stream,
         }
         if (effort := reasoning_effort(settings)) is not None:
@@ -297,14 +318,9 @@ class Backend:
             "model": self.c["model"]["id"],
             "messages": chat_messages(prompt, history),
             "stream": False,
-            "options": {
-                "temperature": s["temperature"],
-                "num_predict": max_tokens or s["max_output_tokens"],
-                "num_ctx": s["context_tokens"],
-            },
+            "options": ollama_options(s, max_tokens),
+            "think": ollama_think(s),
         }
-        # Native Ollama thinking is a separate dialect; preserve chosen setting.
-        payload["think"] = False if s["reasoning"] == "off" else s["reasoning"]
         if tool:
             payload["tools"] = [TOOL]
         started = time.monotonic()

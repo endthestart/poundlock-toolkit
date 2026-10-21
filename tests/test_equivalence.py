@@ -33,12 +33,13 @@ from urllib.parse import urlsplit
 
 import poundlock_toolkit.core as core
 import poundlock_toolkit.reporting as reporting
-from poundlock_toolkit.backends import empty_metrics
+from poundlock_toolkit.backends import Backend, empty_metrics
 from poundlock_toolkit.cli import main
 from poundlock_toolkit.core import Failure, config
 from poundlock_toolkit.demo import SyntheticBackend
 from poundlock_toolkit.evaluation import evaluate
 from poundlock_toolkit.schema_evaluation import evaluate as schema_evaluate
+from poundlock_toolkit.schema_evaluation import request as schema_request
 
 TESTS = Path(__file__).resolve().parent
 EXAMPLES = TESTS.parent / "src/poundlock_toolkit/data/examples"
@@ -467,6 +468,259 @@ def guards():
     return result
 
 
+class WireReplay(Replay):
+    """Replay that also keeps the digest of each request body's exact bytes."""
+
+    def open(self, request, timeout):
+        response = super().open(request, timeout)
+        data = request.data
+        self.requests[-1]["raw_sha256"] = None if data is None else sha256(data)
+        return response
+
+
+def answered(call):
+    """A transport call's result, or the failure it raised."""
+    try:
+        return {"result": call()}
+    except Failure as failure:
+        return {"failure": [failure.outcome, failure.code]}
+    except Exception as exc:  # recorded, so a changed failure shows up
+        return {"error": type(exc).__name__}
+
+
+SETTINGS = {
+    "off": {},
+    "off, effort none": {
+        "settings.reasoning_off_effort": "none",
+        "settings.temperature": 0.7,
+    },
+    "low": {"settings.reasoning": "low", "settings.max_output_tokens": 64},
+    "high": {"settings.reasoning": "high", "settings.temperature": 2},
+}
+HISTORY = (
+    {"role": "user", "content": "Earlier question"},
+    {"role": "assistant", "content": "Earlier answer"},
+)
+
+
+def openai_reply(content, finish="stop", calls=None):
+    message = {"content": content}
+    if calls is not None:
+        message["tool_calls"] = calls
+    body = {
+        "choices": [{"message": message, "finish_reason": finish}],
+        "usage": {"prompt_tokens": 9, "completion_tokens": 3},
+        "timings": {"predicted_per_second": 33.25, "prompt_ms": 12.5},
+    }
+    return {"path": "/v1/chat/completions", "status": 200, "body": json.dumps(body)}
+
+
+def openai_stream(content, finish="stop"):
+    events = [
+        {"choices": [{"delta": {"content": content}}]},
+        {"choices": [{"delta": {}, "finish_reason": finish}]},
+        {"choices": [], "usage": {"prompt_tokens": 9, "completion_tokens": 3}},
+    ]
+    text = "".join("data: " + json.dumps(e) + "\n\n" for e in events)
+    return {
+        "path": "/v1/chat/completions",
+        "status": 200,
+        "body": text + "data: [DONE]\n\n",
+    }
+
+
+def ollama_reply(content, reason="stop", calls=None, **counts):
+    message = {"content": content}
+    if calls is not None:
+        message["tool_calls"] = calls
+    body = {"message": message, "done": True, "done_reason": reason, **counts}
+    return {"path": "/api/chat", "status": 200, "body": json.dumps(body)}
+
+
+RECORD_CALL = [
+    {
+        "type": "function",
+        "function": {
+            "name": "record_value",
+            "arguments": '{"key":"answer","value":123}',
+        },
+    }
+]
+COUNTS = {
+    "prompt_eval_count": 40,
+    "prompt_eval_duration": 80000000,
+    "eval_count": 12,
+    "eval_duration": 300000000,
+}
+
+
+def backend_calls(api):
+    """Every way Toolkit asks an attached server for a completion, with replies."""
+    if api == "openai":
+        return [
+            ("readiness", lambda b: b.readiness(), [RECORDED_MODELS]),
+            ("complete", lambda b: b.complete("Say OK"), [openai_reply("OK")]),
+            (
+                "complete, tool",
+                lambda b: b.complete("Call it", tool=True),
+                [openai_reply(None, "tool_calls", RECORD_CALL)],
+            ),
+            (
+                "complete, stream",
+                lambda b: b.complete("Say OK", stream=True),
+                [openai_stream("OK")],
+            ),
+            (
+                "complete, tool and stream",
+                lambda b: b.complete("Call it", tool=True, stream=True),
+                [openai_stream("")],
+            ),
+            (
+                "probe",
+                lambda b: b.probe("Probe prompt", HISTORY),
+                [openai_stream("O", "length")],
+            ),
+            (
+                "complete, short and truncated",
+                lambda b: b.complete(
+                    "Say OK", max_tokens=3, truncation_ok=True, history=HISTORY
+                ),
+                [openai_reply("O", "length")],
+            ),
+        ]
+    return [
+        ("readiness", lambda b: b.readiness(), [RECORDED_TAGS]),
+        ("complete", lambda b: b.complete("Say OK"), [ollama_reply("OK", **COUNTS)]),
+        (
+            "complete, tool",
+            lambda b: b.complete("Call it", tool=True),
+            [ollama_reply("", calls=RECORD_CALL)],
+        ),
+        (
+            "complete, stream",
+            lambda b: b.complete("Say OK", stream=True),
+            [ollama_reply("OK", **COUNTS)],
+        ),
+        (
+            "probe",
+            lambda b: b.probe("Probe prompt", HISTORY),
+            [ollama_reply("O", "length", **COUNTS)],
+        ),
+        (
+            "complete, short and truncated",
+            lambda b: b.complete(
+                "Say OK", max_tokens=3, truncation_ok=True, history=HISTORY
+            ),
+            [ollama_reply("O", "length")],
+        ),
+    ]
+
+
+RECORDED_MODELS = RECORDED["qualification"]["openai-pass"]["responses"][0]
+RECORDED_TAGS = RECORDED["qualification"]["ollama-pass"]["responses"][0]
+# Server-reported counts and durations as Ollama might send them, and worse, as
+# JSON text. A real Ollama sends integers; the others are what a parser must survive.
+RATE_VALUES = {
+    "missing": None,
+    "null": "null",
+    "zero": "0",
+    "zero float": "0.0",
+    "one": "1",
+    "float": "1.5",
+    "negative": "-3",
+    "boolean": "true",
+    "string": '"12"',
+    "huge": "1e30",
+    "int64 max": "9223372036854775807",
+    "subnormal": "5e-324",
+}
+
+
+def with_counts(body_counts, path):
+    """An Ollama reply whose duration/count fields are given as JSON text."""
+    fields = "".join(f', "{k}": {v}' for k, v in body_counts.items())
+    message = '{"content": "OK", "tool_calls": []}'
+    body = '{"message": ' + message + ', "done": true, "done_reason": "stop"' + fields
+    return {"path": path, "status": 200, "body": body + "}"}
+
+
+def line(value):
+    """One case on one line of a golden file."""
+    return json.dumps(value, sort_keys=True)
+
+
+RATE_FIELDS = (
+    "input_tokens",
+    "output_tokens",
+    "prompt_processing_seconds",
+    "decode_seconds",
+    "prefill_tokens_per_second",
+    "decode_tokens_per_second",
+)
+
+
+def transport():
+    """Request bodies and parsed replies on both wire dialects (M4)."""
+    result = {}
+    for api, example in (("openai", "openai.json"), ("ollama", "ollama.json")):
+        for label, settings in SETTINGS.items():
+            for name, call, responses in backend_calls(api):
+                with tempfile.TemporaryDirectory() as folder:
+                    c = configured(example, LIMITS | settings, folder)
+                    replay = WireReplay(responses)
+                    with deterministic(), recorded(replay, []):
+                        outcome = answered(lambda: call(Backend(c)))
+                    outcome["requests"] = replay.requests
+                    result[f"backend {api}, {label}: {name}"] = line(outcome)
+    for label, settings in SETTINGS.items():
+        for conversation in (False, True):
+            with tempfile.TemporaryDirectory() as folder:
+                extra = {}
+                if conversation:
+                    extra["tool_schema.conversation"] = [
+                        {"role": "user", "content": "Plan a tiny tool."}
+                    ]
+                c = configured("tool-schema.json", LIMITS | settings | extra, folder)
+                responses = RECORDED["tool_schema"]["valid"]["responses"][:2]
+                for response in responses:
+                    boundary = "openai" if "/v1/" in response["path"] else "ollama"
+                    replay = WireReplay([response])
+                    with deterministic(), recorded(replay, []):
+                        outcome = answered(lambda: list(schema_request(c, boundary)))
+                    outcome["requests"] = replay.requests
+                    key = f"tool schema {boundary}, {label}"
+                    if conversation:
+                        key += ", operator conversation"
+                    result[key] = line(outcome)
+    backend_rates, schema_rates = [], []
+    with tempfile.TemporaryDirectory() as folder:
+        c = configured("ollama.json", LIMITS, folder)
+        s = configured("tool-schema.json", LIMITS, folder)
+    for count_name, count in RATE_VALUES.items():
+        for duration_name, duration in RATE_VALUES.items():
+            fields = {}
+            if count is not None:
+                fields.update(eval_count=count, prompt_eval_count=count)
+            if duration is not None:
+                fields.update(eval_duration=duration, prompt_eval_duration=duration)
+            case = f"count {count_name}, duration {duration_name}: "
+            replay = WireReplay([with_counts(fields, "/api/chat")])
+            with deterministic(), recorded(replay, []):
+                outcome = answered(lambda: Backend(c).complete("Say OK"))
+            if "result" in outcome:
+                outcome = [outcome["result"]["metrics"][k] for k in RATE_FIELDS]
+            backend_rates.append(case + line(outcome))
+            replay = WireReplay([with_counts(fields, "/api/chat")])
+            with deterministic(), recorded(replay, []):
+                outcome = answered(lambda: list(schema_request(s, "ollama")))
+            if "result" in outcome:
+                outcome = outcome["result"][2]
+            schema_rates.append(case + line(outcome))
+    result["rates, backend " + line(RATE_FIELDS)] = backend_rates
+    result["rates, tool schema predicted_per_second"] = schema_rates
+    return result
+
+
 def demo(example, folder):
     """`poundlock-toolkit demo`, end to end: exit code, printed report, document."""
     output, out, err = Path(folder) / "demo.json", io.StringIO(), io.StringIO()
@@ -511,6 +765,10 @@ class GoldenTests(unittest.TestCase):
     def test_guards_and_signal_handlers(self):
         """The refusals, handlers and clean-up around both evaluators (M3)."""
         self.assertGolden("guards", guards())
+
+    def test_transport(self):
+        """The bodies sent and the replies parsed on both dialects (M4)."""
+        self.assertGolden("transport", transport())
 
 
 if __name__ == "__main__":

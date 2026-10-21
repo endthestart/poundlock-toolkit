@@ -5,7 +5,13 @@ import signal
 import time
 import uuid
 from . import __version__
-from .backends import Backend, reasoning_effort
+from .backends import (
+    Backend,
+    ollama_options,
+    ollama_think,
+    openai_sampling,
+    reasoning_effort,
+)
 from .core import (
     Failure,
     atomic_json,
@@ -30,23 +36,12 @@ def request(c, boundary):
         "stream": False,
     }
     if boundary == "openai":
-        payload.update(
-            temperature=s["temperature"],
-            max_tokens=s["max_output_tokens"],
-            tool_choice="required",
-        )
+        payload.update(openai_sampling(s), tool_choice="required")
         if (effort := reasoning_effort(s)) is not None:
             payload["reasoning_effort"] = effort
         path = "/chat/completions"
     else:
-        payload.update(
-            options={
-                "temperature": s["temperature"],
-                "num_predict": s["max_output_tokens"],
-                "num_ctx": s["context_tokens"],
-            },
-            think=False if s["reasoning"] == "off" else s["reasoning"],
-        )
+        payload.update(options=ollama_options(s), think=ollama_think(s))
         path = "/api/chat"
     with Backend(selected).request(path, payload) as response:
         raw = response.read(c["limits"]["response_bytes"] + 1)
@@ -75,6 +70,9 @@ def request(c, boundary):
                 numeric(value.get("eval_count")),
                 numeric(value.get("eval_duration")),
             )
+            # Not Backend.ollama's rate: a positive duration too small to be a
+            # nonzero number of seconds is null there and raises here. Kept
+            # apart until that difference is decided (dead-code review, M4).
             predicted_per_second = (
                 eval_count / (eval_duration / 1e9)
                 if eval_count is not None and eval_duration
