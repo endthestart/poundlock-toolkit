@@ -194,7 +194,7 @@ def bounded(command, timeout=10, limit=1_000_000):
         process.stdout.close()
 
 
-def snapshot(raw, disk_bytes, allowed=("slugify.py", "RESULT.json")):
+def snapshot(raw, disk_bytes, allowed):
     """No archive extraction onto the host; reject links, extra paths and large files."""
     result = {}
     try:

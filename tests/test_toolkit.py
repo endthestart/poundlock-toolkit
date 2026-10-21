@@ -299,11 +299,9 @@ class ToolkitTests(unittest.TestCase):
             item = tarfile.TarInfo("RESULT.json")
             item.size = 2
             t.addfile(item, io.BytesIO(b"{}"))
-        # Default allowlist (coding) rejects a bare RESULT.json-only archive's
-        # sibling name check only in that it still requires membership; here
-        # RESULT.json IS in the default set, so this documents the allowlist
-        # is a parameter, not the coding-specific tuple by itself.
-        self.assertEqual(snapshot(raw.getvalue(), 4096)["RESULT.json"], b"{}")
+        # The same archive passes the coding fixture's allowlist and fails another.
+        allowed = CODING_FIXTURE.allowed_outputs
+        self.assertEqual(snapshot(raw.getvalue(), 4096, allowed)["RESULT.json"], b"{}")
         with self.assertRaises(Failure):
             snapshot(raw.getvalue(), 4096, allowed=("something-else.json",))
 
@@ -320,7 +318,7 @@ class ToolkitTests(unittest.TestCase):
                 member.size = 0
                 t.addfile(member)
             with self.assertRaises(Failure):
-                snapshot(raw.getvalue(), 4096)
+                snapshot(raw.getvalue(), 4096, CODING_FIXTURE.allowed_outputs)
 
     def test_process_output_limit_and_cleanup(self):
         with self.assertRaises(Failure):
