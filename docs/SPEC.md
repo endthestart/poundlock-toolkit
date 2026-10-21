@@ -1,6 +1,6 @@
 # Toolkit specification
 
-CLI: `inspect`, `plan`, `evaluate`, `recommend`, `export`,
+CLI: `inspect`, `example`, `plan`, `evaluate`, `recommend`, `export`,
 `validate`, `recover`, `normalize-legacy`, `review-packet`, offline `demo`,
 `setup-plan`, `setup-script` and the `target-*` workflow. JSON configuration is
 explicit and strict.
@@ -34,7 +34,10 @@ cleanup success and sufficient repetitions, plus, where a compaction gate is
 configured, a completed compaction in every passed coding attempt. Missing identity
 or hard-constraint evidence produces insufficient evidence. Synthetic records never qualify hardware.
 Reports expose failure counts and denominators, unknown metrics, age, constraints
-and next useful test, without opaque aggregate scores.
+and next useful test, without opaque aggregate scores. `recommend --format json`
+writes the same verdicts as the versioned summary
+`urn:poundlock-toolkit:recommendation:1`, which other programs read instead of
+importing Toolkit modules; version 1 only gains optional fields.
 
 Acceptance: clean install/offline use; both endpoint protocols tested without GPUs;
 malformed/missing/wrong outputs rejected; timeouts, cancellation, promotion and
