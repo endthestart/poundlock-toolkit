@@ -16,7 +16,8 @@ from poundlock_toolkit.backends import Backend
 from poundlock_toolkit.core import Failure, config, data, read_json, validate
 from poundlock_toolkit.demo import SyntheticBackend
 from poundlock_toolkit.evaluation import evaluate, new_document, recover
-from poundlock_toolkit.pi import PiRunner, bounded, completion, snapshot
+from poundlock_toolkit.fixtures import CODING_FIXTURE
+from poundlock_toolkit.pi import PiRunner, bounded, snapshot
 from poundlock_toolkit.planning import plan, time_feasibility_warnings
 from poundlock_toolkit.cli import EXIT_CONSENT, EXIT_OK, parser
 from poundlock_toolkit.reporting import export, next_useful_test, recommendation, report
@@ -368,10 +369,12 @@ class ToolkitTests(unittest.TestCase):
         ]
         result = b'{"status":"passed","verifier_exit_code":0}'
         events = b"\n".join(json.dumps(v).encode() for v in rows)
-        self.assertTrue(completion(events, result))
-        self.assertFalse(completion(b"", result))
+        self.assertTrue(CODING_FIXTURE.completion(events, result))
+        self.assertFalse(CODING_FIXTURE.completion(b"", result))
         self.assertFalse(
-            completion(events, b'{"status":"passed","verifier_exit_code":false}')
+            CODING_FIXTURE.completion(
+                events, b'{"status":"passed","verifier_exit_code":false}'
+            )
         )
 
     def test_schema_rejects_negative_metrics_and_unknown_version(self):

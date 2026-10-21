@@ -125,11 +125,6 @@ def count_loops(events, window=8, max_period=4, distinct_threshold=3):
 TRANSCRIPT_BYTES = 8 * 1048576
 
 
-def completion(events, result):
-    """Kept as a direct import path for the coding fixture's self-report check."""
-    return CODING_FIXTURE.completion(events, result)
-
-
 def readable_prefixes(worker_files):
     """Fixture files an agent's `read` tool may open, besides its own outputs.
 
