@@ -49,7 +49,10 @@ class PackagedExampleTests(unittest.TestCase):
         for name in names():
             document = json.loads(text(name))
             self.assertNotIn("attempts", document, name)
-            self.assertFalse(str(document.get("schema", "")).startswith("urn:poundlock-toolkit:"), name)
+            self.assertFalse(
+                str(document.get("schema", "")).startswith("urn:poundlock-toolkit:"),
+                name,
+            )
 
     def test_listing_names_every_example(self):
         code, out, _ = self.cli("example")

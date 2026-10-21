@@ -55,9 +55,7 @@ def plan(c, readiness_only=False):
         c["data_destination"] not in c["requirements"]["allowed_destinations"]
         or c["paid"] is not False
     ):
-        blockers.append(
-            "Local/private, explicitly unpaid inference is required."
-        )
+        blockers.append("Local/private, explicitly unpaid inference is required.")
     if c["settings"]["context_tokens"] < c["requirements"]["min_context_tokens"]:
         blockers.append("Configured context does not meet the required minimum.")
     if pi_workloads and (c["harness"]["name"] != "pi" or c["api"] != "openai"):
