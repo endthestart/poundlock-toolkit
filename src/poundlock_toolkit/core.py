@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 import os
+import signal
 import tempfile
 from datetime import datetime, timezone
 from importlib.resources import files
@@ -96,6 +97,14 @@ def atomic_json(path, value):
             os.unlink(temporary)
 
 
+def new_run_path(output):
+    """`output` as a Path, refusing a run that is already there."""
+    output = Path(output)
+    if output.exists():
+        raise ValueError("Refusing to overwrite an existing run")
+    return output
+
+
 def numeric(value):
     return (
         value
@@ -150,3 +159,28 @@ class Failure(Exception):
     def __init__(self, outcome, code):
         super().__init__(code)
         self.outcome, self.code = outcome, code
+
+
+def bounded_signals():
+    """Install a run's signal handlers; return the function that removes them.
+
+    Until then SIGALRM, the per-request interval timer, raises a `timeout`
+    Failure, and SIGTERM raises KeyboardInterrupt, so it cancels like Ctrl-C.
+    Removing clears the timer and puts the previous handlers back.
+    """
+
+    def alarm(*_):
+        raise Failure("timeout", "timeout")
+
+    def terminate(*_):
+        raise KeyboardInterrupt()
+
+    old_alarm = signal.signal(signal.SIGALRM, alarm)
+    old_term = signal.signal(signal.SIGTERM, terminate)
+
+    def restore():
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, old_alarm)
+        signal.signal(signal.SIGTERM, old_term)
+
+    return restore

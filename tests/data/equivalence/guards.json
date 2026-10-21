@@ -1,0 +1,741 @@
+{
+ "openai.json existing output": {
+  "outcome": "ValueError: Refusing to overwrite an existing run",
+  "output_sha256": "e1047d7b59a216c3d28c52f71ae28ad41b4eb34e89806c0ccc8bba8813e06a63",
+  "persisted": 0
+ },
+ "openai.json handlers, run completes": {
+  "document_sha256": "0de5cb3de9805703afbb91ddaac1ea6cfb97c98e2362a8fa7da44c206ae651da",
+  "error": null,
+  "persisted_sha256": [
+   "092798b6fedbd34d7aa33ad2a1e61303ffd39f5c5d9b933e755af6d805811ca0",
+   "efadd7c7c12a19b8b5147a13cbea64f9a902eebbd82f9e336407e11c87ec5de3",
+   "18945a400cc6560b39a11963c8cdcb35d70d8ae806ffa2d0757eb8a0c4a008ca",
+   "6dad734e1b6504e92d1a689f3614c72c9ba3ab1c3bdd2e848cb615caf1a6e700",
+   "f105efc436f2a15e08d844baff6b66ef9230f99915d4481b56e6d9a3df902049",
+   "dfb5dafb22d6f6f90e54655022f3b52a63f9e15f6952304465c784512809ac26",
+   "48f1565290b08ea88e0bbde4c75840542c7cb09ca41a8efd2962cc466a76cbe8",
+   "cae588ca81e8a6e591c0f06dcf548840d7c8027ae786d809573f63e5e770de5f",
+   "0362ce8854a69e9e36994593145e9aa0d2cf34f9813dbd54491123fa0e21335c",
+   "d491fb50eeb2784b3098059f1664ca56245b2dd1d26fb777bc3d0ffafe7ab66e",
+   "55550b85c23399db0a71cb9b14c16193f38183d8131e6eeb38dc46a9ed7e0e62",
+   "ddceafbcbb50117c3528b2761eca86c0869cf436ce64706d8a244fa2075dafa6",
+   "7e8396bbb2c2e193158a4cad1667d13f1fc2185a1dfd6fe089c9d77c5395c912",
+   "b5e8be22b0eaaf870e22ec75a7038548d39b6021916876c67df18ec8ee17370f",
+   "0de5cb3de9805703afbb91ddaac1ea6cfb97c98e2362a8fa7da44c206ae651da"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ],
+   [
+    "task",
+    "extraction",
+    3
+   ]
+  ],
+  "requests": [],
+  "restored": {
+   "SIGALRM": true,
+   "SIGTERM": true,
+   "timer_cleared": true
+  },
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    3,
+    "pass",
+    "ok"
+   ]
+  ],
+  "seen": [
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   }
+  ],
+  "unused_responses": 0
+ },
+ "openai.json handlers, run raises": {
+  "document_sha256": "5f037b734974baefe7233ac005a98415e8c0853bb4a98a4e20982458ea4eb137",
+  "error": "ZeroDivisionError",
+  "persisted_sha256": [
+   "092798b6fedbd34d7aa33ad2a1e61303ffd39f5c5d9b933e755af6d805811ca0",
+   "efadd7c7c12a19b8b5147a13cbea64f9a902eebbd82f9e336407e11c87ec5de3",
+   "5f037b734974baefe7233ac005a98415e8c0853bb4a98a4e20982458ea4eb137"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ]
+  ],
+  "requests": [],
+  "restored": {
+   "SIGALRM": true,
+   "SIGTERM": true,
+   "timer_cleared": true
+  },
+  "returned_matches_file": false,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "running",
+    "pending"
+   ]
+  ],
+  "seen": [
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   }
+  ],
+  "unused_responses": 0
+ },
+ "openai.json memory probe": {
+  "document_sha256": "8894d8c89689591f9261f2bb78c69f4638c1d6fbad046ca6af38a3dc3dc96734",
+  "error": null,
+  "persisted_sha256": [
+   "5509befff08c9e1f1b81d9e170499908e2947338f33ef553de37ed958863cc0f",
+   "bbac37ca23e32e8751d220478b854681a1a4221831f37f198e0ec83db402e254",
+   "32cb15677839a330214bce610f4a2d176dcb8ae6d773577096a47ea717acce76",
+   "4f4dc40cd728e7180c739c54ca710773ad575faed8fd03450134e256c6b0ec89",
+   "9900ac9efc3a0fb53986486bfb7eaf9a3ea74bdf2693cb23cd7aac2907abb0e7",
+   "b1cc086591d96c032f1182f1da695fdbe85650bd46d5fd19c5c86d78196ac68e",
+   "18571ab8d411b719775d73c6ef4d73c550619fbfa2598f322cd711678accf796",
+   "339ad5a6e5b93564bb158c1ad23778bf2eb3c484a89befd84073c349b8da0306",
+   "a130573ace3aa01c988f89ad5be9fa2a58522bfc53cf79927a3a112b85b9bfce",
+   "ad998c3c61e597f699bde139d925c817bc74dc26eafd92524436b78f9dac5dff",
+   "e422d9dd78e68d24284008f110ba2ba624bfddffed00989608c59dda9dbd3096",
+   "6b1d13e7d149597eaa297e330a381f6b584fb7a20d516d5175b10adaee1a852f",
+   "0df25ebc74ec79d257983e56582965526cb40e3a119bf62d7411740cc733484b",
+   "8894d8c89689591f9261f2bb78c69f4638c1d6fbad046ca6af38a3dc3dc96734"
+  ],
+  "progress": [
+   [
+    "readiness",
+    "readiness",
+    0
+   ],
+   [
+    "warmup",
+    "warmup",
+    0
+   ],
+   [
+    "api",
+    "api",
+    0
+   ],
+   [
+    "performance",
+    "extraction",
+    0
+   ],
+   [
+    "task",
+    "extraction",
+    1
+   ],
+   [
+    "task",
+    "extraction",
+    2
+   ]
+  ],
+  "requests": [
+   {
+    "body_sha256": null,
+    "fields": null,
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": null,
+    "method": "GET",
+    "timeout": 120,
+    "tools_sha256": null,
+    "url": "http://127.0.0.1:8080/v1/models"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "5dc086be2add0fd29b3675c8d51eca01176ef3d93335faaa76404ad13a44fd24",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "bf4e63fe71571568d11577cbc842fc31deae7b0c9b87665f6ee71dcb530b1553",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "30223e49b64116121bc0627ab947c41dd9e54ad832bbf02ea9bc56744d336da8",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": true,
+     "stream_options": {
+      "include_usage": true
+     },
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   },
+   {
+    "body_sha256": "47785258456605a5ff7f462c00707efed4000119d663b5f67ba0cd30556ad08b",
+    "fields": {
+     "max_tokens": 512,
+     "model": "example-model",
+     "stream": false,
+     "temperature": 0
+    },
+    "headers": {
+     "Accept": "application/json",
+     "Content-type": "application/json"
+    },
+    "messages_sha256": "b2e110f1e7f84653f8eec388e51d5bfc47ffccdb791c999f2c45dd065dbc6801",
+    "method": "POST",
+    "timeout": 120,
+    "tools_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "url": "http://127.0.0.1:8080/v1/chat/completions"
+   }
+  ],
+  "restored": {
+   "SIGALRM": true,
+   "SIGTERM": true,
+   "timer_cleared": true
+  },
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "readiness",
+    "readiness",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "warmup",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "api",
+    "api",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "performance",
+    "extraction",
+    0,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "task",
+    "extraction",
+    2,
+    "pass",
+    "ok"
+   ]
+  ],
+  "unused_responses": 0
+ },
+ "openai.json no interval timer": {
+  "outcome": "ValueError: Bounded execution currently requires Linux or macOS",
+  "output_sha256": null,
+  "persisted": 0
+ },
+ "openai.json no interval timer, existing output": {
+  "outcome": "ValueError: Bounded execution currently requires Linux or macOS",
+  "output_sha256": "e1047d7b59a216c3d28c52f71ae28ad41b4eb34e89806c0ccc8bba8813e06a63",
+  "persisted": 0
+ },
+ "openai.json plan blocked": {
+  "outcome": "ValueError: Plan is blocked; resolve its stated prerequisites",
+  "output_sha256": null,
+  "persisted": 0
+ },
+ "openai.json plan blocked, existing output": {
+  "outcome": "ValueError: Plan is blocked; resolve its stated prerequisites",
+  "output_sha256": "e1047d7b59a216c3d28c52f71ae28ad41b4eb34e89806c0ccc8bba8813e06a63",
+  "persisted": 0
+ },
+ "openai.json plan blocked, no interval timer": {
+  "outcome": "ValueError: Plan is blocked; resolve its stated prerequisites",
+  "output_sha256": null,
+  "persisted": 0
+ },
+ "openai.json readiness only, paid": {
+  "outcome": "ran",
+  "output_sha256": "61368d9e0ace396d7fa4399259e5539439741ff3d55700ec03d70c8a44145201",
+  "persisted": 3
+ },
+ "tool-schema.json demo backend": {
+  "outcome": "ValueError: Schema scenarios use direct evaluation; demo/readiness backends are unsupported",
+  "output_sha256": null,
+  "persisted": 0
+ },
+ "tool-schema.json existing output": {
+  "outcome": "ValueError: Refusing to overwrite an existing run",
+  "output_sha256": "e1047d7b59a216c3d28c52f71ae28ad41b4eb34e89806c0ccc8bba8813e06a63",
+  "persisted": 0
+ },
+ "tool-schema.json handlers, run completes": {
+  "document_sha256": "b00faef8e6c4f2a53bf978ae2eba1cbf09cd4bdeb4984aa8dba8be2bea13ab72",
+  "error": null,
+  "persisted_sha256": [
+   "3864fe66463a8bb178833c039e01e9ea9cd9b829952e18bcec7a8667516c22f5",
+   "3fdb571ea152d7e8f603cce4d56bb814b283796c83ca1f94ff04cc85d0fc931e",
+   "b64bed8bdf65a1f1eabe3ae80e773833ee7e00aa4b917849ebee09965ce4ccf9",
+   "1e844e69938b2d43366e63e4a714a6144ef61343fcfcea90e49d442e20569734",
+   "eeacfa3e46d0c1f91814e8c38e7075153918508745527cdcb04cf01efcfa7396",
+   "16002fcfb459a03ddb2b3afb47cb29f7a76908b00871012ff01c4e113489304b",
+   "b731adeaa2b1caf4e7571ed3d00c486100b5dbe6ddbb0df7e3d20da99db7aefb",
+   "1fa36a68902fcb4b32d17a956690f222907dac5a472156579d3f8e2b60990be3",
+   "c398ce1b41c307c8d6e8c6e30de0cb9fff368568b3e510b86faceea13b8c8233",
+   "09d3d1d3ec97a6bf12bc454cd9e12b59092d669e1a4e15e5a7493577fdfbbad6",
+   "e0b01442f60cfebed3e078151b55e4e11348a11d3e07fd524c101a7cb6c3161f",
+   "035cc81c80af5677f419acc11d0d167d4e4a0351babf1b3f1722eea7f8d8d279",
+   "dc4b8d56a176c1545bde50428347a2aa7c4b22f58a9b6fa6a5fb7c0388d00cdb",
+   "9d81c6474c5584d061bc5223ee59371d8ff3f09d13faae1ac75695cf3b6e9b42",
+   "dcc7700a8bb4891899f1f7fdb85f5b96afaf85b5f37304ada8c758e247b6441b",
+   "0e67c83aafd8f804e64ddbbad1268683c075c672a7917e4d4c45ee9496d03d47",
+   "b00faef8e6c4f2a53bf978ae2eba1cbf09cd4bdeb4984aa8dba8be2bea13ab72",
+   "b00faef8e6c4f2a53bf978ae2eba1cbf09cd4bdeb4984aa8dba8be2bea13ab72"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ],
+   [
+    "tool_schema_warmup",
+    "openai",
+    0
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    1
+   ],
+   [
+    "tool_schema",
+    "openai",
+    1
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    2
+   ],
+   [
+    "tool_schema",
+    "openai",
+    2
+   ],
+   [
+    "tool_schema",
+    "ollama",
+    3
+   ],
+   [
+    "tool_schema",
+    "openai",
+    3
+   ]
+  ],
+  "requests": [],
+  "restored": {
+   "SIGALRM": true,
+   "SIGTERM": true,
+   "timer_cleared": true
+  },
+  "returned_matches_file": true,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "ollama",
+    3,
+    "pass",
+    "ok"
+   ],
+   [
+    "trial",
+    "openai",
+    3,
+    "pass",
+    "ok"
+   ]
+  ],
+  "seen": [
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   },
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   }
+  ],
+  "unused_responses": 0
+ },
+ "tool-schema.json handlers, run raises": {
+  "document_sha256": "cb8760b58346294d118c1cbdd9291878258d19cb1a22c4868aeac17e7cb2bbfb",
+  "error": "ZeroDivisionError",
+  "persisted_sha256": [
+   "3864fe66463a8bb178833c039e01e9ea9cd9b829952e18bcec7a8667516c22f5",
+   "3fdb571ea152d7e8f603cce4d56bb814b283796c83ca1f94ff04cc85d0fc931e",
+   "cb8760b58346294d118c1cbdd9291878258d19cb1a22c4868aeac17e7cb2bbfb",
+   "cb8760b58346294d118c1cbdd9291878258d19cb1a22c4868aeac17e7cb2bbfb"
+  ],
+  "progress": [
+   [
+    "tool_schema_warmup",
+    "ollama",
+    0
+   ]
+  ],
+  "requests": [],
+  "restored": {
+   "SIGALRM": true,
+   "SIGTERM": true,
+   "timer_cleared": true
+  },
+  "returned_matches_file": false,
+  "rows": [
+   [
+    "warmup",
+    "ollama",
+    null,
+    "running",
+    "pending"
+   ],
+   [
+    "warmup",
+    "openai",
+    null,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "ollama",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "openai",
+    1,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "ollama",
+    2,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "openai",
+    2,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "ollama",
+    3,
+    "skipped",
+    "not_run"
+   ],
+   [
+    "trial",
+    "openai",
+    3,
+    "skipped",
+    "not_run"
+   ]
+  ],
+  "seen": [
+   {
+    "SIGALRM": "Failure timeout/timeout",
+    "SIGTERM": "KeyboardInterrupt",
+    "timer_set": true
+   }
+  ],
+  "unused_responses": 0
+ },
+ "tool-schema.json no interval timer": {
+  "outcome": "ValueError: Bounded execution requires Linux or macOS",
+  "output_sha256": null,
+  "persisted": 0
+ },
+ "tool-schema.json no interval timer, existing output": {
+  "outcome": "ValueError: Bounded execution requires Linux or macOS",
+  "output_sha256": "e1047d7b59a216c3d28c52f71ae28ad41b4eb34e89806c0ccc8bba8813e06a63",
+  "persisted": 0
+ },
+ "tool-schema.json plan blocked": {
+  "outcome": "ValueError: Plan is blocked",
+  "output_sha256": null,
+  "persisted": 0
+ },
+ "tool-schema.json plan blocked, existing output": {
+  "outcome": "ValueError: Plan is blocked",
+  "output_sha256": "e1047d7b59a216c3d28c52f71ae28ad41b4eb34e89806c0ccc8bba8813e06a63",
+  "persisted": 0
+ },
+ "tool-schema.json plan blocked, no interval timer": {
+  "outcome": "ValueError: Plan is blocked",
+  "output_sha256": null,
+  "persisted": 0
+ }
+}

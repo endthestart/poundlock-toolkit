@@ -5,7 +5,6 @@ import copy
 import signal
 import time
 import uuid
-from pathlib import Path
 from . import __version__
 from .backends import Backend, chat_messages, empty_metrics
 from .cache_probe import (
@@ -15,7 +14,16 @@ from .cache_probe import (
     probe_prompts,
     probe_request,
 )
-from .core import Failure, atomic_json, digest, identity, now, validate
+from .core import (
+    Failure,
+    atomic_json,
+    bounded_signals,
+    digest,
+    identity,
+    new_run_path,
+    now,
+    validate,
+)
 from .fixtures import CODING_FIXTURE, INVESTIGATION_FIXTURE
 from .memory_probe import INTERVAL_SECONDS, open_sampler
 from .pi import PiRunner, active_compaction_gate
@@ -175,9 +183,7 @@ def evaluate(
         raise ValueError("Plan is blocked; resolve its stated prerequisites")
     if not hasattr(signal, "setitimer"):
         raise ValueError("Bounded execution currently requires Linux or macOS")
-    output = Path(output)
-    if output.exists():
-        raise ValueError("Refusing to overwrite an existing run")
+    output = new_run_path(output)
     backend = backend or Backend(c)
     doc = new_document(c, synthetic=synthetic)
     memory = None
@@ -193,17 +199,6 @@ def evaluate(
     # What the server returned to each probe request, by repetition: the agent-turn
     # request appends after it. Held only for the run; never written to the document.
     probe_replies = {}
-
-    def alarm(*_):
-        raise Failure("timeout", "timeout")
-
-    def terminate(*_):
-        raise KeyboardInterrupt()
-
-    old_alarm, old_term = (
-        signal.signal(signal.SIGALRM, alarm),
-        signal.signal(signal.SIGTERM, terminate),
-    )
 
     def execute(stage, workload, rep=0, blocked=False, prompt=None, history=()):
         nonlocal cancelled
@@ -357,6 +352,7 @@ def evaluate(
         validate(doc)
         atomic_json(output, doc)
 
+    restore_signals = bounded_signals()
     try:
         if memory is not None:
             memory.start()
@@ -387,9 +383,7 @@ def evaluate(
                 if repetition == 1:
                     promoted = passed
     finally:
-        signal.setitimer(signal.ITIMER_REAL, 0)
-        signal.signal(signal.SIGALRM, old_alarm)
-        signal.signal(signal.SIGTERM, old_term)
+        restore_signals()
         if memory is not None:
             memory.stop()
             doc["memory_probe"] = memory.summary()

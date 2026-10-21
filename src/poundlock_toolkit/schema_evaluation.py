@@ -4,10 +4,19 @@ import copy
 import signal
 import time
 import uuid
-from pathlib import Path
 from . import __version__
 from .backends import Backend, reasoning_effort
-from .core import Failure, atomic_json, digest, identity, now, numeric, validate
+from .core import (
+    Failure,
+    atomic_json,
+    bounded_signals,
+    digest,
+    identity,
+    new_run_path,
+    now,
+    numeric,
+    validate,
+)
 from .tool_schema import NAMESPACE, TOOL, contract, fixture, score, strict_json
 
 
@@ -134,9 +143,7 @@ def evaluate(c, output, *, progress=None, requester=None):
         raise ValueError("Plan is blocked")
     if not hasattr(signal, "setitimer"):
         raise ValueError("Bounded execution requires Linux or macOS")
-    output = Path(output)
-    if output.exists():
-        raise ValueError("Refusing to overwrite an existing run")
+    output = new_run_path(output)
     requester = requester or request
     spec = contract(c)
     doc = {
@@ -206,12 +213,6 @@ def evaluate(c, output, *, progress=None, requester=None):
     deadline = time.monotonic() + c["limits"]["total_seconds"]
     cancelled = False
 
-    def alarm(*_):
-        raise Failure("timeout", "timeout")
-
-    def terminate(*_):
-        raise KeyboardInterrupt()
-
     def run(row, scored):
         """One bounded request for `row`. A warm-up row (`scored` false) records
         the verdict only, never the argument diagnostics."""
@@ -252,8 +253,7 @@ def evaluate(c, output, *, progress=None, requester=None):
             row.update(latency_seconds=time.monotonic() - started, completed_at=now())
             persist(output, doc)
 
-    old_alarm = signal.signal(signal.SIGALRM, alarm)
-    old_term = signal.signal(signal.SIGTERM, terminate)
+    restore_signals = bounded_signals()
     try:
         # Unscored: run once per boundary, before any scored trial, so
         # first-load costs (e.g. Vulkan shader compilation) never land inside
@@ -263,9 +263,7 @@ def evaluate(c, output, *, progress=None, requester=None):
         for row in doc["attempts"]:
             run(row, scored=True)
     finally:
-        signal.setitimer(signal.ITIMER_REAL, 0)
-        signal.signal(signal.SIGALRM, old_alarm)
-        signal.signal(signal.SIGTERM, old_term)
+        restore_signals()
         persist(output, doc)
     return copy.deepcopy(doc)
 

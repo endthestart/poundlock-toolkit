@@ -35,8 +35,10 @@ import poundlock_toolkit.core as core
 import poundlock_toolkit.reporting as reporting
 from poundlock_toolkit.backends import empty_metrics
 from poundlock_toolkit.cli import main
-from poundlock_toolkit.core import config
+from poundlock_toolkit.core import Failure, config
+from poundlock_toolkit.demo import SyntheticBackend
 from poundlock_toolkit.evaluation import evaluate
+from poundlock_toolkit.schema_evaluation import evaluate as schema_evaluate
 
 TESTS = Path(__file__).resolve().parent
 EXAMPLES = TESTS.parent / "src/poundlock_toolkit/data/examples"
@@ -216,13 +218,13 @@ def stored(output, snapshots):
     }
 
 
-def run(c, folder, replay, **kwargs):
+def run(c, folder, replay, evaluator=evaluate, **kwargs):
     """One evaluation: the stored document, its history and what was sent."""
     output = Path(folder) / "result.json"
     progress, snapshots = [], []
     with deterministic(), recorded(replay, snapshots):
         try:
-            returned = evaluate(
+            returned = evaluator(
                 c, output, progress=lambda *args: progress.append(list(args)), **kwargs
             )
             error = None
@@ -267,6 +269,204 @@ def qualification_runs():
     return result
 
 
+@contextlib.contextmanager
+def without_interval_timer():
+    """A platform without signal.setitimer."""
+    setitimer = signal.setitimer
+    del signal.setitimer
+    try:
+        yield
+    finally:
+        signal.setitimer = setitimer
+
+
+def refusal(example, settings, *, existing=False, timer=True, replay=None, **kwargs):
+    """What evaluate does with a run it must refuse, and what it leaves behind."""
+    with tempfile.TemporaryDirectory() as folder:
+        c = configured(example, LIMITS | settings, folder)
+        output = Path(folder) / "result.json"
+        if existing:
+            output.write_text("an earlier run\n")
+        snapshots = []
+        with (
+            deterministic(),
+            recorded(replay or Replay(), snapshots),
+            contextlib.nullcontext() if timer else without_interval_timer(),
+        ):
+            try:
+                evaluate(c, output, **kwargs)
+                outcome = "ran"
+            except ValueError as exc:
+                outcome = f"ValueError: {exc}"
+        return {
+            "outcome": outcome,
+            "output_sha256": sha256(output.read_bytes()) if output.exists() else None,
+            "persisted": len(snapshots),
+        }
+
+
+def installed():
+    """What the run's SIGALRM and SIGTERM handlers do, and whether a timer is set."""
+    seen = {}
+    for name in ("SIGALRM", "SIGTERM"):
+        number = getattr(signal, name)
+        try:
+            signal.getsignal(number)(number, None)
+            seen[name] = "returned"
+        except Failure as failure:
+            seen[name] = f"Failure {failure.outcome}/{failure.code}"
+        except KeyboardInterrupt:
+            seen[name] = "KeyboardInterrupt"
+    seen["timer_set"] = 0 < signal.getitimer(signal.ITIMER_REAL)[0] <= 120
+    return seen
+
+
+def around(evaluation):
+    """Run with sentinel handlers installed; report whether the run restored them."""
+
+    def alarm(*_):
+        pass
+
+    def term(*_):
+        pass
+
+    previous = signal.signal(signal.SIGALRM, alarm), signal.signal(signal.SIGTERM, term)
+    try:
+        result = evaluation()
+        result["restored"] = {
+            "SIGALRM": signal.getsignal(signal.SIGALRM) is alarm,
+            "SIGTERM": signal.getsignal(signal.SIGTERM) is term,
+            "timer_cleared": signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0),
+        }
+    finally:
+        signal.signal(signal.SIGALRM, previous[0])
+        signal.signal(signal.SIGTERM, previous[1])
+    return result
+
+
+class Observing(SyntheticBackend):
+    """The demo backend, noting the signal handlers in force at each request."""
+
+    def __init__(self, seen, fail=None):
+        self.seen, self.fail = seen, fail
+
+    def readiness(self):
+        self.seen.append(installed())
+        if self.fail:
+            raise self.fail()
+        return super().readiness()
+
+    def complete(self, prompt, tool=False, stream=False):
+        self.seen.append(installed())
+        return super().complete(prompt, tool=tool, stream=stream)
+
+
+class Sampled:
+    """A memory reader with scripted samples and one AMD pool."""
+
+    source = "linux-procfs"
+
+    def __init__(self):
+        self.reads = 0
+
+    def name(self):
+        return "llama-server"
+
+    def read(self):
+        self.reads += 1
+        pool = {
+            "drm_card": 0,
+            "pci_device_id": "0x744c",
+            "total_bytes": 17163091968,
+            "used_bytes": 1073741824 + self.reads * 4096,
+        }
+        return {"rss_bytes": 2**30 + self.reads * 2**20, "vram": [pool]}
+
+
+def schema_requester(seen, fail=None):
+    responses = RECORDED["tool_schema"]["valid"]["responses"]
+    arguments = json.loads(
+        json.loads(responses[1]["body"])["choices"][0]["message"]["tool_calls"][0][
+            "function"
+        ]["arguments"]
+    )
+
+    def requester(c, boundary):
+        seen.append(installed())
+        if fail:
+            raise fail()
+        call = {
+            "type": "function",
+            "function": {"name": "propose_plan", "arguments": arguments},
+        }
+        return [call], True, None
+
+    return requester
+
+
+def guards():
+    """The refusals and the bounded-signal set-up both evaluators share (M3)."""
+    result = {}
+    for example in ("openai.json", "tool-schema.json"):
+        for case, settings, options in (
+            ("plan blocked", {"paid": True}, {}),
+            ("existing output", {}, {"existing": True}),
+            ("no interval timer", {}, {"timer": False}),
+            ("plan blocked, existing output", {"paid": True}, {"existing": True}),
+            (
+                "no interval timer, existing output",
+                {},
+                {"existing": True, "timer": False},
+            ),
+            ("plan blocked, no interval timer", {"paid": True}, {"timer": False}),
+        ):
+            result[f"{example} {case}"] = refusal(example, settings, **options)
+    # Readiness only sends no inference, so a paid endpoint does not block it.
+    models = RECORDED["qualification"]["openai-pass"]["responses"][:1]
+    result["openai.json readiness only, paid"] = refusal(
+        "openai.json", {"paid": True}, replay=Replay(models), readiness_only=True
+    )
+    result["tool-schema.json demo backend"] = refusal(
+        "tool-schema.json", {}, synthetic=True
+    )
+    for name, fail in (("completes", None), ("raises", ZeroDivisionError)):
+        seen = []
+
+        def qualification():
+            with tempfile.TemporaryDirectory() as folder:
+                c = configured("openai.json", LIMITS, folder)
+                return run(c, folder, Replay(), backend=Observing(seen, fail))
+
+        result[f"openai.json handlers, run {name}"] = around(qualification)
+        result[f"openai.json handlers, run {name}"]["seen"] = seen
+        seen = []
+
+        def tool_schema():
+            with tempfile.TemporaryDirectory() as folder:
+                c = configured("tool-schema.json", LIMITS, folder)
+                requester = schema_requester(seen, fail)
+                return run(c, folder, Replay(), schema_evaluate, requester=requester)
+
+        result[f"tool-schema.json handlers, run {name}"] = around(tool_schema)
+        result[f"tool-schema.json handlers, run {name}"]["seen"] = seen
+
+    def memory():
+        with tempfile.TemporaryDirectory() as folder:
+            scenario = RECORDED["qualification"]["openai-pass"]
+            c = configured("openai.json", LIMITS | {"limits.repetitions": 2}, folder)
+            c["memory_probe"] = {"pid": 4242}
+            return run(
+                c,
+                folder,
+                Replay(scenario["responses"]),
+                memory_reader=Sampled(),
+                memory_interval=3600,
+            )
+
+    result["openai.json memory probe"] = around(memory)
+    return result
+
+
 def demo(example, folder):
     """`poundlock-toolkit demo`, end to end: exit code, printed report, document."""
     output, out, err = Path(folder) / "demo.json", io.StringIO(), io.StringIO()
@@ -307,6 +507,10 @@ class GoldenTests(unittest.TestCase):
     def test_qualification_runs_and_demo(self):
         """evaluation and backends over recorded responses, and the demo."""
         self.assertGolden("qualification-runs", qualification_runs())
+
+    def test_guards_and_signal_handlers(self):
+        """The refusals, handlers and clean-up around both evaluators (M3)."""
+        self.assertGolden("guards", guards())
 
 
 if __name__ == "__main__":
