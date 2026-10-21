@@ -4,9 +4,9 @@ Ctrl-C or SIGTERM interrupts the current attempt, saves cancellation and skips
 remaining work. Request and total deadlines are enforced on Linux/macOS. Owned
 container cleanup can add up to ten seconds per container (at most two) after a
 deadline. No shared model/service is unloaded or stopped. Export does not mutate
-the source document. CLI exit 0 means command/selected attempts succeeded, 1 means
-an evaluation contains a failure/skip, 2 means invalid input or unmet prerequisites,
-3 means pending consent, and 130 means cancellation outside an active recorded attempt.
+the source document. CLI exit codes are listed in the [README](../README.md#exit-codes).
+A cancelled attempt is recorded and the evaluation exits 1; 130 means cancellation
+outside an active recorded attempt.
 
 On hard host/process loss, preserve the result and mark running entries interrupted:
 
@@ -41,7 +41,7 @@ generated code are **not retained**. Raw HTTP/event bytes exist transiently in m
 The allowlisted candidate source is briefly copied to a host fixture directory
 inside a private 0700 temporary parent for independent verification; normal cleanup
 removes it. A host crash can leave that exact temporary directory for manual retention
-review. No raw-log opt-in exists in v0.1. Debugging therefore requires
+review. No raw-log opt-in exists. Debugging therefore requires
 a new bounded run and separately reviewed logging; Toolkit never exports raw logs.
 Private files are written 0600, directories 0700 where created. Protect parent
 directories and avoid shared output paths. Hashes can reveal equality and should
