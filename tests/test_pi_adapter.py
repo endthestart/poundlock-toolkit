@@ -108,7 +108,7 @@ class PiAdapterTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             p.journal = Path(folder) / "owned.json"
             with patch("poundlock_toolkit.pi.bounded", side_effect=fake):
-                result = p.run()
+                result = p.run(CODING_FIXTURE)
             self.assertEqual(json.loads(p.journal.read_text())["cleanup"], "passed")
         return p, calls, result
 
@@ -167,7 +167,7 @@ class PiAdapterTests(unittest.TestCase):
             patch("poundlock_toolkit.pi.bounded", side_effect=fake),
         ):
             with self.assertRaises(Failure):
-                p.run()
+                p.run(CODING_FIXTURE)
         self.assertEqual(len(p.owned), 1)
         self.assertEqual(p.cleanup, "passed")
 

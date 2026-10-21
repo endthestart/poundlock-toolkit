@@ -16,7 +16,6 @@ import uuid
 from pathlib import Path
 from .core import Failure, atomic_json, data, digest
 from .backends import empty_metrics
-from .fixtures import CODING_FIXTURE
 
 
 _LEADING_CD = re.compile(r"^cd\s+\S+\s*&&\s*")
@@ -306,8 +305,7 @@ class PiRunner:
             "python3",
         ]
 
-    def run(self, fixture=None):
-        fixture = fixture or CODING_FIXTURE
+    def run(self, fixture):
         self.preflight()
         c, limits = self.c, self.c["limits"]
         started = time.monotonic()
