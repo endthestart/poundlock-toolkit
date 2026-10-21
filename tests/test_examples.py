@@ -9,7 +9,7 @@ import unittest
 
 from poundlock_toolkit.cli import EXIT_INVALID, EXIT_OK, main
 from poundlock_toolkit.core import config
-from poundlock_toolkit.examples import names
+from poundlock_toolkit.examples import names, text
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,6 +42,14 @@ class PackagedExampleTests(unittest.TestCase):
             "target-ssh",
         ):
             self.assertIn(name, names())
+
+    def test_no_packaged_example_is_a_result(self):
+        # `example` offers configurations to edit; a result document (a schema URN
+        # and attempts) would be written out as if it were one.
+        for name in names():
+            document = json.loads(text(name))
+            self.assertNotIn("attempts", document, name)
+            self.assertFalse(str(document.get("schema", "")).startswith("urn:poundlock-toolkit:"), name)
 
     def test_listing_names_every_example(self):
         code, out, _ = self.cli("example")
