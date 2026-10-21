@@ -47,8 +47,9 @@ These are operator-reviewed prerequisite checks, not automatic Toolkit actions.
 Replace every uppercase placeholder. A locally built image must have a registry
 RepoDigest before use; promoting it to your authorized internal registry is a
 separate explicit build step. Never substitute a mutable tag for the reviewed digest.
-The Pi adapter checks the actual CLI version at run time. The 0.84.4, 0.85.0, 0.85.1,
-1.0.0, 1.0.3 and 1.1.0 interfaces and live model evidence remain separate qualification records.
+The Pi adapter checks the actual CLI version at run time. Setup installs Pi 1.1.0, the version
+Dispatch and Poundlock use. Records made with earlier Pi versions, 0.84.4 to 1.0.3, stay valid as
+separate qualification records.
 
 ## Review, run and remove
 

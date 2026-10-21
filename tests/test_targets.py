@@ -360,10 +360,12 @@ class SetupInventoryTests(unittest.TestCase):
         )
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "standalone.json"
-            raw["pi_version"] = "0.86.0"
-            path.write_text(json.dumps(raw))
-            with self.assertRaisesRegex(ValueError, "outside reviewed scope"):
-                setup_spec(path)
+            # A version never reviewed, and one retired in 0.5.0.
+            for version in ("0.86.0", "0.85.0"):
+                raw["pi_version"] = version
+                path.write_text(json.dumps(raw))
+                with self.assertRaisesRegex(ValueError, "outside reviewed scope"):
+                    setup_spec(path)
 
     def test_setup_displayed_scope_is_bound(self):
         spec = setup_spec(ROOT / "src/poundlock_toolkit/data/examples/standalone.json")

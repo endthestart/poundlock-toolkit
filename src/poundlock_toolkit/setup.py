@@ -41,14 +41,7 @@ def setup_spec(path):
             raise ValueError("Images must be digest pinned")
     if not re.fullmatch("[0-9a-f]{64}", str(spec["model_sha256"])):
         raise ValueError("Expected model checksum required")
-    if spec["pi_version"] not in (
-        "0.84.4",
-        "0.85.0",
-        "0.85.1",
-        "1.0.0",
-        "1.0.3",
-        "1.1.0",
-    ):
+    if spec["pi_version"] != "1.1.0":
         raise ValueError("Pi version outside reviewed scope")
     for key, minimum, maximum in [
         ("port", 1024, 65535),

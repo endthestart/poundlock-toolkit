@@ -14,6 +14,8 @@
   capability converter, read this instead of importing Toolkit modules. It records
   what each run sent about thinking (`reasoning_sent`), since `reasoning: off`
   omits the field on the OpenAI boundary but disables thinking on native Ollama.
+- Setup installs only Pi 1.1.0. The older reviewed versions, 0.84.4 to 1.0.3, are retired;
+  results recorded with them stay readable.
 - The result schema drops the `verifier_failed` and `identity_mismatch` failure
   codes: nothing writes them, and no recorded result uses them.
 - CI tests Python 3.11, 3.12, 3.13, 3.14 and 3.15, and attaches a CycloneDX SBOM
