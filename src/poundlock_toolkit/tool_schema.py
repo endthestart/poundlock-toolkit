@@ -158,14 +158,13 @@ def score(arguments):
                     "nested_json": nested,
                 }
             )
+        # Deduplicate required errors while preserving deterministic traversal order.
         errors = list({json.dumps(e, sort_keys=True): e for e in errors}.values())
         if len(errors) > 64:
             break
-    # Deduplicate required errors while preserving deterministic traversal order.
-    unique = list({json.dumps(e, sort_keys=True): e for e in errors}.values())
     result.update(
-        schema_valid=not unique,
-        errors=unique[:64],
-        errors_truncated=len(unique) > 64 or visited == 65,
+        schema_valid=not errors,
+        errors=errors[:64],
+        errors_truncated=len(errors) > 64 or visited == 65,
     )
     return result
