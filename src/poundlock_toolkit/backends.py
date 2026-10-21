@@ -90,7 +90,7 @@ class Backend:
             urllib.request.ProxyHandler({}), NoRedirect()
         )
 
-    def request(self, path, payload=None, stream=False):
+    def request(self, path, payload=None):
         c = self.c
         headers = {"Content-Type": "application/json", "Accept": "application/json"}
         if c["credential_env"]:
@@ -228,7 +228,7 @@ class Backend:
         fragments, raw_chunks = [], []
         finish, done, total = False, False, 0
         try:
-            with self.request("/chat/completions", payload, True) as response:
+            with self.request("/chat/completions", payload) as response:
                 while True:
                     raw = response.readline(self.c["limits"]["response_bytes"] + 1)
                     if not raw:
