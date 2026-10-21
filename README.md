@@ -7,7 +7,7 @@ finite CLI, with no daemon, production scheduler or model manager.
 
 Python 3.11+ on Linux and macOS; Apache-2.0 licensed. Windows is untested.
 Offline tests cover transport and scoring; they never establish hardware or model
-quality, which takes a live run. Changes are in [CHANGELOG.md](CHANGELOG.md).
+quality, which takes a live run. Changes are in [CHANGELOG.md](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/CHANGELOG.md).
 
 ## Start offline
 
@@ -37,15 +37,15 @@ poundlock-toolkit validate qualification.json
 
 ## Prepare and test a machine
 
-1. Follow [local/SSH target selection and installation](docs/TARGETS.md).
-2. Read the [hardware/backend guidance](docs/SUPPORT.md); keep unknowns explicit.
-3. Follow the [isolated standalone CPU/Pi recipe](docs/STANDALONE.md), or attach to
+1. Follow [local/SSH target selection and installation](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/TARGETS.md).
+2. Read the [hardware/backend guidance](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/SUPPORT.md); keep unknowns explicit.
+3. Follow the [isolated standalone CPU/Pi recipe](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/STANDALONE.md), or attach to
    an existing authorized endpoint. Review every setup command and resource bound.
 4. Review a saved plan, execute explicitly, retain the receipt and inspect failures.
 5. Compare reports, then keep the private evidence with the configuration you deploy.
 
 To decide what to run and how to read the result, start with
-[what to test and how to score it](docs/METHOD.md).
+[what to test and how to score it](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/METHOD.md).
 
 Examples contain placeholder model identities and image digests. Replace them with
 verified artifacts before execution. No model weights, drivers or infrastructure
@@ -54,7 +54,7 @@ its explicit prerequisite preparation has separate download and build costs.
 
 ## Tool-call schema adherence
 
-[Measure nested tool-call JSON Schema adherence](docs/TOOL_SCHEMA.md) directly,
+[Measure nested tool-call JSON Schema adherence](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/TOOL_SCHEMA.md) directly,
 locally or over SSH, without Pi or Docker. Repeated smoke or longer conversation
 trials score native Ollama and OpenAI-compatible calls separately, retain invalid
 nested strings as failures, and export content-free field/type diagnostics.
@@ -93,7 +93,7 @@ says separately what an edit inside the last message cost. Add
 `"memory_probe": {"pid": 1234}` (or `{"process": "llama-server"}`, which must match
 exactly one process) to sample that local server process's memory during the run:
 highest sampled values only, for a loopback endpoint only, and unknown everywhere
-else. See [methodology](docs/METHODOLOGY.md) for exactly what each does and does not
+else. See [methodology](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/METHODOLOGY.md) for exactly what each does and does not
 show.
 
 `credential_env` names a secret-manager-supplied variable for direct checks; never
@@ -129,17 +129,17 @@ and mappings for reproducibility. Review even allowlisted exports before disclos
 `recommend --format json` writes the same verdicts as data for other programs: levels,
 pass and attempt counts, investigation pairs and tool-schema counts, in the versioned
 shape `urn:poundlock-toolkit:recommendation:1`
-([schema](src/poundlock_toolkit/data/recommendation.schema.json)). Version 1 only gains
+([schema](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/src/poundlock_toolkit/data/recommendation.schema.json)). Version 1 only gains
 optional fields. The supported interfaces are the CLI, this summary and the result
 schemas; Toolkit's Python modules can change between releases.
 
 ## Reference
 
-- [Specification](docs/SPEC.md), [architecture decisions](docs/adr/001-product-boundaries.md)
-- [Method: what to test and how to score it](docs/METHOD.md)
-- [Methodology and result semantics](docs/METHODOLOGY.md)
-- [Field notes from long-run operator use](docs/FIELD-NOTES.md)
-- [Recovery, retention and removal](docs/OPERATIONS.md)
-- [Source and dependency notices](THIRD_PARTY.md)
-- [Contributing](CONTRIBUTING.md), [security](SECURITY.md)
+- [Specification](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/SPEC.md), [architecture decisions](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/adr/001-product-boundaries.md)
+- [Method: what to test and how to score it](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/METHOD.md)
+- [Methodology and result semantics](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/METHODOLOGY.md)
+- [Field notes from long-run operator use](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/FIELD-NOTES.md)
+- [Recovery, retention and removal](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/docs/OPERATIONS.md)
+- [Source and dependency notices](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/THIRD_PARTY.md)
+- [Contributing](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/CONTRIBUTING.md), [security](https://github.com/endthestart/poundlock-toolkit/blob/v0.5.0/SECURITY.md)
 - [Roadmap](https://github.com/endthestart/poundlock/blob/main/ROADMAP.md) for Poundlock, Dispatch and Toolkit
