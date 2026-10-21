@@ -56,7 +56,7 @@ def plan(c, readiness_only=False):
         or c["paid"] is not False
     ):
         blockers.append(
-            "Local/private, explicitly unpaid inference is required in release 0.1."
+            "Local/private, explicitly unpaid inference is required."
         )
     if c["settings"]["context_tokens"] < c["requirements"]["min_context_tokens"]:
         blockers.append("Configured context does not meet the required minimum.")
