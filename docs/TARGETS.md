@@ -23,7 +23,8 @@ python3 -m venv "$HOME/toolkit-venv"
 "$HOME/toolkit-venv/bin/poundlock-toolkit" inspect
 ```
 
-Write `poundlock-toolkit example target-local` or `target-ssh` to private storage with `--output`.
+After `mkdir -m 700 private`, write `poundlock-toolkit example target-local` or
+`target-ssh` to private storage with `--output private/target.json`.
 Set `python` to the target's absolute environment executable. SSH `host` is a
 normal alias already configured in your SSH client; username, key and port belong
 in that client's configuration. No passwords, private keys or forwarding flags

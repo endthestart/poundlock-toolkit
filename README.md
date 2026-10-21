@@ -61,9 +61,14 @@ nested strings as failures, and export content-free field/type diagnostics.
 
 ## Existing endpoint
 
-Write an example into an ignored private folder and edit it:
-`poundlock-toolkit example openai --output private/endpoint.json` (or `ollama`;
-`poundlock-toolkit example` lists them all).
+Write an example into a private folder and edit it (or use `ollama`;
+`poundlock-toolkit example` lists them all):
+
+```sh
+mkdir -m 700 private
+poundlock-toolkit example openai --output private/endpoint.json
+```
+
 Set the endpoint, advertised model ID, revision, quantization, backend build
 (`backend.version`, optional `backend.commit`), serving application release
 (`backend.application`: `{name, version}`, or `null` when served directly), template checksum, context, reasoning and inventory. Preserve unknowns as `null`.
