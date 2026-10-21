@@ -38,6 +38,11 @@ from poundlock_toolkit.cli import main
 from poundlock_toolkit.core import Failure, config
 from poundlock_toolkit.demo import SyntheticBackend
 from poundlock_toolkit.evaluation import evaluate
+from poundlock_toolkit.fixtures import (
+    CODING_FIXTURE,
+    INVESTIGATION_FIXTURE,
+    VERIFIER_COMMAND,
+)
 from poundlock_toolkit.inspection import drm_inventory
 from poundlock_toolkit.memory_probe import LinuxReader
 from poundlock_toolkit.schema_evaluation import evaluate as schema_evaluate
@@ -825,6 +830,125 @@ def sysfs():
     return result
 
 
+def stream(*events):
+    """A Pi event stream, one JSON value per line."""
+    return b"\n".join(json.dumps(e).encode() for e in events)
+
+
+def tool(name="bash", **extra):
+    return {"type": "tool_execution_start", "toolName": name, **extra}
+
+
+def end(*messages):
+    return {"type": "agent_end", "messages": list(messages)}
+
+
+STOP = {"role": "assistant", "stopReason": "stop"}
+VERIFY = tool(args={"command": VERIFIER_COMMAND})
+EVENTS = {
+    "verifier, stop": stream(VERIFY, end(STOP)),
+    "verifier padded, stop": stream(
+        tool(args={"command": f"  {VERIFIER_COMMAND}\n"}), end(STOP)
+    ),
+    "other command, stop": stream(tool(args={"command": "ls /work"}), end(STOP)),
+    "read, stop": stream(tool("read", args={}), end(STOP)),
+    "three tools, stop": stream(
+        tool("read", args={}), VERIFY, tool("write"), end(STOP)
+    ),
+    "stop only": stream(end(STOP)),
+    "verifier only": stream(VERIFY),
+    "stop, then length": stream(
+        VERIFY, end(STOP), end({"role": "assistant", "stopReason": "length"})
+    ),
+    "length, then stop": stream(
+        VERIFY, end({"role": "assistant", "stopReason": "length"}), end(STOP)
+    ),
+    "user stop": stream(VERIFY, end({"role": "user", "stopReason": "stop"})),
+    "agent_end without messages": stream(VERIFY, {"type": "agent_end"}),
+    "messages null": stream(VERIFY, {"type": "agent_end", "messages": None}),
+    "message not an object": stream(VERIFY, end("stop")),
+    "bash args a list": stream(tool(args=[VERIFIER_COMMAND]), end(STOP)),
+    "read args a list": stream(tool("read", args=["x"]), end(STOP)),
+    "args null": stream(tool(args=None), end(STOP)),
+    "args missing": stream(tool(), end(STOP)),
+    "command null": stream(tool(args={"command": None}), end(STOP)),
+    "command a number": stream(tool(args={"command": 5}), end(STOP)),
+    "type a number": stream({"type": 5}, VERIFY, end(STOP)),
+    "line a list": stream(VERIFY, [], end(STOP)),
+    "line a number": stream(VERIFY, 5, end(STOP)),
+    "blank line": stream(VERIFY) + b"\n\n" + stream(end(STOP)),
+    "trailing newline": stream(VERIFY, end(STOP)) + b"\n",
+    "CRLF": stream(VERIFY) + b"\r\n" + stream(end(STOP)),
+    "not JSON": b"garbage",
+    "empty": b"",
+    "invalid UTF-8": stream(VERIFY) + b"\n\xff",
+    "non-ASCII": stream(tool(args={"command": "echo \u00e9t\u00e9"}), end(STOP)),
+}
+CODING_RESULTS = {
+    "passed": b'{"status":"passed","verifier_exit_code":0}',
+    "passed, spaced": b'{ "status": "passed", "verifier_exit_code": 0 }',
+    "failed": b'{"status":"failed","verifier_exit_code":1}',
+    "exit false": b'{"status":"passed","verifier_exit_code":false}',
+    "exit 0.0": b'{"status":"passed","verifier_exit_code":0.0}',
+    "extra key": b'{"status":"passed","verifier_exit_code":0,"note":"x"}',
+    "list": b"[]",
+    "not JSON": b"nope",
+    "empty": b"",
+}
+SATISFIED = {
+    "verdict": "satisfied",
+    "entry": "epsilon-9",
+    "evidence_path": "modules/epsilon-9.md",
+    "evidence_line": 3,
+}
+NOT_SATISFIED = dict.fromkeys(SATISFIED, None) | {"verdict": "not_satisfied"}
+INVESTIGATION_RESULTS = {
+    name: json.dumps(value).encode()
+    for name, value in {
+        "satisfied": SATISFIED,
+        "not satisfied": NOT_SATISFIED,
+        "line 0": SATISFIED | {"evidence_line": 0},
+        "line true": SATISFIED | {"evidence_line": True},
+        "line 3.0": SATISFIED | {"evidence_line": 3.0},
+        "entry empty": SATISFIED | {"entry": ""},
+        "path empty": SATISFIED | {"evidence_path": ""},
+        "path null": SATISFIED | {"evidence_path": None},
+        "not satisfied, with entry": NOT_SATISFIED | {"entry": "epsilon-9"},
+        "unknown verdict": SATISFIED | {"verdict": "maybe"},
+        "extra key": SATISFIED | {"note": "x"},
+        "missing key": {k: v for k, v in SATISFIED.items() if k != "evidence_line"},
+        "list": [],
+    }.items()
+} | {"not JSON": b"nope", "empty": b""}
+
+
+def completion():
+    """Pi self-report checks for coding and investigation (M10)."""
+    fixtures = (
+        ("coding", CODING_FIXTURE, CODING_RESULTS),
+        (
+            "investigation findable",
+            INVESTIGATION_FIXTURE("findable"),
+            INVESTIGATION_RESULTS,
+        ),
+        (
+            "investigation absent",
+            INVESTIGATION_FIXTURE("absent"),
+            INVESTIGATION_RESULTS,
+        ),
+    )
+    result = {}
+    for name, fixture, results in fixtures:
+        for events_name, events in EVENTS.items():
+            result[f"{name}, {events_name}"] = line(
+                {
+                    result_name: fixture.completion(events, raw)
+                    for result_name, raw in results.items()
+                }
+            )
+    return result
+
+
 def demo(example, folder):
     """`poundlock-toolkit demo`, end to end: exit code, printed report, document."""
     output, out, err = Path(folder) / "demo.json", io.StringIO(), io.StringIO()
@@ -877,6 +1001,10 @@ class GoldenTests(unittest.TestCase):
     def test_sysfs_vram_readers(self):
         """Inventory and memory-probe reads of AMD VRAM (M8)."""
         self.assertGolden("sysfs", sysfs())
+
+    def test_pi_self_report_checks(self):
+        """The coding and investigation completion checks (M10)."""
+        self.assertGolden("completion", completion())
 
 
 if __name__ == "__main__":

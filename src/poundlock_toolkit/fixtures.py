@@ -74,25 +74,34 @@ class PiFixture:
         ]
 
 
-def _coding_completion(events, result):
+def _scan(events, command=None):
+    """(tool starts, whether the last agent_end stopped normally, whether bash ran
+    exactly `command`) from a Pi event stream. Raises on a malformed stream; the
+    callers treat that as a failed self-report."""
     invoked, terminal, tools = False, False, 0
+    for line in events.splitlines():
+        event = json.loads(line)
+        if event.get("type") == "tool_execution_start":
+            tools += 1
+            args = event.get("args") or {}
+            if (
+                command is not None
+                and event.get("toolName") == "bash"
+                and args.get("command", "").strip() == command
+            ):
+                invoked = True
+        if event.get("type") == "agent_end":
+            messages = event.get("messages") or []
+            terminal = any(
+                m.get("role") == "assistant" and m.get("stopReason") == "stop"
+                for m in messages
+            )
+    return tools, terminal, invoked
+
+
+def _coding_completion(events, result):
     try:
-        for line in events.splitlines():
-            event = json.loads(line)
-            if event.get("type") == "tool_execution_start":
-                tools += 1
-                args = event.get("args") or {}
-                if (
-                    event.get("toolName") == "bash"
-                    and args.get("command", "").strip() == VERIFIER_COMMAND
-                ):
-                    invoked = True
-            if event.get("type") == "agent_end":
-                messages = event.get("messages") or []
-                terminal = any(
-                    m.get("role") == "assistant" and m.get("stopReason") == "stop"
-                    for m in messages
-                )
+        tools, terminal, invoked = _scan(events, VERIFIER_COMMAND)
         record = json.loads(result)
         return (
             invoked
@@ -109,18 +118,8 @@ def _investigation_completion(events, result):
     """Self-report only: a plausible shape and a normal stop. Not correctness --
     correctness is decided independently by verify_investigation.py against the
     answer key, which this predicate never sees."""
-    terminal, tools = False, 0
     try:
-        for line in events.splitlines():
-            event = json.loads(line)
-            if event.get("type") == "tool_execution_start":
-                tools += 1
-            if event.get("type") == "agent_end":
-                messages = event.get("messages") or []
-                terminal = any(
-                    m.get("role") == "assistant" and m.get("stopReason") == "stop"
-                    for m in messages
-                )
+        tools, terminal, _ = _scan(events)
         record = json.loads(result)
         if not (
             isinstance(record, dict)
