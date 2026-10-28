@@ -11,6 +11,7 @@ Every check reports one status: pass, fail, unknown or stale.
 from __future__ import annotations
 
 import re
+from typing import Any
 
 from .core import digest
 
@@ -127,7 +128,8 @@ def stable_inventory(inv):
 def inventory_check(reviewed_inventory, observed_inventory):
     before = stable_inventory(reviewed_inventory)
     after = stable_inventory(observed_inventory)
-    drifted, unknown = [], []
+    drifted: list[dict[str, Any]] = []
+    unknown: list[dict[str, Any]] = []
     for key in sorted(set(before) | set(after)):
         a, b = before.get(key), after.get(key)
         if a == b:
@@ -198,7 +200,7 @@ def sanitize(checks):
         drifted = row.get("drifted", [])
         if not isinstance(drifted, list) or len(drifted) > 256:
             raise ValueError("Malformed attach checks")
-        items = []
+        items: list[str | dict[str, Any]] = []
         for item in drifted:
             if isinstance(item, str) and _NAME.fullmatch(item):
                 items.append(item)

@@ -7,6 +7,7 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
+from typing import Any
 from .core import child_env, now
 
 
@@ -100,7 +101,7 @@ def command(args):
 def inspect():
     system = platform.system()
     devices = []
-    memory = {
+    memory: dict[str, Any] = {
         "system_ram_bytes": None,
         "system_available_bytes": None,
         "unified_memory_bytes": None,

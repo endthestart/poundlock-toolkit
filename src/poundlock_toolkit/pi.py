@@ -184,6 +184,7 @@ def bounded(command, timeout=10, limit=1_000_000):
         start_new_session=True,
         env=child_env(*DOCKER_CLIENT_ENV),
     )
+    assert process.stdout is not None
     output = bytearray()
     end = time.monotonic() + timeout
     try:
@@ -228,7 +229,9 @@ def snapshot(raw, disk_bytes, allowed):
                     or name in result
                 ):
                     raise Failure("task_quality_failure", "unauthorized_file")
-                result[name] = archive.extractfile(member).read(32769)
+                extracted = archive.extractfile(member)
+                assert extracted is not None  # a regular file, checked above
+                result[name] = extracted.read(32769)
     except (tarfile.TarError, OSError):
         raise Failure("task_quality_failure", "unauthorized_file") from None
     return result

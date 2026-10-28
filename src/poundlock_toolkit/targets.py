@@ -113,6 +113,7 @@ def exchange(target, packet, timeout=20):
         stderr=subprocess.DEVNULL,
         start_new_session=True,
     )
+    assert process.stdin is not None and process.stdout is not None
     raw = bytearray()
     try:
         deadline = time.monotonic() + timeout

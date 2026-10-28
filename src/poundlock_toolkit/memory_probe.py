@@ -36,6 +36,7 @@ import subprocess
 import threading
 import time
 from pathlib import Path
+from typing import Any
 
 from .core import child_env
 from .inspection import drm_cards, pci_device_id, sysfs_number, sysfs_read
@@ -302,7 +303,7 @@ class MemorySampler:
     def summary(self):
         with self.lock:
             samples = [s for _, s in self.samples]
-        pools = {}
+        pools: dict[Any, Any] = {}
         for sample in samples:
             for pool in sample["vram"]:
                 row = pools.setdefault(

@@ -4,6 +4,7 @@ import copy
 import statistics
 from collections import Counter
 from datetime import datetime, timedelta, UTC
+from typing import Any
 from .cache_probe import EDIT_VERDICT_TEXT, describe, finding, reason_text
 from .core import digest, validate
 from .planning import PI_WORKLOADS
@@ -575,7 +576,7 @@ def summary(documents, now=None):
 
     now = now or datetime.now(UTC)
     results = []
-    variants = {}
+    variants: dict[Any, Any] = {}
     for d in documents:
         validate(d)
         row = {

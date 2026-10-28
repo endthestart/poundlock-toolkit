@@ -16,3 +16,8 @@ notes/
 *.pem
 *.key
 .env
+.mypy_cache/
+.coverage
+htmlcov/
+toolkit-ci-artifacts.tar
+poundlock-toolkit-install/

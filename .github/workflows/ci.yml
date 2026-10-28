@@ -118,6 +118,7 @@ jobs:
                 python -m pip install --no-cache-dir --no-deps --no-build-isolation -e .
                 ruff check src tests scripts
                 ruff format --check src tests scripts
+                mypy src
                 python -m unittest discover -s tests -v
                 python -m build --no-isolation
                 python scripts/check_artifacts.py

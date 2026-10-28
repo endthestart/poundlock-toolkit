@@ -276,7 +276,12 @@ def measured_setting(probe):
     edit inside the last message never does: a server that reuses on repeat and on
     append has a prefix cache, whatever an edit to the tail costs it.
     """
-    return {"yes": "enabled", "no": "disabled"}.get((probe or {}).get("observed"))
+    observed = (probe or {}).get("observed")
+    return (
+        {"yes": "enabled", "no": "disabled"}.get(observed)
+        if isinstance(observed, str)
+        else None
+    )
 
 
 def finding(doc):

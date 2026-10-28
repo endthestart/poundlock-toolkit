@@ -50,3 +50,9 @@ select = ["E4", "E7", "E9", "F", "B", "UP", "SIM"]
 [tool.ruff.lint.per-file-ignores]
 # The verifier is copied into each coding run's containers: editing it would change the measured fixture.
 "src/poundlock_toolkit/data/*.py" = ["B", "UP", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+check_untyped_defs = true
+# The verifier is copied into each coding run's containers: editing it would change the measured fixture.
+exclude = ["src/poundlock_toolkit/data/"]

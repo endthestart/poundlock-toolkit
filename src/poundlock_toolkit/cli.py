@@ -192,16 +192,18 @@ def main(argv=None):
             if args.format == "json":
                 from .reporting import summary
 
-                text = json.dumps(summary(documents), indent=2, sort_keys=True) + "\n"
+                rendered = (
+                    json.dumps(summary(documents), indent=2, sort_keys=True) + "\n"
+                )
             else:
-                text = report(documents)
+                rendered = report(documents)
             if args.output:
                 fresh(args.output)
                 fd = os.open(args.output, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
                 with os.fdopen(fd, "w") as f:
-                    f.write(text)
+                    f.write(rendered)
             else:
-                print(text, end="")
+                print(rendered, end="")
         elif args.command in ("export", "recover"):
             fresh(args.output)
             original = read_json(args.result)

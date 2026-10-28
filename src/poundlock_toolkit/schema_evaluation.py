@@ -4,6 +4,7 @@ import copy
 import signal
 import time
 import uuid
+from typing import Any
 from . import __version__
 from .backends import (
     Backend,
@@ -95,7 +96,7 @@ def request(c, boundary):
 
 
 def trial_score(calls, completed):
-    empty = {
+    empty: dict[str, Any] = {
         "argument_representation": "missing",
         "outer_parse_success": None,
         "schema_valid": None,
