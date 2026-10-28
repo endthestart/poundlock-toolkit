@@ -39,6 +39,17 @@ ROOT = Path(__file__).resolve().parents[1]
 GIB = 2**30
 
 
+def leaf_values(document):
+    if isinstance(document, dict):
+        for value in document.values():
+            yield from leaf_values(value)
+    elif isinstance(document, list):
+        for value in document:
+            yield from leaf_values(value)
+    else:
+        yield document
+
+
 def with_probe(c, **spec):
     c["memory_probe"] = spec or {"pid": 4242}
     c["endpoint"] = "http://127.0.0.1:8080/v1"
@@ -678,9 +689,11 @@ class EvaluationTests(unittest.TestCase):
 
     def test_the_document_never_carries_the_pid_or_the_endpoint(self):
         d = self.run_eval([5] * 60)
-        encoded = str(d)
-        self.assertNotIn("4242", encoded)
-        self.assertNotIn("127.0.0.1", encoded)
+        # Compare whole values: a timestamp's digits can contain 4242 by chance.
+        values = list(leaf_values(d))
+        self.assertNotIn(4242, values)
+        self.assertNotIn("4242", values)
+        self.assertNotIn("127.0.0.1", str(d))
 
     def test_a_real_process_is_sampled_end_to_end(self):
         if platform.system() not in ("Linux", "Darwin"):
