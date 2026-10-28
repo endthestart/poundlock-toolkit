@@ -199,22 +199,21 @@ def attached_run(packet):
     signal.signal(signal.SIGHUP, disconnected)
     try:
         # The worker is Toolkit itself and reads the endpoint key credential_env names.
-        child = (
-            subprocess.Popen(  # nosemgrep: toolkit-py-subprocess-inherits-environment
-                [
-                    sys.executable,
-                    "-I",
-                    "-B",
-                    "-m",
-                    "poundlock_toolkit.target_agent",
-                    "--worker",
-                    packet["run_id"],
-                ],
-                stdin=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                start_new_session=True,
-            )
+        # nosemgrep: toolkit-py-subprocess-inherits-environment
+        child = subprocess.Popen(
+            [
+                sys.executable,
+                "-I",
+                "-B",
+                "-m",
+                "poundlock_toolkit.target_agent",
+                "--worker",
+                packet["run_id"],
+            ],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            start_new_session=True,
         )
         with selectors.DefaultSelector() as selector:
             selector.register(sys.stdin, selectors.EVENT_READ)
