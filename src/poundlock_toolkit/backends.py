@@ -8,13 +8,26 @@ import urllib.request
 from .core import Failure, digest, numeric
 from .workloads import TOOL
 
-METRIC_NAMES = (
-    "wall_seconds first_event_seconds first_useful_output_seconds load_seconds "
-    "prompt_processing_seconds decode_seconds prefill_tokens_per_second "
-    "decode_tokens_per_second input_tokens output_tokens peak_process_rss_bytes "
-    "prompt_n predicted_n draft_n draft_n_accepted compactions loops_detected "
-    "cached_tokens"
-).split()
+METRIC_NAMES = [
+    "wall_seconds",
+    "first_event_seconds",
+    "first_useful_output_seconds",
+    "load_seconds",
+    "prompt_processing_seconds",
+    "decode_seconds",
+    "prefill_tokens_per_second",
+    "decode_tokens_per_second",
+    "input_tokens",
+    "output_tokens",
+    "peak_process_rss_bytes",
+    "prompt_n",
+    "predicted_n",
+    "draft_n",
+    "draft_n_accepted",
+    "compactions",
+    "loops_detected",
+    "cached_tokens",
+]
 
 # The prefix-cache probe asks for a token or two, not an answer: it measures how
 # a prompt is processed, so the reply length must not dominate the timing.

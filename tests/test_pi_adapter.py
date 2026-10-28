@@ -147,9 +147,11 @@ class PiAdapterTests(unittest.TestCase):
         )
 
     def test_no_remote_engine_or_credentials(self):
-        with patch.dict("os.environ", {"DOCKER_HOST": "ssh://example.invalid"}):
-            with self.assertRaises(Failure):
-                PiRunner(self.c).preflight()
+        with (
+            patch.dict("os.environ", {"DOCKER_HOST": "ssh://example.invalid"}),
+            self.assertRaises(Failure),
+        ):
+            PiRunner(self.c).preflight()
         self.c["credential_env"] = "SECRET_KEY"
         with self.assertRaises(Failure):
             PiRunner(self.c).preflight()
@@ -165,9 +167,9 @@ class PiAdapterTests(unittest.TestCase):
         with (
             patch.object(p, "preflight"),
             patch("poundlock_toolkit.pi.bounded", side_effect=fake),
+            self.assertRaises(Failure),
         ):
-            with self.assertRaises(Failure):
-                p.run(CODING_FIXTURE)
+            p.run(CODING_FIXTURE)
         self.assertEqual(len(p.owned), 1)
         self.assertEqual(p.cleanup, "passed")
 

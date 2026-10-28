@@ -1,5 +1,6 @@
 """Read-only best-effort local inventory; never inspect remote hardware by analogy."""
 
+import contextlib
 import os
 import platform
 import re
@@ -120,7 +121,7 @@ def inspect():
                     "--format=csv,noheader,nounits",
                 ]
             )
-            try:
+            with contextlib.suppress(ValueError):
                 memory["gpu_pools"] = [
                     {
                         "total_bytes": int(a) * 1048576,
@@ -128,8 +129,6 @@ def inspect():
                     }
                     for a, b in (line.split(",") for line in output.splitlines())
                 ]
-            except ValueError:
-                pass
         memory["gpu_pools"].extend(
             {"total_bytes": d["total_bytes"], "available_bytes": d["available_bytes"]}
             for d in devices

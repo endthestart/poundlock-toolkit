@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 import hmac
 import json
 import os
@@ -77,7 +77,7 @@ def summary(root, marker):
         state = {
             "status": "interrupted",
             "updated_at": datetime.fromtimestamp(
-                marker["deadline_epoch"] + 40, timezone.utc
+                marker["deadline_epoch"] + 40, UTC
             ).isoformat(),
         }
     if state["status"] != "running" and result is not None:

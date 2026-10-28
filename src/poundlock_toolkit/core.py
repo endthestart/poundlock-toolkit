@@ -8,7 +8,7 @@ import math
 import os
 import signal
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 from importlib.resources import files
 from pathlib import Path
 
@@ -16,7 +16,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 
 def now():
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def digest(value):

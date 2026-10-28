@@ -17,7 +17,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
-from typing import Callable
+from collections.abc import Callable
 
 from .core import data, data_tree
 from .workloads import CODING, INVESTIGATION

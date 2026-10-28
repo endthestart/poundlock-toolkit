@@ -1,7 +1,7 @@
 """Serving-application identity, check statuses and secret-free exported artifacts."""
 
 import copy
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, UTC
 import json
 import os
 from pathlib import Path
@@ -94,7 +94,7 @@ class EvidenceTests(unittest.TestCase):
 
     def test_check_statuses_distinguish_fail_unknown_stale(self):
         d = self.run_eval()
-        later = datetime.now(timezone.utc) + timedelta(days=31)
+        later = datetime.now(UTC) + timedelta(days=31)
         r = recommendation(d, "extraction", now=later)
         self.assertEqual(r["checks"]["freshness"], "stale")
         self.assertEqual(r["next_required_check"], "freshness")
@@ -215,7 +215,9 @@ class PiEvidenceCase(unittest.TestCase):
     def run_coding(self, compactions, decode_speeds=None, c=None):
         """Evaluate with a worker whose n-th coding run records `compactions[n]`
         (and `decode_speeds[n]`, when given). Every run independently passes."""
-        recorded = iter(zip(compactions, decode_speeds or [None] * len(compactions)))
+        recorded = iter(
+            zip(compactions, decode_speeds or [None] * len(compactions), strict=True)
+        )
 
         def factory(c):
             pi = FakePi(c)

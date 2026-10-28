@@ -349,9 +349,11 @@ class ToolkitTests(unittest.TestCase):
 
     def test_missing_isolation_fails_closed(self):
         p = PiRunner(self.c)
-        with patch("poundlock_toolkit.pi.bounded", side_effect=FileNotFoundError()):
-            with self.assertRaises(Failure):
-                p.preflight()
+        with (
+            patch("poundlock_toolkit.pi.bounded", side_effect=FileNotFoundError()),
+            self.assertRaises(Failure),
+        ):
+            p.preflight()
 
     def test_completion_needs_actual_tool_event_and_terminal(self):
         rows = [

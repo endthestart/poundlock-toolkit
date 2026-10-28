@@ -58,7 +58,7 @@ def build_packet(candidates, rng=None):
     labels = [f"Candidate {chr(ord('A') + n)}" for n in range(len(candidates))]
     key = {}
     sections = []
-    for label, index in zip(labels, order):
+    for label, index in zip(labels, order, strict=True):
         candidate = candidates[index]
         key[label] = candidate["identity"]
         sections.append(f"## {label}\n\n```diff\n{candidate['diff']}\n```\n")

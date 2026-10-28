@@ -185,9 +185,12 @@ def find_pids(name, system, proc_root=Path("/proc"), ps=run_ps):
     elif system == "Darwin":
         for line in ps(["-axo", "pid=,comm="]).splitlines():
             pid, _, comm = line.strip().partition(" ")
-            if pid.isdigit() and int(pid) != os.getpid():
-                if os.path.basename(comm.strip()) == name:
-                    pids.append(int(pid))
+            if (
+                pid.isdigit()
+                and int(pid) != os.getpid()
+                and os.path.basename(comm.strip()) == name
+            ):
+                pids.append(int(pid))
     return pids
 
 

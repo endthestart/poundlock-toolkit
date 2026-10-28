@@ -3,7 +3,7 @@
 import copy
 import statistics
 from collections import Counter
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, UTC
 from .cache_probe import EDIT_VERDICT_TEXT, describe, finding, reason_text
 from .core import digest, validate
 from .planning import PI_WORKLOADS
@@ -180,7 +180,7 @@ def recommendation(doc, workload, now=None):
 
 def _recommendation(doc, workload, now=None):
     """`recommendation` for a document that has already been validated."""
-    now = now or datetime.now(timezone.utc)
+    now = now or datetime.now(UTC)
     checks = {}
     rows = [
         a for a in doc["attempts"] if a["stage"] == "task" and a["workload"] == workload
@@ -199,7 +199,7 @@ def _recommendation(doc, workload, now=None):
     notes = []
     created = datetime.fromisoformat(doc["created_at"])
     if created.tzinfo is None:
-        created = created.replace(tzinfo=timezone.utc)
+        created = created.replace(tzinfo=UTC)
     checks["freshness"] = "stale" if now - created > FRESHNESS else "pass"
     if checks["freshness"] == "stale":
         reasons.append(
@@ -492,7 +492,7 @@ def _report(documents, now):
         for a in d["attempts"]:
             m = a["metrics"]
 
-            def fmt(k):
+            def fmt(k, m=m):
                 return "unknown" if m[k] is None else f"{m[k]:.4f}"
 
             rate = acceptance_rate(m)
@@ -573,7 +573,7 @@ def summary(documents, now=None):
     from . import __version__
     from .tool_schema import NAMESPACE
 
-    now = now or datetime.now(timezone.utc)
+    now = now or datetime.now(UTC)
     results = []
     variants = {}
     for d in documents:

@@ -26,7 +26,7 @@ import unittest
 import urllib.error
 import urllib.request
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, UTC
 from pathlib import Path
 from unittest.mock import patch
 from urllib.parse import urlsplit
@@ -64,8 +64,8 @@ LIMITS = {"limits.total_seconds": 600, "limits.request_seconds": 120}
 # Each monotonic-clock read advances it by this much; each wall-clock read by a
 # second from START. Reports are written as of REPORTED_AT.
 STEP = 0.125
-START = datetime(2026, 1, 1, tzinfo=timezone.utc)
-REPORTED_AT = datetime(2026, 1, 2, tzinfo=timezone.utc)
+START = datetime(2026, 1, 1, tzinfo=UTC)
+REPORTED_AT = datetime(2026, 1, 2, tzinfo=UTC)
 
 
 def sha256(raw):
@@ -446,7 +446,7 @@ def guards():
     for name, fail in (("completes", None), ("raises", ZeroDivisionError)):
         seen = []
 
-        def qualification():
+        def qualification(seen=seen, fail=fail):
             with tempfile.TemporaryDirectory() as folder:
                 c = configured("openai.json", LIMITS, folder)
                 return run(c, folder, Replay(), backend=Observing(seen, fail))
@@ -455,7 +455,7 @@ def guards():
         result[f"openai.json handlers, run {name}"]["seen"] = seen
         seen = []
 
-        def tool_schema():
+        def tool_schema(seen=seen, fail=fail):
             with tempfile.TemporaryDirectory() as folder:
                 c = configured("tool-schema.json", LIMITS, folder)
                 requester = schema_requester(seen, fail)
@@ -682,7 +682,7 @@ def transport():
                     c = configured(example, LIMITS | settings, folder)
                     replay = WireReplay(responses)
                     with deterministic(), recorded(replay, []):
-                        outcome = answered(lambda: call(Backend(c)))
+                        outcome = answered(lambda call=call, c=c: call(Backend(c)))
                     outcome["requests"] = replay.requests
                     result[f"backend {api}, {label}: {name}"] = line(outcome)
     for label, settings in SETTINGS.items():
@@ -699,7 +699,11 @@ def transport():
                     boundary = "openai" if "/v1/" in response["path"] else "ollama"
                     replay = WireReplay([response])
                     with deterministic(), recorded(replay, []):
-                        outcome = answered(lambda: list(schema_request(c, boundary)))
+                        outcome = answered(
+                            lambda c=c, boundary=boundary: list(
+                                schema_request(c, boundary)
+                            )
+                        )
                     outcome["requests"] = replay.requests
                     key = f"tool schema {boundary}, {label}"
                     if conversation:
@@ -830,7 +834,9 @@ def sysfs():
             root = Path(folder) / "drm"
             root.mkdir()
             build(root)
-            result[name + ": inventory"] = line(answered(lambda: drm_inventory(root)))
+            result[name + ": inventory"] = line(
+                answered(lambda root=root: drm_inventory(root))
+            )
             reader = LinuxReader(4242, Path(folder) / "proc", root)
             result[name + ": memory probe"] = line(answered(reader.vram))
     return result
@@ -1076,7 +1082,11 @@ def reports():
                 + " "
                 + sha256(line(verdicts).encode())
             )
-        mixed = [d for pair in zip(regular.values(), schema.values()) for d in pair]
+        mixed = [
+            d
+            for pair in zip(regular.values(), schema.values(), strict=False)
+            for d in pair
+        ]
         lists = {
             "all regular": list(regular.values()),
             "all tool schema": list(schema.values()),
@@ -1110,8 +1120,12 @@ def reports():
             ("invalid tool schema first", [invalid_schema, docs["qualified"]]),
             ("invalid tool schema after regular", [docs["qualified"], invalid_schema]),
         ):
-            result[f"report, {name}"] = refused(lambda: report(documents))
-            result[f"summary, {name}"] = refused(lambda: line(summary(documents)))
+            result[f"report, {name}"] = refused(
+                lambda documents=documents: report(documents)
+            )
+            result[f"summary, {name}"] = refused(
+                lambda documents=documents: line(summary(documents))
+            )
         result["recommendation, invalid"] = refused(
             lambda: line(recommendation(invalid, "extraction"))
         )

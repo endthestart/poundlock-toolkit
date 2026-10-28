@@ -232,9 +232,11 @@ class TargetTests(unittest.TestCase):
         # A selected target process that never consumes stdin cannot trap the client.
         target_command = [sys.executable, "-c", "import time; time.sleep(20)"]
         started = time.monotonic()
-        with patch("poundlock_toolkit.targets.command", return_value=target_command):
-            with self.assertRaises(TransportError):
-                exchange(self.target, {"padding": "x" * 200000}, timeout=0.2)
+        with (
+            patch("poundlock_toolkit.targets.command", return_value=target_command),
+            self.assertRaises(TransportError),
+        ):
+            exchange(self.target, {"padding": "x" * 200000}, timeout=0.2)
         self.assertLess(time.monotonic() - started, 4)
 
     def test_cancel_running_run_and_refuse_active_removal(self):
