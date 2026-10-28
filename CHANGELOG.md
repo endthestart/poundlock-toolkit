@@ -22,6 +22,7 @@
   of the wheel install to each release.
 - A release tag runs the full CI workflow on the tagged commit and publishes exactly
   the wheel and sdist it tested.
+- Building needs setuptools 84.1 or later, which fixes GHSA-xmj3-9gf7-h52w.
 
 ## 0.4.0 (October 2026)
 

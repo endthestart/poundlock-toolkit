@@ -11,7 +11,7 @@ license. The package contains no third-party model outputs or weights.
 | Legacy result schema | Earlier schema retained to validate older result files | Toolkit Apache-2.0; no historical results bundled |
 | JSON Schema validator | `jsonschema` >=4.23,<5; runtime validation | MIT; installed dependency, not vendored |
 | `attrs`, `referencing`, `jsonschema-specifications`, `rpds-py`, `typing-extensions` | Transitive resolved validator dependencies; exact versions retained with release artifact evidence | Upstream distribution licenses retained by package installer; not vendored |
-| setuptools | Build dependency >=83 | MIT; not vendored |
+| setuptools | Build dependency >=84.1 | MIT; not vendored |
 | Python | External runtime >=3.11 | Python Software Foundation license; not bundled |
 | Pi | External operator-built image; `recipes/pi` pins 1.1.0 and its dependencies by lockfile | Upstream MIT; installed from npm at image build, no Pi code copied |
 | Docker | External operator prerequisite | Distribution-specific Docker terms; no engine/image redistribution |
