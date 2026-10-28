@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import stat
 import tempfile
+import tomllib
 import unittest
 
 from poundlock_toolkit import __version__
@@ -172,6 +173,13 @@ class RecommendJsonTests(CliCase):
         code, _, _ = self.cli("recommend", bad, "--format", "json", "--output", out)
         self.assertEqual(code, EXIT_INVALID)
         self.assertFalse(out.exists())
+
+
+class VersionTests(unittest.TestCase):
+    def test_the_package_reports_the_version_pyproject_releases(self):
+        with (ROOT / "pyproject.toml").open("rb") as handle:
+            declared = tomllib.load(handle)["project"]["version"]
+        self.assertEqual(__version__, declared)
 
 
 class RecoverTests(CliCase):

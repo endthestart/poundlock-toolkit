@@ -14,7 +14,8 @@ explicit bounded execution. Do not install drivers, tune hosts, download models,
 start infrastructure or call paid services automatically. Cleanup only exact owned
 resources. No unsafe host execution fallback for coding.
 
-Use Python modules and a thin CLI. Run `python -m unittest discover -s tests -v`.
+Use Python modules and a thin CLI. Install with `pip install -e .`; the full local check is
+in CONTRIBUTING. Run `python -m unittest discover -s tests -v`.
 CI is offline except dependency installation and local fixture HTTP traffic. Live
 hardware and Pi checks are opt-in manual gates. Toolkit-owned material is
 Apache-2.0; preserve third-party licenses and source attribution.

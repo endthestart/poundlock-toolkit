@@ -9,6 +9,10 @@ on:
   workflow_call:
 permissions:
   contents: read
+# A newer push to the same pull request replaces its run; branches and tags run to the end.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   security:
     # Every tool is pinned by version and, for images, by digest. Sources are
@@ -38,9 +42,9 @@ jobs:
         run: |
           set -euo pipefail
           # The package's own dependencies are unpinned; the resolved environment is scanned in the validate job.
-          tar cf - requirements-ci.txt | docker run --rm -i --cpus 1 --memory 1g --memory-swap 1g --pids-limit 128 \
+          tar cf - requirements-ci.txt recipes/pi/package-lock.json | docker run --rm -i --cpus 1 --memory 1g --memory-swap 1g --pids-limit 128 \
             --read-only --tmpfs /scan:rw,nosuid,size=64m --workdir /scan \
-            --entrypoint sh ghcr.io/google/osv-scanner:v2.7.0@sha256:4f3b7e2c64b9d38a5febc5a7e4a3dfef1d1362f726dea7a2ef4762b46469fcd0 -c 'tar xf - -C /scan && /osv-scanner scan source --lockfile requirements.txt:requirements-ci.txt'
+            --entrypoint sh ghcr.io/google/osv-scanner:v2.7.0@sha256:4f3b7e2c64b9d38a5febc5a7e4a3dfef1d1362f726dea7a2ef4762b46469fcd0 -c 'tar xf - -C /scan && /osv-scanner scan source --lockfile requirements.txt:requirements-ci.txt --lockfile recipes/pi/package-lock.json'
       - name: Static analysis (Semgrep 1.180.0, own offline rules)
         run: |
           set -euo pipefail
@@ -179,3 +183,4 @@ jobs:
         with:
           name: poundlock-toolkit-${{ github.sha }}
           path: dist/
+          retention-days: 14
