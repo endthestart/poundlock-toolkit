@@ -23,6 +23,8 @@
 - A release tag runs the full CI workflow on the tagged commit and publishes exactly
   the wheel and sdist it tested.
 - Building needs setuptools 84.1 or later, which fixes GHSA-xmj3-9gf7-h52w.
+- The Pi recipe overrides Pi's pinned undici 8.10.2 with 8.12.2, which fixes four High
+  advisories, among them CVE-2026-109383 (certificate checks skipped).
 
 ## 0.4.0 (October 2026)
 

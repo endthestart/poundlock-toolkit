@@ -4,5 +4,8 @@
   "description": "Pi for recipes/Pi.Dockerfile, installed with npm ci from the lockfile beside this file.",
   "dependencies": {
     "@earendil-works/pi-coding-agent": "1.1.0"
+  },
+  "overrides": {
+    "undici": "8.12.2"
   }
 }
