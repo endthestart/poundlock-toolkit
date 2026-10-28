@@ -607,3 +607,16 @@ class ReasoningEffortTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ChildEnvironmentTests(unittest.TestCase):
+    def test_inspection_commands_never_see_a_provider_key(self):
+        from poundlock_toolkit.inspection import command
+
+        probe = [
+            sys.executable,
+            "-c",
+            "import os; print(os.environ.get('TOOLKIT_TEST_KEY', 'absent'))",
+        ]
+        with patch.dict("os.environ", {"TOOLKIT_TEST_KEY": "secret"}):
+            self.assertEqual(command(probe), "absent")

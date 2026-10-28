@@ -37,6 +37,7 @@ import threading
 import time
 from pathlib import Path
 
+from .core import child_env
 from .inspection import drm_cards, pci_device_id, sysfs_number, sysfs_read
 
 INTERVAL_SECONDS = 0.5
@@ -65,7 +66,12 @@ def run_ps(args):
     """`ps` with a bounded wait; the empty string when it fails."""
     try:
         done = subprocess.run(
-            ["ps", *args], capture_output=True, text=True, timeout=3, check=False
+            ["ps", *args],
+            capture_output=True,
+            text=True,
+            timeout=3,
+            check=False,
+            env=child_env("PATH", "LANG", "LC_ALL"),
         )
     except (OSError, subprocess.TimeoutExpired):
         return ""

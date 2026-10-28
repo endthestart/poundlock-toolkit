@@ -1,8 +1,8 @@
-# Semgrep rules that fail the build. A rule belongs here only while it has no
-# findings; one with findings lives in report.yml until they are fixed.
+# Semgrep rules that fail the build. A new rule comes with its findings fixed, or
+# each kept one marked `nosemgrep` with its reason.
 # Written for this repository and licensed with it: no registry rules, so the
 # run is offline and reproducible. Each rule has a positive and a negative
-# control in block.py (report.py for report.yml); run them with
+# control in block.py; run them with
 # `cd .semgrep && semgrep --test .` so a rule that never fires is caught.
 rules:
   - id: toolkit-py-subprocess-shell
@@ -119,5 +119,21 @@ rules:
       A non-loopback http:// URL is written in code. A credential sent to it
       crosses the network in clear text; default to https or loopback.
     pattern-regex: '["'']http://(?!127\.0\.0\.1|localhost|\[::1\]|inference[:/]|\{)[^"''\n]*["'']'
+    paths:
+      exclude: ["tests/**"]
+  - id: toolkit-py-subprocess-inherits-environment
+    languages: [python]
+    severity: ERROR
+    message: >-
+      This child process inherits the whole parent environment, including any
+      provider key. Pass env= with only what the child needs.
+    patterns:
+      - pattern-either:
+          - pattern: subprocess.run(...)
+          - pattern: subprocess.Popen(...)
+          - pattern: subprocess.check_output(...)
+          - pattern: subprocess.check_call(...)
+          - pattern: subprocess.call(...)
+      - pattern-not: subprocess.$F(..., env=..., ...)
     paths:
       exclude: ["tests/**"]

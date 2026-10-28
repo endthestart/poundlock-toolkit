@@ -7,7 +7,7 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
-from .core import now
+from .core import child_env, now
 
 
 CARD = re.compile(r"card[0-9]+")
@@ -84,7 +84,14 @@ def drm_inventory(root=Path("/sys/class/drm")):
 
 def command(args):
     try:
-        p = subprocess.run(args, capture_output=True, text=True, timeout=3, check=False)
+        p = subprocess.run(
+            args,
+            capture_output=True,
+            text=True,
+            timeout=3,
+            check=False,
+            env=child_env("PATH", "LANG", "LC_ALL"),
+        )
         return p.stdout.strip() if p.returncode == 0 else ""
     except (OSError, subprocess.TimeoutExpired):
         return ""

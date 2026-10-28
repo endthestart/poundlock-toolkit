@@ -78,3 +78,10 @@ ENDPOINT = "http://controller.example:7331/v1"
 LOOPBACK = "http://127.0.0.1:8080/v1"
 # ok: toolkit-py-plain-http-literal
 SECURE = "https://controller.example/v1"
+
+
+def spawn(argv, env):
+    # ruleid: toolkit-py-subprocess-inherits-environment
+    subprocess.run(argv)
+    # ok: toolkit-py-subprocess-inherits-environment
+    subprocess.run(argv, env=env)

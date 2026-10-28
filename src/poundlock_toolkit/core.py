@@ -19,6 +19,11 @@ def now():
     return datetime.now(UTC).isoformat()
 
 
+def child_env(*names):
+    """The parent's values of only these variables, so a child never inherits a provider key."""
+    return {name: os.environ[name] for name in names if name in os.environ}
+
+
 def digest(value):
     raw = (
         value

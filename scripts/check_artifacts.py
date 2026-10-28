@@ -14,7 +14,10 @@ DIST = ROOT / "dist"
 
 
 def run(argv, cwd):
-    subprocess.run([str(x) for x in argv], cwd=cwd, check=True, timeout=120)
+    # Builds and installs in CI's own container, which holds no provider key.
+    command = [str(x) for x in argv]
+    # nosemgrep: toolkit-py-subprocess-inherits-environment
+    subprocess.run(command, cwd=cwd, check=True, timeout=120)
 
 
 def main():

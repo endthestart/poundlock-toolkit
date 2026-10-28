@@ -103,7 +103,9 @@ def exchange(target, packet, timeout=20):
     )
     if len(payload) > MAX_PACKET:
         raise ValueError("Request too large")
-    process = subprocess.Popen(
+    # A local agent is Toolkit itself and reads the endpoint key credential_env names;
+    # ssh needs the agent socket and the owner's ssh configuration.
+    process = subprocess.Popen(  # nosemgrep: toolkit-py-subprocess-inherits-environment
         command(target),
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,

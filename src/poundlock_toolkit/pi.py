@@ -14,7 +14,7 @@ import tempfile
 import time
 import uuid
 from pathlib import Path
-from .core import Failure, atomic_json, data, digest
+from .core import Failure, atomic_json, child_env, data, digest
 from .backends import empty_metrics
 
 
@@ -157,6 +157,24 @@ def tree_digest(root):
     return h.hexdigest()
 
 
+# What the Docker client needs to reach the local engine; a Pi run takes no
+# credential, and its container's environment is set with --env.
+DOCKER_CLIENT_ENV = (
+    "PATH",
+    "HOME",
+    "DOCKER_CONFIG",
+    "DOCKER_CONTEXT",
+    "DOCKER_HOST",
+    "DOCKER_CERT_PATH",
+    "DOCKER_TLS_VERIFY",
+    "DOCKER_API_VERSION",
+    "XDG_RUNTIME_DIR",
+    "TMPDIR",
+    "LANG",
+    "LC_ALL",
+)
+
+
 def bounded(command, timeout=10, limit=1_000_000):
     """Bound output in memory and kill only this process group on exit/failure."""
     process = subprocess.Popen(
@@ -164,6 +182,7 @@ def bounded(command, timeout=10, limit=1_000_000):
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         start_new_session=True,
+        env=child_env(*DOCKER_CLIENT_ENV),
     )
     output = bytearray()
     end = time.monotonic() + timeout

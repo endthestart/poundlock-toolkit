@@ -49,7 +49,7 @@ jobs:
         run: |
           set -euo pipefail
           # No registry rules and no network: the rules live in .semgrep/ and have tests.
-          # report.yml prints findings without failing; block.yml fails the build.
+          # Every rule in block.yml fails the build.
           tar cf - --exclude=.git . | docker run --rm -i --cpus 2 --memory 2g --memory-swap 2g --pids-limit 256 \
             --network none --read-only --tmpfs /scan:rw,nosuid,size=1g --tmpfs /tmp:rw,nosuid,size=256m -e HOME=/tmp \
             --entrypoint sh semgrep/semgrep:1.180.0@sha256:529ee8a277ec8adc5b534d7c74eea0a47e9de21d62852b6ba7ac6ba9566845c3 -c '
@@ -57,9 +57,6 @@ jobs:
               tar xf - -C /scan
               cd /scan
               (cd .semgrep && semgrep --metrics=off --disable-version-check --test .)
-              echo "Reported rules (Semgrep labels every finding Blocking; this step does not fail on them)"
-              semgrep scan --metrics=off --disable-version-check --config .semgrep/report.yml --exclude .semgrep --quiet . || true
-              echo "Blocking rules"
               semgrep scan --metrics=off --disable-version-check --config .semgrep/block.yml --exclude .semgrep --error --quiet .'
   python-versions:
     # The package claims Python 3.11+; validate covers 3.12 and builds the artifacts.
