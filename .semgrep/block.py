@@ -12,12 +12,13 @@ import yaml
 
 
 def shell(cmd, argv):
+    # The env= keeps these controls to the shell rule alone.
     # ruleid: toolkit-py-subprocess-shell
-    subprocess.run(cmd, shell=True)
+    subprocess.run(cmd, shell=True, env={})
     # ruleid: toolkit-py-subprocess-shell
     os.system(cmd)
     # ok: toolkit-py-subprocess-shell
-    subprocess.run(argv, shell=False)
+    subprocess.run(argv, shell=False, env={})
 
 
 def dash_c(cmd):
