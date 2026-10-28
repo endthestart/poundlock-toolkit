@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.5.0 (unreleased)
+## 0.5.0 (October 2026)
 
 - `poundlock-toolkit example NAME --output FILE` writes a packaged example
   configuration. The README quickstart now works from a wheel install, with no
