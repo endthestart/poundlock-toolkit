@@ -439,14 +439,15 @@ class PiRunner:
                 'os.makedirs("/home/pi/.pi/agent",exist_ok=True); '
                 '[shutil.copyfile("/fixture/"+n,"/home/pi/.pi/agent/"+n) for n in ["models.json","settings.json"]]; '
                 + starter_copy
-                + 'v=subprocess.check_output(["pi","--version"],text=True).strip(); '
+                # sys.argv[8] is the harness: pi, or pig, PiG run with Pi's command line.
+                + 'v=subprocess.check_output([sys.argv[8],"--version"],text=True).strip(); '
                 "sys.exit(42) if v != sys.argv[1] else None; "
                 "resource.setrlimit(resource.RLIMIT_FSIZE,(int(sys.argv[5]),int(sys.argv[5]))); "
                 # No core dump: a signalled worker must not drop a `core` into /work,
                 # where it would be read back as an unauthorized task output.
                 "resource.setrlimit(resource.RLIMIT_CORE,(0,0)); "
                 'log=open("/tmp/events","wb"); '
-                'p=subprocess.run(["pi","--print","--mode","json","--no-session","--offline","--no-extensions","--extension","/fixture/limit.ts",'
+                'p=subprocess.run([sys.argv[8],"--print","--mode","json","--no-session","--offline","--no-extensions","--extension","/fixture/limit.ts",'
                 '"--no-skills","--no-prompt-templates","--no-themes","--no-context-files","--no-approve",'
                 '"--provider","toolkit","--model",sys.argv[2],"--thinking",sys.argv[3],"--tools",sys.argv[7],"--",sys.argv[4]],stdout=log,stderr=log); '
                 'log.close();open("/tmp/status","w").write(str(p.returncode));time.sleep(650)'
@@ -465,6 +466,7 @@ class PiRunner:
                 str(TRANSCRIPT_BYTES),
                 str(limits["request_seconds"]),
                 fixture.tools,
+                c["harness"]["name"],
             ]
             try:
                 rc, _ = bounded(

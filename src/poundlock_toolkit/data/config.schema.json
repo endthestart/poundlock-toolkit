@@ -279,9 +279,11 @@
       "additionalProperties": false,
       "properties": {
         "name": {
+          "description": "pi, or pig: PiG, the Go port of Pi, run with Pi's command line and policy extension so the same tasks compare the two.",
           "enum": [
             "direct",
-            "pi"
+            "pi",
+            "pig"
           ]
         },
         "version": {

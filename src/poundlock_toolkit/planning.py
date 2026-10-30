@@ -1,7 +1,7 @@
 import json
 from .backends import PROBE_MAX_TOKENS
 from .cache_probe import PROBE_REQUESTS, REQUEST_TEXT, REQUESTS
-from .core import data, digest, identity
+from .core import PI_HARNESSES, data, digest, identity
 from .drift import reviewed_inputs
 from .memory_probe import INTERVAL_SECONDS, endpoint_is_local
 
@@ -58,15 +58,17 @@ def plan(c, readiness_only=False):
         blockers.append("Local/private, explicitly unpaid inference is required.")
     if c["settings"]["context_tokens"] < c["requirements"]["min_context_tokens"]:
         blockers.append("Configured context does not meet the required minimum.")
-    if pi_workloads and (c["harness"]["name"] != "pi" or c["api"] != "openai"):
+    if pi_workloads and (
+        c["harness"]["name"] not in PI_HARNESSES or c["api"] != "openai"
+    ):
         blockers.append(
-            "Coding and investigation require Pi and its OpenAI-compatible provider path."
+            "Coding and investigation require Pi or PiG and the OpenAI-compatible provider path."
         )
     if pi_workloads and not all(
         c["harness"][x] for x in ("image", "network", "version")
     ):
         blockers.append(
-            "Coding and investigation need an existing digest-pinned Pi image, version and internal network."
+            "Coding and investigation need an existing digest-pinned Pi or PiG image, version and internal network."
         )
     if pi_workloads and c["credential_env"] is not None:
         blockers.append(

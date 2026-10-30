@@ -5,7 +5,7 @@ import tarfile
 import tempfile
 import unittest
 from unittest.mock import patch
-from poundlock_toolkit.core import config, Failure
+from poundlock_toolkit.core import config, Failure, validate
 from poundlock_toolkit.fixtures import (
     CODING_FIXTURE,
     INVESTIGATION_FIXTURE,
@@ -121,6 +121,20 @@ class PiAdapterTests(unittest.TestCase):
         self.assertTrue(result["completion_pass"])
         self.assertEqual(p.cleanup, "passed")
         self.assertEqual(len([c for c in calls if c[1] == "rm"]), 2)
+
+    def test_pig_runs_with_pi_command_line_and_its_own_binary(self):
+        """PiG is measured beside Pi on the same tasks: only the binary differs."""
+        self.c["harness"]["name"] = "pig"
+        self.assertEqual(
+            validate(self.c, "config.schema.json")["harness"]["name"], "pig"
+        )
+        p, calls, result = self.run_worker()
+        worker = next(c for c in calls if c[1] == "run" and "--detach" in c)
+        self.assertEqual(worker[-1], "pig")
+        launch = worker[worker.index("-c") + 1]
+        self.assertIn('[sys.argv[8],"--version"]', launch)
+        self.assertIn('[sys.argv[8],"--print","--mode","json"', launch)
+        self.assertTrue(result["independent_pass"])
 
     def test_reasoning_off_effort_is_sent_explicitly(self):
         self.c["settings"]["reasoning_off_effort"] = "none"

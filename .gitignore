@@ -21,3 +21,5 @@ notes/
 htmlcov/
 toolkit-ci-artifacts.tar
 poundlock-toolkit-install/
+# The PiG binary recipes/fetch-pig.sh downloads; never committed.
+recipes/pig/
