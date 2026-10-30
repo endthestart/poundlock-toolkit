@@ -15,6 +15,7 @@ from .cache_probe import (
     probe_request,
 )
 from .core import (
+    PI_HARNESSES,
     Failure,
     atomic_json,
     bounded_signals,
@@ -61,7 +62,7 @@ def identity_complete(c, measured_cache=None):
             s["kv_quantization"],
         ]
     )
-    if c["harness"]["name"] == "pi":
+    if c["harness"]["name"] in PI_HARNESSES:
         complete = complete and all(c["harness"][x] for x in ("version", "image"))
     serving = serving_identity(c)
     # A backend build/commit can be shared by several serving-application releases

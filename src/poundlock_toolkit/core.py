@@ -160,6 +160,10 @@ def identity(c):
     }
 
 
+# Harnesses run with Pi's command line: Pi itself, and PiG, its Go port, measured beside it.
+PI_HARNESSES = ("pi", "pig")
+
+
 class Failure(Exception):
     def __init__(self, outcome, code):
         super().__init__(code)
