@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.0 (November 2026)
+
+- `harness.name` can be `pig`: PiG, the Go port of Pi, run with Pi's command line on the same
+  tasks. `recipes/PiG.Dockerfile` and `recipes/fetch-pig.sh` build its image from a release you
+  check against its published SHA-256. **This harness is unmeasured:** its tests cover the command
+  line, but PiG has not yet run a real task through it. Treat its first results as a test of the
+  harness itself.
+- Child processes get only the environment they need, not the caller's whole environment.
+- The cache probe looks for its process ID as a whole value, not a substring.
+- CI type-checks the package with mypy and lints with ruff's bugbear, pyupgrade and simplify rules.
+
 ## 0.5.0 (October 2026)
 
 - `poundlock-toolkit example NAME --output FILE` writes a packaged example
