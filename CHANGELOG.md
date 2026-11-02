@@ -7,6 +7,7 @@
   check against its published SHA-256. **This harness is unmeasured:** its tests cover the command
   line, but PiG has not yet run a real task through it. Treat its first results as a test of the
   harness itself.
+- The Pi recipe overrides Pi's minimatch to 11.0.1, which closes GHSA-g3hv-75wg-m249.
 - Child processes get only the environment they need, not the caller's whole environment.
 - The cache probe looks for its process ID as a whole value, not a substring.
 - CI type-checks the package with mypy and lints with ruff's bugbear, pyupgrade and simplify rules.
