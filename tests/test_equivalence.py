@@ -7,7 +7,7 @@ every version of each result document as written, each attempt's verdict, the
 requests sent, and the reports printed. These tests produce them again and require
 the same bytes.
 
-Clocks, UUIDs and the network are replaced by deterministic stand-ins, so the
+Clocks, UUIDs, the version and the network are replaced by deterministic stand-ins, so the
 documents are reproducible byte for byte. A difference means a change altered
 what Toolkit sends, measures, scores or writes; regenerate a golden file only for
 a change that is meant to do that, and say so in its commit.
@@ -82,7 +82,7 @@ def body_digest(value):
 
 @contextlib.contextmanager
 def deterministic():
-    """Sequential UUIDs and stepped clocks for everything run inside."""
+    """Sequential UUIDs, stepped clocks and one version for everything run inside."""
     reads = {"uuid": 0, "monotonic": 0, "wall": 0}
 
     def uuid4():
@@ -109,6 +109,10 @@ def deterministic():
         patch.object(time, "monotonic", monotonic),
         patch.object(core, "datetime", Wall),
         patch.object(reporting, "datetime", Reported),
+        # A release's version bump changes no measurement, so it needs no new golden file.
+        patch("poundlock_toolkit.__version__", "0.5.0"),
+        patch("poundlock_toolkit.evaluation.__version__", "0.5.0"),
+        patch("poundlock_toolkit.schema_evaluation.__version__", "0.5.0"),
     ):
         yield
 
